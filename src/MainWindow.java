@@ -12,7 +12,6 @@ import java.util.Arrays;
 public class MainWindow
 {
 	private GridBagLayout windowLayout;
-	private BoxLayout contentLayout;
 	private JFrame mainFrame;
 	private JPanel backPanel;
 	private JPanel inspectorPanel;
@@ -119,10 +118,12 @@ public class MainWindow
 
 		//Create the content panel-------------------------
 		contentPanel = new ShadowPanel();
-		contentLayout = new BoxLayout(contentPanel, BoxLayout.Y_AXIS);
+		contentPanel.setBackground(new Color(150, 150, 150, 150));
+		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 
 		contentScrollPane = new JScrollPane(contentPanel);
-		contentScrollPane.setBackground(new Color(255, 255, 255, 200));
+		contentScrollPane.setBackground(new Color(0, 0, 0, 0));
+		contentScrollPane.getViewport().setBackground(new Color(64, 64, 64, 255));
 
 
 		//Create the state panel----------------------------------
@@ -268,18 +269,40 @@ public class MainWindow
 	{
 		ItemPanel item = new ItemPanel(info);
 		item.setId(info.id);
-		item.setPreferredSize(new Dimension(contentScrollPane.getWidth(), 300));
-		item.setMaximumSize(new Dimension(contentScrollPane.getWidth(), 300));
+		item.setShape(768);
 		itemList.add(item);
 
+		int height = 100;
+		for(ShadowPanel i : itemList)
+			height += i.getPreferredSize().getHeight();
+
 		contentPanel.add(item);
-		contentPanel.setPreferredSize(new Dimension(contentScrollPane.getWidth(), 300 * itemList.size() + 100));
+		contentPanel.setMinimumSize(new Dimension(100, height));
+		contentPanel.setMaximumSize(new Dimension(2048, height));
+		contentPanel.setPreferredSize(new Dimension(768, height));
+		contentScrollPane.updateUI();
+	}
+	
+	
+	/*---------------------------------
+	clear all item
+	---------------------------------*/
+	public void clearItem()
+	{
+		itemList.clear();
+		contentPanel.removeAll();
+		contentPanel.setPreferredSize(new Dimension(100, 100));
 		contentPanel.revalidate();
 		contentPanel.repaint();
 		contentScrollPane.updateUI();
 	}
 	
-	public void search(int total) {
+	
+	/*---------------------------------
+	Search items
+	---------------------------------*/
+	public void search(int total) 
+	{
 		String str = searchText.getText();
 		String[] id_list = ArxivParser.SearchResult(ArxivParser.BuildSearchURL(str, 10));
 		if(total < id_list.length)
@@ -291,7 +314,9 @@ public class MainWindow
 		}
 	}
 	
-	class searchThread extends Thread {
+	
+	class searchThread extends Thread 
+	{
 		int total;
 		public searchThread(int t) {
 			total = t;

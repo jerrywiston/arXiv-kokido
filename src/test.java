@@ -1,6 +1,8 @@
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.*;
+
 
 public class test {
 
@@ -47,6 +49,16 @@ public class test {
 	}
 
 	public static void main(String[] args) {
+		try{
+			UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
+			//UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
+			//UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+    		//UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
+    	}
+    	catch(Exception e){
+    		System.out.println(e.toString());
+    	}
+		
 		MainWindow m = new MainWindow();
 		/*
 		DownloadTest(); 

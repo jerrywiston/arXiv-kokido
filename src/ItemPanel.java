@@ -7,6 +7,8 @@ import java.io.IOException;
 class ItemPanel extends ShadowPanel
 {
 	private String id;
+	private int heightOffset;
+	
 	
 	public ItemPanel(PaperInfo info)
 	{
@@ -26,10 +28,10 @@ class ItemPanel extends ShadowPanel
 		//Add center panel
 		JPanel centerPanel = new JPanel();
 		centerPanel.setBackground(new Color(0, 0, 0, 0));
-		centerPanel.setLayout(new GridLayout(6, 1));
+		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
 		JLabel titleLabel = new JLabel(
-			"<html><font size='5' face='Verdana' color='white'>&nbsp Title: " + info.title + "</font></html>"
+			"<html><font size='7' face='Verdana' color='white'>&nbsp; " + info.title + "</font></html>"
 		);
 
 		String authors = "";
@@ -38,15 +40,16 @@ class ItemPanel extends ShadowPanel
 		authors += info.authors[info.authors.length - 1];
 
 		JLabel authorLabel = new JLabel(
-			"<html><font size='5' face='Verdana' color='white'>&nbsp Authors: " + authors + "</font></html>"
+			"<html><font size='5' face='Verdana' color='white'>&nbsp; Authors: " + authors + "</font></html>"
 		);
 
 		JLabel dateLabel = new JLabel(
-			"<html><font size='5' face='Verdana' color='white'>&nbsp Date: " + info.date[0] + "/" + info.date[1] + "/" + info.date[2] + "</font></html>"
+			"<html><font size='5' face='Verdana' color='white'>&nbsp; Date: " + info.date[0] + "/" + info.date[1] + "/" + info.date[2] + "</font></html>"
 		);
 
+		heightOffset = info.abs.length() / 60 + 1;
 		JLabel abstractLabel = new JLabel(
-			"<html><font size='5' face='Verdana' color='white'>&nbsp Abstract:\n" + info.abs + "</font></html>"
+			"<html><font size='5' face='Verdana' color='white'>&nbsp; Abstract:\n" + info.abs + "</font></html>"
 		);
 
 		String subs = "";
@@ -54,7 +57,7 @@ class ItemPanel extends ShadowPanel
 			subs += info.subjects[i] + ", ";
 		subs += info.subjects[info.subjects.length - 1];
 		JLabel subjectLabel = new JLabel(
-			"<html><font size='5' face='Verdana' color='white'>&nbsp Subjects: " + subs + "</font></html>"
+			"<html><font size='5' face='Verdana' color='white'>&nbsp; Subjects: " + subs + "</font></html>"
 		);
 
 		String tags = "";
@@ -64,14 +67,19 @@ class ItemPanel extends ShadowPanel
 			tags += info.tags[info.tags.length - 1];
 		}
 		JLabel tagLabel = new JLabel(
-			"<html><font size='5' face='Verdana' color='white'>&nbsp Tags: " + tags + "</font></html>"
+			"<html><font size='5' face='Verdana' color='white'>&nbsp; Tags: " + tags + "</font></html>"
 		);
 
 		centerPanel.add(titleLabel);
+		centerPanel.add(Box.createVerticalGlue());
 		centerPanel.add(authorLabel);
+		centerPanel.add(Box.createVerticalGlue());
 		centerPanel.add(dateLabel);
+		centerPanel.add(Box.createVerticalGlue());
 		centerPanel.add(abstractLabel);
+		centerPanel.add(Box.createVerticalGlue());
 		centerPanel.add(subjectLabel);
+		centerPanel.add(Box.createVerticalGlue());
 		centerPanel.add(tagLabel);
 
 		//Add south panel
@@ -124,6 +132,16 @@ class ItemPanel extends ShadowPanel
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	/*--------------------------------
+	Set panel shape
+	--------------------------------*/
+	public void setShape(int width)
+	{
+		setMinimumSize(new Dimension(100, 270 + heightOffset*20));
+		setMaximumSize(new Dimension(2048, 270 + heightOffset*20));
+		setPreferredSize(new Dimension(width, 270 + heightOffset*20));
 	}
 	
 	class downloadThread extends Thread {
