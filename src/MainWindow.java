@@ -38,7 +38,7 @@ public class MainWindow
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setTitle("arXiv-kokido");
 		mainFrame.setSize(1024, 768);
-		mainFrame.setIconImage((new ImageIcon("./kido.png")).getImage());
+		mainFrame.setIconImage((new ImageIcon("./kokido.png")).getImage());
 		mainFrame.setLocationRelativeTo(null);
 		
 
