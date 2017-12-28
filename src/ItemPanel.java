@@ -35,7 +35,7 @@ class ItemPanel extends ShadowPanel
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
 		JLabel titleLabel = new JLabel(
-				"<html><font size='7' face='Verdana' color='white'>&nbsp; " + info.title + "</font></html>");
+				"<html><font size='7' face='Verdana' color='#00FFFF'>&nbsp; " + info.title + "</font></html>");
 
 		String authors = "";
 		for (int i = 0; i < info.authors.length - 1; ++i)

@@ -9,6 +9,10 @@ import java.util.ArrayList;
 
 public class MainWindow
 {
+	private final String[] searchTypeOptions = {
+		"Titles", "Authors", "Abstracts"
+	};
+	
 	private GridBagLayout windowLayout;
 	private JFrame mainFrame;
 	private JPanel backPanel;
@@ -37,6 +41,7 @@ public class MainWindow
 		opManager.setWindow(this);
 		width = 1024;
 		height = 768;
+		layoutScale = 0.5f;
 		
 		//Create the main frame--------------------
 		mainFrame = new JFrame();
@@ -59,8 +64,8 @@ public class MainWindow
 		windowLayout = new GridBagLayout();
 		backPanel.setLayout(windowLayout);
 		backPanel.setBackground(new Color(100, 100, 100, 255));
-
-		layoutScale = 0.5f;
+		
+		//Set window layout------------------------
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.weightx = 1 - layoutScale;
@@ -174,9 +179,6 @@ public class MainWindow
 		searchPanel.add(searchTypeLabel);
 
 		//Search type combo box
-		String[] searchTypeOptions = {
-			"most recent", "top recent", "top hype"
-		};
 		JComboBox<String> searchTypeComboBox = new JComboBox<String>(searchTypeOptions);
 		searchPanel.add(searchTypeComboBox);
 
