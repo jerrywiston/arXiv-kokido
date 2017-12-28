@@ -1,4 +1,7 @@
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Timer;
@@ -30,6 +33,9 @@ public class MainWindow
 	private int width;
 	private int height;
 	JComboBox<String> searchTypeComboBox;
+	DefaultTreeModel treeModel;
+	DefaultMutableTreeNode root;
+	JTree tree;
 
 
 	/*---------------------------------
@@ -171,6 +177,35 @@ public class MainWindow
 	{
 		inspectorPanel = new ShadowPanel();
 		inspectorPanel.setBackground(new Color(200, 200, 200, 200));
+		inspectorPanel.setLayout(new BorderLayout());
+		
+		root = new DefaultMutableTreeNode("Root");
+		treeModel = new DefaultTreeModel(root);
+		DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode("Vegetables");
+		DefaultMutableTreeNode fruitNode = new DefaultMutableTreeNode("Fruits");
+		
+		root.add(vegetableNode);
+		root.add(fruitNode);
+		
+		tree = new JTree(treeModel);
+		tree.setEditable(true);
+		tree.setBackground(new Color(0, 0, 0, 0));
+		tree.addMouseListener(new MouseAdapter()
+		{
+			public void mouseClicked(MouseEvent me)
+			{
+				inspectorPanel.repaint();
+			}
+		});
+		
+		DefaultTreeCellRenderer renderer = (DefaultTreeCellRenderer)tree.getCellRenderer();
+		renderer.setTextSelectionColor(Color.cyan);
+		renderer.setBackgroundSelectionColor(new Color(0, 0, 0, 0));
+		renderer.setForeground(new Color(0, 0, 0, 0));
+		renderer.setBackground(new Color(0, 0, 0, 0));
+		renderer.setBackgroundNonSelectionColor(new Color(0, 0, 0, 0));
+		
+		inspectorPanel.add(tree, BorderLayout.WEST);
 	}
 	
 	
@@ -378,6 +413,16 @@ public class MainWindow
 	
 	
 	/*---------------------------------
+	Add a tree node
+	---------------------------------*/
+	public void addTreeNode(String name)
+	{
+		root.add(new DefaultMutableTreeNode(name));
+		treeModel.reload();
+	}
+	
+	
+	/*---------------------------------
 	Scroll end listener
 	---------------------------------*/
 	class ScrollEndListener implements AdjustmentListener
@@ -387,7 +432,7 @@ public class MainWindow
 		{
 			JScrollBar scrollBar = (JScrollBar) e.getAdjustable();
 			
-			if(scrollBar.getOrientation() == Adjustable.VERTICAL
+			if(scrollBar.getOrientation() == Adjustable.VERTICAL && scrollBar.isVisible()
 				&& scrollBar.getMaximum() - e.getValue() - scrollBar.getModel().getExtent() < 10)
 			{
 				String searchType = (String)searchTypeComboBox.getSelectedItem();

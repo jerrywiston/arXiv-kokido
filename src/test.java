@@ -61,6 +61,10 @@ public class test {
 		
 		OperationManager opManager = new OperationManager();
 		MainWindow m = new MainWindow(opManager);
+		
+		m.addTreeNode("A");
+		m.addTreeNode("B");
+		m.addTreeNode("C");
 		/*
 		DownloadTest(); 
 		System.out.println("< Download Test End >");
