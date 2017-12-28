@@ -138,7 +138,7 @@ public class MainWindow
 			public void actionPerformed(ActionEvent event)
 			{
 				String searchType = (String)searchTypeComboBox.getSelectedItem();
-				opManager.startSearch(searchText.getText(), searchType, 5);
+				opManager.startSearch(searchText.getText(), searchType, 5, 0);
 			}
 		});
 		
@@ -204,8 +204,7 @@ public class MainWindow
 			public void actionPerformed(ActionEvent event)
 			{
 				String searchType = (String)searchTypeComboBox.getSelectedItem();
-				opManager.startSearch(searchText.getText(), searchType, 5);
-				//System.out.println(searchType);
+				opManager.startSearch(searchText.getText(), searchType, 5, 0);
 			}
 		});
 		searchPanel.add(searchBtn);
@@ -225,6 +224,7 @@ public class MainWindow
 		contentScrollPane.setBackground(new Color(0, 0, 0, 0));
 		contentScrollPane.getViewport().setBackground(new Color(64, 64, 64, 255));
 		contentScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+		contentScrollPane.getVerticalScrollBar().addAdjustmentListener(new ScrollEndListener());
 	}
 	
 	
@@ -358,5 +358,25 @@ public class MainWindow
 		contentPanel.revalidate();
 		contentPanel.repaint();
 		contentScrollPane.updateUI();
+	}
+	
+	
+	/*---------------------------------
+	Scroll end listener
+	---------------------------------*/
+	class ScrollEndListener implements AdjustmentListener
+	{
+		@Override
+		public void adjustmentValueChanged(AdjustmentEvent e)
+		{
+			JScrollBar scrollBar = (JScrollBar) e.getAdjustable();
+			
+			if(scrollBar.getOrientation() == Adjustable.VERTICAL
+				&& scrollBar.getMaximum() - e.getValue() - scrollBar.getModel().getExtent() < 10)
+			{
+				String searchType = (String)searchTypeComboBox.getSelectedItem();
+				opManager.startSearch(searchText.getText(), searchType, 5, itemList.size());
+			}
+		}
 	}
 }

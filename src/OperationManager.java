@@ -29,9 +29,9 @@ public class OperationManager
 	/*---------------------------------
 	Search items
 	---------------------------------*/
-	public void search(String str, String type, int total) 
+	public void search(String str, String type, int total, int skip) 
 	{
-		String[] id_list = ArxivParser.SearchResult(ArxivParser.BuildSearchURL(str, type, 0));
+		String[] id_list = ArxivParser.SearchResult(ArxivParser.BuildSearchURL(str, type, skip));
 		if(total < id_list.length)
 			id_list = Arrays.copyOfRange(id_list, 0, total);
 
@@ -63,14 +63,14 @@ public class OperationManager
 	/*---------------------------------
 	Start search
 	---------------------------------*/
-	public void startSearch(String str, String type, int total)
+	public void startSearch(String str, String type, int total, int skip)
 	{
-		window.clearItem();
-		
 		if(!isSearching) 
 		{
+			if(skip <= 0) window.clearItem();
+			
 			isSearching = true;
-			Thread t1 = new searchThread(str, type, total);
+			Thread t1 = new searchThread(str, type, total, skip);
 			t1.start();
 		}
 	}
@@ -92,21 +92,23 @@ public class OperationManager
 	public class searchThread extends Thread 
 	{
 		int total;
+		int skip;
 		String type;
 		String str;
 		
 		
-		public searchThread(String s, String tp, int t) 
+		public searchThread(String s, String tp, int t, int sk) 
 		{
-			str = s;
-			total = t;
+			str = s;	
 			type = tp;
+			total = t;
+			skip = sk;
 		}
 		
 		
 	    public void run()
 	    {
-	    	search(str, type, total);
+	    	search(str, type, total, skip);
 	    }
 	}
 	
