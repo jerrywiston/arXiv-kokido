@@ -1,0 +1,36 @@
+{
+ID: 1712.08296
+Title: Intelligent Device Discovery in the Internet of Things - Enabling the Robot Society
+Authors: [James Sunthonlap][Phuoc Nguyen][Zilong Ye]
+Date: 2017/12/22
+Abstract: The Internet of Things (IoT) is continuously growing to connect billions of smart devices anywhere and anytime in an Internet-like structure, which enables a variety of applications, services and interactions between human and objects. In the future, the smart devices are supposed to be able to autonomously discover a target device with desired features and generate a set of entirely new services and applications that are not supervised or even imagined by human beings. The pervasiveness of smart devices, as well as the heterogeneity of their design and functionalities, raise a major concern: How can a smart device efficiently discover a desired target device? In this paper, we propose a Social-Aware and Distributed (SAND) scheme that achieves a fast, scalable and efficient device discovery in the IoT. The proposed SAND scheme adopts a novel device ranking criteria that measures the device's degree, social relationship diversity, clustering coefficient and betweenness. Based on the device ranking criteria, the discovery request can be guided to travel through critical devices that stand at the major intersections of the network, and thus quickly reach the desired target device by contacting only a limited number of intermediate devices. With the help of such an intelligent device discovery as SAND, the IoT devices, as well as other computing facilities, software and data on the Internet, can autonomously establish new social connections with each other as human being do. They can formulate self-organized computing groups to perform required computing tasks, facilitate a fusion of a variety of computing service, network service and data to generate novel applications and services, evolve from the individual aritificial intelligence to the collaborative intelligence, and eventually enable the birth of a robot society.
+Subjects: [cs.AI]
+}{
+ID: 1712.08266
+Title: Federated Control with Hierarchical Multi-Agent Deep Reinforcement Learning
+Authors: [Saurabh Kumar][Pararth Shah][Dilek Hakkani-Tur][Larry Heck]
+Date: 2017/12/22
+Abstract: We present a framework combining hierarchical and multi-agent deep reinforcement learning approaches to solve coordination problems among a multitude of agents using a semi-decentralized model. The framework extends the multi-agent learning setup by introducing a meta-controller that guides the communication between agent pairs, enabling agents to focus on communicating with only one other agent at any step. This hierarchical decomposition of the task allows for efficient exploration to learn policies that identify globally optimal solutions even as the number of collaborating agents increases. We show promising initial experimental results on a simulated distributed scheduling problem.
+Subjects: [cs.AI]
+}{
+ID: 1712.08443
+Title: Inverse Classification for Comparison-based Interpretability in Machine Learning
+Authors: [Thibault Laugel][Marie-Jeanne Lesot][Christophe Marsala][Xavier Renard][Marcin Detyniecki]
+Date: 2017/12/22
+Abstract: In the context of post-hoc interpretability, this paper addresses the task of explaining the prediction of a classifier, considering the case where no information is available, neither on the classifier itself, nor on the processed data (neither the training nor the test data). It proposes an instance-based approach whose principle consists in determining the minimal changes needed to alter a prediction: given a data point whose classification must be explained, the proposed method consists in identifying a close neighbour classified differently, where the closeness definition integrates a sparsity constraint. This principle is implemented using observation generation in the Growing Spheres algorithm. Experimental results on two datasets illustrate the relevance of the proposed approach that can be used to gain knowledge about the classifier.
+Subjects: [stat.ML][cs.AI][cs.LG]
+}{
+ID: 1712.08588
+Title: Rank Pruning for Dominance Queries in CP-Nets
+Authors: [Kathryn Laing][Peter Adam Thwaites][John Paul Gosling]
+Date: 2017/12/22
+Abstract: Conditional preference networks (CP-nets) are a graphical representation of a person's (conditional) preferences over a set of discrete variables. In this paper, we introduce a novel method of quantifying preference for any given outcome based on a CP-net representation of a user's preferences. We demonstrate that these values are useful for reasoning about user preferences. In particular, they allow us to order (any subset of) the possible outcomes in accordance with the user's preferences. Further, these values can be used to improve the efficiency of outcome dominance testing. That is, given a pair of outcomes, we can determine which the user prefers more efficiently. We show that these results also hold for CP-nets that express indifference between variable values.
+Subjects: [cs.AI][stat.ME]
+}{
+ID: 1712.08878
+Title: How Intelligent is your Intelligent Robot?
+Authors: [Alan F. T. Winfield]
+Date: 2017/12/24
+Abstract: How intelligent is robot A compared with robot B? And how intelligent are robots A and B compared with animals (or plants) X and Y? These are both interesting and deeply challenging questions. In this paper we address the question "how intelligent is your intelligent robot?" by proposing that embodied intelligence emerges from the interaction and integration of four different and distinct kinds of intelligence. We then suggest a simple diagrammatic representation on which these kinds of intelligence are shown as four axes in a star diagram. A crude qualitative comparison of the intelligence graphs of animals and robots both exposes and helps to explain the chronic intelligence deficit of intelligent robots. Finally we examine the options for determining numerical values for the four kinds of intelligence in an effort to move toward a quantifiable intelligence vector.
+Subjects: [cs.RO][cs.AI]
+}

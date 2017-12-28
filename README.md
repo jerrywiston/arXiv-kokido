@@ -1,1 +1,1 @@
-# arXiv-Kokido
+# arXiv-kokido
