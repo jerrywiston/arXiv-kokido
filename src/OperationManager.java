@@ -31,7 +31,17 @@ public class OperationManager
 	---------------------------------*/
 	public void search(String str, String type, int total, int skip) 
 	{
-		String[] id_list = ArxivParser.SearchResult(ArxivParser.BuildSearchURL(str, type, skip));
+		if(str.length() <= 0)
+		{
+			isSearching = false;
+			window.setState("");
+			return;
+		}
+		
+		String req = ArxivParser.BuildSearchURL(str, type, skip);
+		window.setState("Searching... URL: " + req);
+		
+		String[] id_list = ArxivParser.SearchResult(req);
 		if(total < id_list.length)
 			id_list = Arrays.copyOfRange(id_list, 0, total);
 
@@ -41,6 +51,7 @@ public class OperationManager
 		}
 		
 		isSearching = false;
+		window.setState("");
 	}
 	
 	
@@ -129,7 +140,11 @@ public class OperationManager
 		
 		public void run() 
 		{
-			ArxivParser.Download("paper_file", ArxivParser.BuildURL(id, "pdf"), false);
+			String req = ArxivParser.BuildURL(id, "pdf");
+			window.setState("Downloading... URL: " + req);
+			
+			ArxivParser.Download("paper_file", req, false);
+			window.setState("");
 		}
 	}
 }

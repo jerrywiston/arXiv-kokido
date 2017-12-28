@@ -22,6 +22,7 @@ public class MainWindow
 	private JPanel contentPanel;
 	private JPanel statPanel;
 	private JPanel scalePanel;
+	private JLabel statLabel;
 	private float layoutScale;
 	private JTextField searchText;
 	private List<ShadowPanel> itemList;
@@ -235,6 +236,10 @@ public class MainWindow
 	{
 		statPanel = new JPanel();
 		statPanel.setBackground(new Color(200, 200, 200, 255));
+		statPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		
+		statLabel = new JLabel("<html><font size='4' face='Verdana'>&nbsp; Ready</font></html>");
+		statPanel.add(statLabel);
 	}
 	
 	
@@ -358,6 +363,17 @@ public class MainWindow
 		contentPanel.revalidate();
 		contentPanel.repaint();
 		contentScrollPane.updateUI();
+	}
+	
+	
+	/*---------------------------------
+	Set state message
+	---------------------------------*/
+	public void setState(String str)
+	{
+		statLabel.setText(
+			"<html><font size='4' face='Verdana'>&nbsp; " + str + "</font></html>"
+		);
 	}
 	
 	

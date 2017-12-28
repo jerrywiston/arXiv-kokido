@@ -124,7 +124,6 @@ public class ArxivParser {
 			t = "ti";
 		}
 		String req = "https://arxiv.org/find/all/1/" + t + ":+" + keyword + "/0/1/0/all/0/1?skip=" + skip;
-		System.out.println(req);
 		return req;
 	}
 
