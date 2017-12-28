@@ -132,7 +132,6 @@ public class MainWindow
 		JMenuItem exitMenuItem = new JMenuItem("Exit");
 		exitMenuItem.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent event)
 			{
 				opManager.SaveInfo();
@@ -144,7 +143,6 @@ public class MainWindow
 		JMenuItem searchMenuItem = new JMenuItem("Search");
 		searchMenuItem.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent event)
 			{
 				String searchType = (String)searchTypeComboBox.getSelectedItem();
@@ -156,7 +154,6 @@ public class MainWindow
 		JMenuItem clearMenuItem = new JMenuItem("Clear");
 		clearMenuItem.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent event)
 			{
 				clearItem();
@@ -244,7 +241,6 @@ public class MainWindow
 		searchBtn.setPreferredSize(new Dimension(64, 32));
 		searchBtn.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent event)
 			{
 				String searchType = (String)searchTypeComboBox.getSelectedItem();
@@ -393,6 +389,7 @@ public class MainWindow
 		contentPanel.setMaximumSize(new Dimension(2048, h));
 		contentPanel.setPreferredSize(new Dimension((int)((float)width * 0.75), h));
 		contentScrollPane.updateUI();
+		repaintScreen();
 	}
 	
 	
@@ -407,6 +404,7 @@ public class MainWindow
 		contentPanel.revalidate();
 		contentPanel.repaint();
 		contentScrollPane.updateUI();
+		repaintScreen();
 	}
 	
 	
@@ -431,7 +429,6 @@ public class MainWindow
 		{
 			parentNode.add(new DefaultMutableTreeNode(name));
 			treeModel.reload();
-			
 		}
 	}
 	
@@ -487,7 +484,6 @@ public class MainWindow
 	---------------------------------*/
 	class ScrollEndListener implements AdjustmentListener
 	{
-		@Override
 		public void adjustmentValueChanged(AdjustmentEvent e)
 		{
 			JScrollBar scrollBar = (JScrollBar) e.getAdjustable();
@@ -500,6 +496,7 @@ public class MainWindow
 			}
 		}
 	}
+	
 	
 	/*---------------------------------
 	Repaint Screen

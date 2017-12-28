@@ -94,11 +94,11 @@ class ItemPanel extends ShadowPanel
 
 		//Tag label-----------------------------------
 		String tags = "";
-		if (info.tags != null && info.tags.length > 0) 
+		if (info.tags != null && info.tags.size() > 0) 
 		{
-			for (int i = 0; i < info.tags.length - 1; ++i)
-				tags += info.tags[i] + ", ";
-			tags += info.tags[info.tags.length - 1];
+			for (int i = 0; i < info.tags.size() - 1; ++i)
+				tags += info.tags.get(i) + ", ";
+			tags += info.tags.get(info.tags.size() - 1);
 		}
 		
 		JLabel tagLabel = new JLabel(

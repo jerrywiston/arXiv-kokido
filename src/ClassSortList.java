@@ -11,7 +11,7 @@ public class ClassSortList {
 		for (Map.Entry<String, PaperInfo> pinfo : paperInfoMap.entrySet()) {
 			String [] classList = null;
 			if(classType == "tags")
-				classList = pinfo.getValue().tags;
+				classList = (String [])pinfo.getValue().tags.toArray();
 			else
 				classList = pinfo.getValue().subjects;
 			
