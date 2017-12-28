@@ -50,21 +50,19 @@ public class test {
 
 	public static void main(String[] args) {
 		try{
-			UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
+			//UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
 			//UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
 			//UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
-    		//UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
+    		UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
     	}
     	catch(Exception e){
     		System.out.println(e.toString());
     	}
 		
-		OperationManager opManager = new OperationManager();
+		PaperInfoManager pinfoManager = new PaperInfoManager();
+		OperationManager opManager = new OperationManager(pinfoManager);
 		MainWindow m = new MainWindow(opManager);
 		
-		m.addTreeNode("A");
-		m.addTreeNode("B");
-		m.addTreeNode("C");
 		/*
 		DownloadTest(); 
 		System.out.println("< Download Test End >");

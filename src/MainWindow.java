@@ -8,7 +8,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.List;
 import java.util.ArrayList;
-
+import java.util.Enumeration;
 
 public class MainWindow
 {
@@ -18,10 +18,11 @@ public class MainWindow
 	
 	private GridBagLayout windowLayout;
 	private JFrame mainFrame;
+	private JScrollPane contentScrollPane;
+	private JScrollPane inspectorScrollPane;
 	private JPanel backPanel;
 	private JPanel inspectorPanel;
 	private JPanel searchPanel;
-	private JScrollPane contentScrollPane;
 	private JPanel contentPanel;
 	private JPanel statPanel;
 	private JPanel scalePanel;
@@ -81,7 +82,7 @@ public class MainWindow
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.gridheight = 2;
-		backPanel.add(inspectorPanel, gbc);
+		backPanel.add(inspectorScrollPane, gbc);
 
 		gbc.weightx = 0;
 		gbc.weighty = 0.98;
@@ -113,6 +114,8 @@ public class MainWindow
 
 		mainFrame.add(backPanel);
 		mainFrame.setVisible(true);
+		
+		opm.Refresh();
 	}
 	
 	
@@ -133,6 +136,7 @@ public class MainWindow
 			@Override
 			public void actionPerformed(ActionEvent event)
 			{
+				opManager.SaveInfo();
 				System.exit(0);
 			}
 		});
@@ -179,14 +183,14 @@ public class MainWindow
 		inspectorPanel.setBackground(new Color(200, 200, 200, 200));
 		inspectorPanel.setLayout(new BorderLayout());
 		
+		inspectorScrollPane = new JScrollPane(inspectorPanel);
+		inspectorScrollPane.setBackground(new Color(0, 0, 0, 0));
+		inspectorScrollPane.setBorder(BorderFactory.createEmptyBorder());
+		inspectorScrollPane.getViewport().setBackground(new Color(64, 64, 64, 255));
+		inspectorScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+		
 		root = new DefaultMutableTreeNode("Root");
 		treeModel = new DefaultTreeModel(root);
-		DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode("Vegetables");
-		DefaultMutableTreeNode fruitNode = new DefaultMutableTreeNode("Fruits");
-		
-		root.add(vegetableNode);
-		root.add(fruitNode);
-		
 		tree = new JTree(treeModel);
 		tree.setEditable(true);
 		tree.setBackground(new Color(0, 0, 0, 0));
@@ -199,11 +203,11 @@ public class MainWindow
 		});
 		
 		DefaultTreeCellRenderer renderer = (DefaultTreeCellRenderer)tree.getCellRenderer();
-		renderer.setTextSelectionColor(Color.cyan);
-		renderer.setBackgroundSelectionColor(new Color(0, 0, 0, 0));
-		renderer.setForeground(new Color(0, 0, 0, 0));
+		renderer.setTextSelectionColor(Color.orange);
+		renderer.setBackgroundSelectionColor(Color.black);
 		renderer.setBackground(new Color(0, 0, 0, 0));
 		renderer.setBackgroundNonSelectionColor(new Color(0, 0, 0, 0));
+		renderer.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
 		
 		inspectorPanel.add(tree, BorderLayout.WEST);
 	}
@@ -259,6 +263,7 @@ public class MainWindow
 		contentScrollPane = new JScrollPane(contentPanel);
 		contentScrollPane.setBackground(new Color(0, 0, 0, 0));
 		contentScrollPane.getViewport().setBackground(new Color(64, 64, 64, 255));
+		contentScrollPane.setBorder(BorderFactory.createEmptyBorder());
 		contentScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		contentScrollPane.getVerticalScrollBar().addAdjustmentListener(new ScrollEndListener());
 	}
@@ -344,7 +349,7 @@ public class MainWindow
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.gridheight = 2;
-		windowLayout.setConstraints(inspectorPanel, gbc);
+		windowLayout.setConstraints(inspectorScrollPane, gbc);
 
 		gbc.weightx = layoutScale;
 		gbc.weighty = 0.02;
@@ -375,14 +380,14 @@ public class MainWindow
 		item.setShape((int)((float)width * 0.75));
 		itemList.add(item);
 
-		int height = 100;
+		int h = 100;
 		for(ShadowPanel i : itemList)
-			height += i.getPreferredSize().getHeight();
+			h += i.getPreferredSize().getHeight();
 
 		contentPanel.add(item);
-		contentPanel.setMinimumSize(new Dimension(100, height));
-		contentPanel.setMaximumSize(new Dimension(2048, height));
-		contentPanel.setPreferredSize(new Dimension((int)((float)width * 0.75), height));
+		contentPanel.setMinimumSize(new Dimension(100, h));
+		contentPanel.setMaximumSize(new Dimension(2048, h));
+		contentPanel.setPreferredSize(new Dimension((int)((float)width * 0.75), h));
 		contentScrollPane.updateUI();
 	}
 	
@@ -415,10 +420,61 @@ public class MainWindow
 	/*---------------------------------
 	Add a tree node
 	---------------------------------*/
-	public void addTreeNode(String name)
+	public void addTreeNode(String parentName, String name)
 	{
-		root.add(new DefaultMutableTreeNode(name));
+		DefaultMutableTreeNode parentNode = findTreeNodeByName(root, parentName);
+		if(parentNode != null)
+		{
+			parentNode.add(new DefaultMutableTreeNode(name));
+			treeModel.reload();
+			
+		}
+	}
+	
+	
+	/*---------------------------------
+	Delete a tree node
+	---------------------------------*/
+	public void deleteTreeNode(String name)
+	{
+		DefaultMutableTreeNode node = findTreeNodeByName(root, name);
+		if(node != null)
+		{
+			treeModel.removeNodeFromParent(node);
+			treeModel.reload();
+		}
+	}
+	
+	
+	/*---------------------------------
+	Clear all tree node
+	---------------------------------*/
+	public void ClearTreeNode()
+	{
+		root.removeAllChildren();
 		treeModel.reload();
+	}
+	
+	
+	/*---------------------------------
+	Find a tree node
+	---------------------------------*/
+	public DefaultMutableTreeNode findTreeNodeByName(DefaultMutableTreeNode curNode, String name)
+	{
+		if(((String)curNode.getUserObject()).equals(name))
+			return curNode;
+		
+		DefaultMutableTreeNode ret = null;
+		if(!curNode.isLeaf())
+		{
+			Enumeration<DefaultMutableTreeNode> children = curNode.children();
+			while(children.hasMoreElements()) 
+			{
+				DefaultMutableTreeNode node = children.nextElement();
+				ret = findTreeNodeByName(node, name);
+			}
+		}
+		return ret;
 	}
 	
 	
@@ -439,5 +495,13 @@ public class MainWindow
 				opManager.startSearch(searchText.getText(), searchType, 5, itemList.size());
 			}
 		}
+	}
+	
+	/*---------------------------------
+	Repaint Screen
+	---------------------------------*/
+	public void repaintScreen() {
+		mainFrame.validate();
+		mainFrame.repaint();
 	}
 }

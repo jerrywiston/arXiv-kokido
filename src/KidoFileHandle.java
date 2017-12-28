@@ -1,12 +1,13 @@
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 
 public class KidoFileHandle {
 
 	public static Map<String, PaperInfo> LoadKido(String filename) {
-		Map<String, PaperInfo> paperInfoMap = new HashMap<>();
+		Map<String, PaperInfo> paperInfoMap = new TreeMap<>();
 		String fileContents = "";
 		int i;
 		FileReader in;

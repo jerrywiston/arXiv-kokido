@@ -5,7 +5,7 @@ import java.util.Map;
 
 
 public class ClassSortList {
-	public Map<String, List<String>> ResultList(Map<String, PaperInfo> paperInfoMap, String classType) {
+	public static Map<String, List<String>> ResultList(Map<String, PaperInfo> paperInfoMap, String classType) {
 		Map<String, List<String> > rlist = new HashMap<>();
 		
 		for (Map.Entry<String, PaperInfo> pinfo : paperInfoMap.entrySet()) {

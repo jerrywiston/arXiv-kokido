@@ -6,14 +6,16 @@ public class OperationManager
 {
 	private MainWindow window;
 	private boolean isSearching;
+	PaperInfoManager pinfoManager;
 	
 	
 	/*---------------------------------
 	Constructor
 	---------------------------------*/
-	public OperationManager()
+	public OperationManager(PaperInfoManager pm)
 	{
 		isSearching = false;
+		pinfoManager = pm;
 	}
 	
 	
@@ -23,6 +25,22 @@ public class OperationManager
 	public void setWindow(MainWindow w)
 	{
 		window = w;
+	}
+	
+	/*---------------------------------
+	Save PaperInfoMap
+	---------------------------------*/
+	public void SaveInfo()
+	{
+		pinfoManager.SaveInfo();
+	}
+	
+	/*---------------------------------
+	Refresh Map
+	---------------------------------*/
+	public void Refresh()
+	{
+		pinfoManager.RefreshNode(window);
 	}
 		
 	
@@ -83,6 +101,7 @@ public class OperationManager
 			isSearching = true;
 			Thread t1 = new searchThread(str, type, total, skip);
 			t1.start();
+			window.repaintScreen();
 		}
 	}
 	
@@ -94,6 +113,7 @@ public class OperationManager
 	{
 		Thread t1 = new downloadThread(id);
 		t1.start();
+		window.repaintScreen();
 	}
 	
 	
@@ -120,6 +140,7 @@ public class OperationManager
 	    public void run()
 	    {
 	    	search(str, type, total, skip);
+	    	window.repaintScreen();
 	    }
 	}
 	
@@ -144,7 +165,13 @@ public class OperationManager
 			window.setState("Downloading... URL: " + req);
 			
 			ArxivParser.Download("paper_file", req, false);
+			PaperInfo info_temp = ArxivParser.GetPaperInfo(ArxivParser.BuildURL(id, "abs"));
+			pinfoManager.AddInfo(info_temp);
+			pinfoManager.RefreshNode(window);
+			pinfoManager.SaveInfo();
+			//System.out.println(info_temp.Out());
 			window.setState("");
+			window.repaintScreen();
 		}
 	}
 }
