@@ -31,7 +31,7 @@ public class OperationManager
 	---------------------------------*/
 	public void search(String str, int total) 
 	{
-		String[] id_list = ArxivParser.SearchResult(ArxivParser.BuildSearchURL(str, 10));
+		String[] id_list = ArxivParser.SearchResult(ArxivParser.BuildSearchURL(str, 0));
 		if(total < id_list.length)
 			id_list = Arrays.copyOfRange(id_list, 0, total);
 

@@ -109,7 +109,7 @@ public class ArxivParser {
 	}
 
 	public static String BuildSearchURL(String keyword, int skip) {
-		return "https://arxiv.org/find/all/1/all:+" + keyword + "/0/1/0/all/0/1?skip=" + skip;
+		return "https://arxiv.org/find/all/1/ti:+" + keyword + "/0/1/0/all/0/1?skip=" + skip;
 	}
 
 	public static String BuildRecentURL(String sub, int skip, int show) {
