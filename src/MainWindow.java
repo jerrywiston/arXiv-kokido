@@ -28,6 +28,7 @@ public class MainWindow
 	private OperationManager opManager;
 	private int width;
 	private int height;
+	JComboBox<String> searchTypeComboBox;
 
 
 	/*---------------------------------
@@ -136,7 +137,8 @@ public class MainWindow
 			@Override
 			public void actionPerformed(ActionEvent event)
 			{
-				opManager.startSearch(searchText.getText(), 5);
+				String searchType = (String)searchTypeComboBox.getSelectedItem();
+				opManager.startSearch(searchText.getText(), searchType, 5);
 			}
 		});
 
@@ -179,7 +181,7 @@ public class MainWindow
 		searchPanel.add(searchTypeLabel);
 
 		//Search type combo box
-		JComboBox<String> searchTypeComboBox = new JComboBox<String>(searchTypeOptions);
+		searchTypeComboBox = new JComboBox<String>(searchTypeOptions);
 		searchPanel.add(searchTypeComboBox);
 
 		//Search button
@@ -189,7 +191,9 @@ public class MainWindow
 			@Override
 			public void actionPerformed(ActionEvent event)
 			{
-				opManager.startSearch(searchText.getText(), 5);
+				String searchType = (String)searchTypeComboBox.getSelectedItem();
+				opManager.startSearch(searchText.getText(), searchType, 5);
+				//System.out.println(searchType);
 			}
 		});
 		searchPanel.add(searchBtn);

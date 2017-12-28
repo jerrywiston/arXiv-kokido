@@ -108,8 +108,24 @@ public class ArxivParser {
 			return "https://arxiv.org/abs/" + id;
 	}
 
-	public static String BuildSearchURL(String keyword, int skip) {
-		return "https://arxiv.org/find/all/1/ti:+" + keyword + "/0/1/0/all/0/1?skip=" + skip;
+	public static String BuildSearchURL(String keyword, String type, int skip) {
+		String t;
+		switch(type) {
+		case "Titles":
+			t = "ti";
+			break;
+		case "Authors":
+			t = "au";
+			break;
+		case "Abstracts":
+			t = "abs";
+			break;
+		default:
+			t = "ti";
+		}
+		String req = "https://arxiv.org/find/all/1/" + t + ":+" + keyword + "/0/1/0/all/0/1?skip=" + skip;
+		System.out.println(req);
+		return req;
 	}
 
 	public static String BuildRecentURL(String sub, int skip, int show) {
