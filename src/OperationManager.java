@@ -95,6 +95,7 @@ public class OperationManager
 		String type;
 		String str;
 		
+		
 		public searchThread(String s, String tp, int t) 
 		{
 			str = s;
@@ -116,6 +117,7 @@ public class OperationManager
 	public class downloadThread extends Thread 
 	{
 		String id;
+		
 		
 		public downloadThread(String id)
 		{

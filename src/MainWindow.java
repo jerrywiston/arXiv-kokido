@@ -141,9 +141,21 @@ public class MainWindow
 				opManager.startSearch(searchText.getText(), searchType, 5);
 			}
 		});
+		
+		//MenuItem: Clear----------------------------
+		JMenuItem clearMenuItem = new JMenuItem("Clear");
+		clearMenuItem.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent event)
+			{
+				clearItem();
+			}
+		});
 
 		fileMenu.add(exitMenuItem);
 		toolMenu.add(searchMenuItem);
+		toolMenu.add(clearMenuItem);
 		menuBar.add(fileMenu);
 		menuBar.add(editMenu);
 		menuBar.add(toolMenu);
@@ -212,6 +224,7 @@ public class MainWindow
 		contentScrollPane = new JScrollPane(contentPanel);
 		contentScrollPane.setBackground(new Color(0, 0, 0, 0));
 		contentScrollPane.getViewport().setBackground(new Color(64, 64, 64, 255));
+		contentScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 	}
 	
 	

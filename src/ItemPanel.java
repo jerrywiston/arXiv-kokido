@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 
 
 class ItemPanel extends ShadowPanel 
@@ -11,62 +10,100 @@ class ItemPanel extends ShadowPanel
 	private OperationManager opManager;
 
 	
+	/*--------------------------------
+	Constructor
+	--------------------------------*/
 	public ItemPanel(PaperInfo info, OperationManager opm) 
 	{
 		super();
 		id = info.id;
+		heightOffset = info.abs.length() / 60 + 1;
 		opManager = opm;
 		
 		setBackground(new Color(20, 20, 20, 150));
 		setLayout(new BorderLayout());
-
-		// Add west panel
+		
+		//Create panels
+		createWestPanel();
+		createCenterPanel(info);
+		createSouthPanel();
+	}
+	
+	
+	/*--------------------------------
+	Create west panel
+	--------------------------------*/
+	private void createWestPanel()
+	{
 		JPanel westPanel = new JPanel();
 		westPanel.setBackground(new Color(0, 0, 0, 0));
 		westPanel.setLayout(new BorderLayout());
 
+		//Check box
 		JCheckBox checkBox = new JCheckBox();
 		checkBox.setBackground(new Color(0, 0, 0, 0));
 		westPanel.add(checkBox, BorderLayout.NORTH);
-
-		// Add center panel
+		
+		add(westPanel, BorderLayout.WEST);
+	}
+	
+	
+	/*--------------------------------
+	Create center panel
+	--------------------------------*/
+	private void createCenterPanel(PaperInfo info)
+	{
 		JPanel centerPanel = new JPanel();
 		centerPanel.setBackground(new Color(0, 0, 0, 0));
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
+		//Title label-------------------------------
 		JLabel titleLabel = new JLabel(
-				"<html><font size='7' face='Verdana' color='#00FFFF'>&nbsp; " + info.title + "</font></html>");
+			"<html><font size='7' face='Verdana' color='#00FFFF'>&nbsp; " + info.title + "</font></html>"
+		);
 
+		//Author label------------------------------
 		String authors = "";
 		for (int i = 0; i < info.authors.length - 1; ++i)
 			authors += info.authors[i] + ", ";
 		authors += info.authors[info.authors.length - 1];
 
 		JLabel authorLabel = new JLabel(
-				"<html><font size='5' face='Verdana' color='white'>&nbsp; Authors: " + authors + "</font></html>");
+			"<html><font size='5' face='Verdana' color='white'>&nbsp; Authors: " + authors + "</font></html>"
+		);
 
-		JLabel dateLabel = new JLabel("<html><font size='5' face='Verdana' color='white'>&nbsp; Date: " + info.date[0]
-				+ "/" + info.date[1] + "/" + info.date[2] + "</font></html>");
+		//Date label---------------------------------
+		JLabel dateLabel = new JLabel(
+			"<html><font size='5' face='Verdana' color='white'>&nbsp; Date: " 
+			+ info.date[0] + "/" + info.date[1] + "/" + info.date[2] + "</font></html>"
+		);
 
-		heightOffset = info.abs.length() / 60 + 1;
+		//Abstract label-----------------------------
 		JLabel abstractLabel = new JLabel(
-				"<html><font size='5' face='Verdana' color='white'>&nbsp; Abstract:\n" + info.abs + "</font></html>");
+			"<html><font size='5' face='Verdana' color='white'>&nbsp; Abstract:\n" + info.abs + "</font></html>"
+		);
 
+		//Subject label------------------------------
 		String subs = "";
 		for (int i = 0; i < info.subjects.length - 1; ++i)
 			subs += info.subjects[i] + ", ";
 		subs += info.subjects[info.subjects.length - 1];
 		JLabel subjectLabel = new JLabel(
-				"<html><font size='5' face='Verdana' color='white'>&nbsp; Subjects: " + subs + "</font></html>");
+			"<html><font size='5' face='Verdana' color='white'>&nbsp; Subjects: " + subs + "</font></html>"
+		);
 
+		//Tag label-----------------------------------
 		String tags = "";
-		if (info.tags != null && info.tags.length > 0) {
+		if (info.tags != null && info.tags.length > 0) 
+		{
 			for (int i = 0; i < info.tags.length - 1; ++i)
 				tags += info.tags[i] + ", ";
 			tags += info.tags[info.tags.length - 1];
 		}
+		
 		JLabel tagLabel = new JLabel(
-				"<html><font size='5' face='Verdana' color='white'>&nbsp; Tags: " + tags + "</font></html>");
+			"<html><font size='5' face='Verdana' color='white'>&nbsp; Tags: " + tags + "</font></html>"
+		);
 
 		centerPanel.add(titleLabel);
 		centerPanel.add(Box.createVerticalGlue());
@@ -79,12 +116,20 @@ class ItemPanel extends ShadowPanel
 		centerPanel.add(subjectLabel);
 		centerPanel.add(Box.createVerticalGlue());
 		centerPanel.add(tagLabel);
-
-		// Add south panel
+		add(centerPanel, BorderLayout.CENTER);
+	}
+	
+	
+	/*--------------------------------
+	Create south panel
+	--------------------------------*/
+	private void createSouthPanel()
+	{
 		JPanel southPanel = new JPanel();
 		southPanel.setBackground(new Color(0, 0, 0, 0));
 		southPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
+		//View button---------------------------------
 		JButton viewBtn = new JButton("View");
 		viewBtn.addActionListener(new ActionListener() {
 			@Override
@@ -92,8 +137,8 @@ class ItemPanel extends ShadowPanel
 				opManager.view(id);
 			}
 		});
-		southPanel.add(viewBtn);
-
+		
+		//Download button------------------------------
 		JButton downloadBtn = new JButton("Download");
 		downloadBtn.addActionListener(new ActionListener() {
 			@Override
@@ -101,10 +146,9 @@ class ItemPanel extends ShadowPanel
 				opManager.startDownload(id);
 			}
 		});
+		
+		southPanel.add(viewBtn);
 		southPanel.add(downloadBtn);
-
-		add(westPanel, BorderLayout.WEST);
-		add(centerPanel, BorderLayout.CENTER);
 		add(southPanel, BorderLayout.SOUTH);
 	}
 
