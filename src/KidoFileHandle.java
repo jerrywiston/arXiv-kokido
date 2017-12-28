@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class KidoFileHandle {
 
 	public static Map<String, PaperInfo> LoadKido(String filename) {

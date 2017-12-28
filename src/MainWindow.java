@@ -1,12 +1,10 @@
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class MainWindow
@@ -23,14 +21,17 @@ public class MainWindow
 	private float layoutScale;
 	private JTextField searchText;
 	private List<ShadowPanel> itemList;
+	private OperationManager opManager;
 
 
 	/*---------------------------------
 	Constructor
 	---------------------------------*/
-	public MainWindow()
+	public MainWindow(OperationManager opm)
 	{
 		itemList = new ArrayList<ShadowPanel>();
+		opManager = opm;
+		opManager.setWindow(this);
 
 		//Create the main frame--------------------
 		mainFrame = new JFrame();
@@ -67,8 +68,7 @@ public class MainWindow
 			@Override
 			public void actionPerformed(ActionEvent event)
 			{
-				Thread t1 = new searchThread(5);
-		        t1.start();
+				opManager.startSearch(searchText.getText(), 5);
 			}
 		});
 
@@ -109,8 +109,7 @@ public class MainWindow
 			@Override
 			public void actionPerformed(ActionEvent event)
 			{
-				Thread t1 = new searchThread(5);
-		        t1.start();
+				opManager.startSearch(searchText.getText(), 5);
 			}
 		});
 		searchPanel.add(searchBtn);
@@ -267,8 +266,7 @@ public class MainWindow
 	---------------------------------*/
 	public void addItem(PaperInfo info)
 	{
-		ItemPanel item = new ItemPanel(info);
-		item.setId(info.id);
+		ItemPanel item = new ItemPanel(info, opManager);
 		item.setShape(768);
 		itemList.add(item);
 
@@ -296,34 +294,4 @@ public class MainWindow
 		contentPanel.repaint();
 		contentScrollPane.updateUI();
 	}
-	
-	
-	/*---------------------------------
-	Search items
-	---------------------------------*/
-	public void search(int total) 
-	{
-		String str = searchText.getText();
-		String[] id_list = ArxivParser.SearchResult(ArxivParser.BuildSearchURL(str, 10));
-		if(total < id_list.length)
-			id_list = Arrays.copyOfRange(id_list, 0, total);
-
-		for(String id : id_list) {
-			PaperInfo info_temp = ArxivParser.GetPaperInfo(ArxivParser.BuildURL(id, "abs"));
-			addItem(info_temp);
-		}
-	}
-	
-	
-	class searchThread extends Thread 
-	{
-		int total;
-		public searchThread(int t) {
-			total = t;
-		}
-	    public void run(){
-	    	search(total);
-	    }
-	}
-	
 }

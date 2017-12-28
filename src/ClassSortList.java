@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class ClassSortList {
 	public Map<String, List<String>> ResultList(Map<String, PaperInfo> paperInfoMap, String classType) {
 		Map<String, List<String> > rlist = new HashMap<>();

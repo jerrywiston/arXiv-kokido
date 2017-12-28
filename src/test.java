@@ -59,7 +59,8 @@ public class test {
     		System.out.println(e.toString());
     	}
 		
-		MainWindow m = new MainWindow();
+		OperationManager opManager = new OperationManager();
+		MainWindow m = new MainWindow(opManager);
 		/*
 		DownloadTest(); 
 		System.out.println("< Download Test End >");

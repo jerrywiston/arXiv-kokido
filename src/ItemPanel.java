@@ -1,16 +1,22 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
-class ItemPanel extends ShadowPanel {
+
+class ItemPanel extends ShadowPanel 
+{
 	private String id;
 	private int heightOffset;
+	private OperationManager opManager;
 
-	public ItemPanel(PaperInfo info) {
+	
+	public ItemPanel(PaperInfo info, OperationManager opm) 
+	{
 		super();
+		id = info.id;
+		opManager = opm;
+		
 		setBackground(new Color(20, 20, 20, 150));
 		setLayout(new BorderLayout());
 
@@ -83,17 +89,8 @@ class ItemPanel extends ShadowPanel {
 		viewBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				String str = "start " + ArxivParser.BuildURL(id, "pdf");
-				str = "a.exe " + "\"" + str + "\"";
-				System.out.println(str);
-				try {
-					Process p = Runtime.getRuntime().exec(str);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				opManager.view(id);
 			}
-
 		});
 		southPanel.add(viewBtn);
 
@@ -101,9 +98,7 @@ class ItemPanel extends ShadowPanel {
 		downloadBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				Thread t1 = new downloadThread();
-				t1.start();
-				// ArxivParser.Download("paper_file", ArxivParser.BuildURL(id, "pdf"), false);
+				opManager.startDownload(id);
 			}
 		});
 		southPanel.add(downloadBtn);
@@ -113,26 +108,29 @@ class ItemPanel extends ShadowPanel {
 		add(southPanel, BorderLayout.SOUTH);
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
+	
 	/*--------------------------------
 	Set panel shape
 	--------------------------------*/
-	public void setShape(int width) {
+	public String getId() 
+	{
+		return id;
+	}
+
+	
+	public void setId(String id) 
+	{
+		this.id = id;
+	}
+
+	
+	/*--------------------------------
+	Set panel shape
+	--------------------------------*/
+	public void setShape(int width) 
+	{
 		setMinimumSize(new Dimension(100, 270 + heightOffset * 20));
 		setMaximumSize(new Dimension(2048, 270 + heightOffset * 20));
 		setPreferredSize(new Dimension(width, 270 + heightOffset * 20));
-	}
-
-	class downloadThread extends Thread {
-		public void run() {
-			ArxivParser.Download("paper_file", ArxivParser.BuildURL(id, "pdf"), false);
-		}
 	}
 }

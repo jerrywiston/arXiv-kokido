@@ -8,6 +8,7 @@ public class PaperInfo {
 	public String [] subjects = new String[0];
 	public String [] tags = new String[0];
 	
+	
 	public String Out() {
 		String str = "";
 		str = str + "ID: " + id + "\n";
