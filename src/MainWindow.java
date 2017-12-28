@@ -58,7 +58,6 @@ public class MainWindow
 		mainFrame.setTitle("arXiv-kokido");
 		mainFrame.setSize(width, height);
 		mainFrame.setIconImage((new ImageIcon("./kokido.png")).getImage());
-		mainFrame.setLocationRelativeTo(null);
 		
 		//Create panels----------------------------
 		createMenuBar();
@@ -78,14 +77,14 @@ public class MainWindow
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.weightx = 1 - layoutScale;
-		gbc.weighty = 0.98;
+		gbc.weighty = 0.99;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.gridheight = 2;
 		backPanel.add(inspectorScrollPane, gbc);
 
 		gbc.weightx = 0;
-		gbc.weighty = 0.98;
+		gbc.weighty = 0.99;
 		gbc.gridx = 1;
 		gbc.gridy = 0;
 		gbc.gridheight = 2;
@@ -99,14 +98,14 @@ public class MainWindow
 		backPanel.add(searchPanel, gbc);
 
 		gbc.weightx = layoutScale;
-		gbc.weighty = 0.96;
+		gbc.weighty = 0.97;
 		gbc.gridx = 2;
 		gbc.gridy = 1;
 		gbc.gridheight = 1;
 		backPanel.add(contentScrollPane, gbc);
 
 		gbc.weightx = 1.0;
-		gbc.weighty = 0.02;
+		gbc.weighty = 0.01;
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		gbc.gridwidth = 3;
@@ -181,7 +180,9 @@ public class MainWindow
 	{
 		inspectorPanel = new ShadowPanel();
 		inspectorPanel.setBackground(new Color(200, 200, 200, 200));
-		inspectorPanel.setLayout(new BorderLayout());
+		inspectorPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		inspectorPanel.setPreferredSize(new Dimension(100, height));
+		inspectorPanel.setMinimumSize(new Dimension(100, height));
 		
 		inspectorScrollPane = new JScrollPane(inspectorPanel);
 		inspectorScrollPane.setBackground(new Color(0, 0, 0, 0));
@@ -192,13 +193,13 @@ public class MainWindow
 		root = new DefaultMutableTreeNode("Root");
 		treeModel = new DefaultTreeModel(root);
 		tree = new JTree(treeModel);
-		tree.setEditable(true);
 		tree.setBackground(new Color(0, 0, 0, 0));
 		tree.addMouseListener(new MouseAdapter()
 		{
 			public void mouseClicked(MouseEvent me)
 			{
 				inspectorPanel.repaint();
+				inspectorPanel.setPreferredSize(new Dimension(100, tree.getHeight() + 100));
 			}
 		});
 		
@@ -209,7 +210,7 @@ public class MainWindow
 		renderer.setBackgroundNonSelectionColor(new Color(0, 0, 0, 0));
 		renderer.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
 		
-		inspectorPanel.add(tree, BorderLayout.WEST);
+		inspectorPanel.add(tree);
 	}
 	
 	
@@ -224,11 +225,13 @@ public class MainWindow
 
 		//Search text
 		searchText = new JTextField(24);
+		searchText.setPreferredSize(new Dimension(128, 32));
+		searchText.setFont(new Font(Font.DIALOG, Font.PLAIN, 16));
 		searchPanel.add(searchText);
 
 		//Search type label
 		JLabel searchTypeLabel = new JLabel(
-			"<html><font size='3' face='Verdana' color='white'>Type:</font></html>"
+			"<html><font size='5' face='Verdana' color='white'>Type:</font></html>"
 		);
 		searchPanel.add(searchTypeLabel);
 
@@ -238,6 +241,7 @@ public class MainWindow
 
 		//Search button
 		JButton searchBtn = new JButton("Search");
+		searchBtn.setPreferredSize(new Dimension(64, 32));
 		searchBtn.addActionListener(new ActionListener()
 		{
 			@Override
@@ -345,7 +349,7 @@ public class MainWindow
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.weightx = 1 - layoutScale;
-		gbc.weighty = 0.98;
+		gbc.weighty = 0.99;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.gridheight = 2;
@@ -359,7 +363,7 @@ public class MainWindow
 		windowLayout.setConstraints(searchPanel, gbc);
 
 		gbc.weightx = layoutScale;
-		gbc.weighty = 0.96;
+		gbc.weighty = 0.97;
 		gbc.gridx = 2;
 		gbc.gridy = 1;
 		gbc.gridheight = 1;

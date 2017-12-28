@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -33,7 +32,7 @@ public class KidoFileHandle {
 			
 			//Read Authors
 			String a_temp = str.split("Authors: ")[1].split("\\\n")[0];
-			ptemp.authors = a_temp.substring(1, a_temp.length()-1).split("\\]\\[");
+			ptemp.authors = a_temp.split(", ");
 
 			//Read Date
 			int [] d = new int[3];
@@ -48,7 +47,7 @@ public class KidoFileHandle {
 			
 			//Read Subjects
 			String s_temp = str.split("Subjects: ")[1].split("\\\n")[0];
-			ptemp.subjects = s_temp.substring(1, s_temp.length()-1).split("\\]\\[");
+			ptemp.subjects = s_temp.split(", ");
 			
 			paperInfoMap.put(ptemp.id, ptemp);
 		}

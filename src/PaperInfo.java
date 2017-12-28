@@ -11,18 +11,24 @@ public class PaperInfo {
 	
 	public String Out() {
 		String str = "";
-		str = str + "ID: " + id + "\n";
-		str = str + "Title: " + title + "\n";
-		str = str + "Authors: ";
-		for(String name: authors)
-			str = str + "[" + name + "]";
-		str = str + "\nDate: ";
-		str = str + date[0] + "/" + date[1] + "/" + date[2] + "\n";
-		str = str + "Abstract: ";
-		str = str + abs + "\n";
-		str = str + "Subjects: ";
-		for(String sub: subjects)
-			str = str + "[" + sub + "]";
+		str += "ID: " + id + "\n";
+		str += "Title: " + title + "\n";
+		
+		str += "Authors: ";
+		for(int i=0; i<authors.length-1; ++i)
+			str += authors[i] + ", ";
+		str += authors[authors.length-1] + "\n";
+		
+		str += "Date: ";
+		str += date[0] + "/" + date[1] + "/" + date[2] + "\n";
+		str += "Abstract: ";
+		str += abs + "\n";
+
+		str += "Subjects: ";
+		for(int i=0; i<subjects.length-1; ++i)
+			str += subjects[i] + ", ";
+		str += subjects[subjects.length-1];
+		
 		return str;
 	}
 }
