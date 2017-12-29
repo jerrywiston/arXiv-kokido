@@ -92,7 +92,7 @@ class ProfilePanel extends ShadowPanel
 		viewBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				opManager.view(id);
+				opManager.view(id, false);
 			}
 		});
 		
@@ -116,6 +116,8 @@ class ProfilePanel extends ShadowPanel
 	--------------------------------*/
 	public void setPaperInfo(PaperInfo info)
 	{
+		id = info.id;
+		
 		//Title label-------------------------------
 		titleLabel.setText(
 			"<html><font size='7' face='Verdana' color='#00FFFF'>" + info.title + "</font></html>"

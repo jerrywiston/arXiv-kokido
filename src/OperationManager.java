@@ -75,8 +75,12 @@ public class OperationManager {
 	/*---------------------------------
 	View items
 	---------------------------------*/
-	public void view(String id) {
-		String str = "start " + ArxivParser.BuildURL(id, "pdf");
+	public void view(String id, boolean showInBrowser) {
+		String str;
+		if(showInBrowser)
+			str = "start " + ArxivParser.BuildURL(id, "pdf");
+		else
+			str = "start " + "paper_file/" + id + ".pdf";
 		str = "a.exe " + "\"" + str + "\"";
 
 		try {

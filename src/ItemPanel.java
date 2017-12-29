@@ -137,7 +137,7 @@ class ItemPanel extends ShadowPanel
 		viewBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				opManager.view(id);
+				opManager.view(id, true);
 			}
 		});
 		
