@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,7 +59,6 @@ public class OperationManager {
 		}
 	}
 
-	
 	/*---------------------------------
 	Set window
 	---------------------------------*/
@@ -92,7 +92,7 @@ public class OperationManager {
 
 		for (String id : id_list) {
 			PaperInfo info_temp = ArxivParser.GetPaperInfo(ArxivParser.BuildURL(id, "abs"));
-			if(info_temp==null)
+			if (info_temp == null)
 				continue;
 			ItemPanel p = window.addItem(info_temp);
 			if (pinfoManager.hasKey(id))
@@ -120,24 +120,7 @@ public class OperationManager {
 			e.printStackTrace();
 		}
 	}
-	
-	/*---------------------------------
-	Refresh Map
-	---------------------------------*/
-	public void refreshNode() {
-		Map<String, PaperInfo> paperInfoMap = pinfoManager.getPaperInfoMap();
-		window.ClearTreeNode();
-		ClassSortList cs = new ClassSortList(paperInfoMap);
-		Map<String, List<String>> result = cs.Result("subjects", "date", true);
-		for (Map.Entry<String, List<String>> idClass : result.entrySet()) {
-			String className = idClass.getKey();
-			window.addTreeNode("Root", className);
-			for(String id: idClass.getValue()) {
-				window.addTreeNode(className, "[" + id  + "] " + paperInfoMap.get(id).title);
-			}
-		}	
-	}
-	
+
 	/*---------------------------------
 	Start search
 	---------------------------------*/
@@ -213,7 +196,7 @@ public class OperationManager {
 			}
 		}
 	}
-	
+
 	/*---------------------------------
 	Synchronize
 	---------------------------------*/
@@ -229,9 +212,9 @@ public class OperationManager {
 	}
 
 	public void fileSynchronize() {
-		//TODO
+		// TODO
 	}
-	
+
 	/*---------------------------------
 	Tag Handle
 	---------------------------------*/
@@ -240,11 +223,71 @@ public class OperationManager {
 		refreshNode();
 		pinfoManager.SaveInfo();
 	}
-	
+
 	public void removeTag(String id, List<String> tlist) {
-		for(String tid: tlist)
+		for (String tid : tlist)
 			pinfoManager.RemoveTag(id, tid);
 		refreshNode();
 		pinfoManager.SaveInfo();
+	}
+
+	/*---------------------------------
+	Class Sort
+	---------------------------------*/
+	String classType = "Subjects";
+	String sortType = "Recent";
+	String orderType = "Decent";
+
+	public void setClassSort(String c, String s, String o) {
+		classType = c;
+		sortType = s;
+		orderType = o;
+	}
+
+	/*---------------------------------
+	Refresh Map
+	---------------------------------*/
+	public void refresh(Map<String, PaperInfo> paperInfoMap) {
+		window.ClearTreeNode();
+		ClassSortList cs = new ClassSortList(paperInfoMap);
+
+		boolean b = (orderType == "Decent") ? true : false;
+
+		Map<String, List<String>> result = cs.Result(classType, sortType, b);
+		for (Map.Entry<String, List<String>> idClass : result.entrySet()) {
+			String className = idClass.getKey();
+			window.addTreeNode("Root", className);
+			for (String id : idClass.getValue()) {
+				window.addTreeNode(className, "[" + id + "] " + paperInfoMap.get(id).title);
+			}
+		}
+	}
+	
+	public void refreshNode() {
+		Map<String, PaperInfo> paperInfoMap = pinfoManager.getPaperInfoMap();
+		refresh(paperInfoMap);
+	}
+	
+	/*---------------------------------
+	Local Search
+	---------------------------------*/
+	public void localSearch(String str) {
+		String [] slist = str.split(" ");
+		Map<String, PaperInfo> paperInfoMap = pinfoManager.getPaperInfoMap();
+		Map<String, PaperInfo> searchInfoMap = new LinkedHashMap<>();
+		for (Map.Entry<String, PaperInfo> ptuple : paperInfoMap.entrySet()) {
+			boolean find = false;
+			for(String s: slist) {
+				if(ptuple.getValue().title.toLowerCase().contains(s) == true)
+					find = true;
+				if(ptuple.getValue().abs.toLowerCase().contains(s) == true)
+					find = true;
+				if(find == true)
+					break;
+			}
+			if(find == true)
+				searchInfoMap.put(ptuple.getKey(), ptuple.getValue());
+		}
+		refresh(searchInfoMap);
 	}
 }

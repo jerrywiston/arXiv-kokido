@@ -58,6 +58,10 @@ public class MainWindow
 	DefaultTreeModel treeModel;
 	DefaultMutableTreeNode root;
 	JTree tree;
+	
+	String classType = "Subjects";
+	String sortType = "Recent";
+	String orderType = "Decent";
 
 
 	/*---------------------------------
@@ -382,7 +386,8 @@ public class MainWindow
 		{
 			public void actionPerformed(ActionEvent event)
 			{
-				
+				String str = filterText.getText();
+				opManager.localSearch(str);
 			}
 		});
 		
@@ -402,7 +407,9 @@ public class MainWindow
 		filterComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				
+				classType = (String)filterComboBox.getSelectedItem();
+				opManager.setClassSort(classType, sortType, orderType);
+				opManager.refreshNode();
 			}
 		});
 		
@@ -411,7 +418,9 @@ public class MainWindow
 		sortComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				
+				sortType = (String)sortComboBox.getSelectedItem();
+				opManager.setClassSort(classType, sortType, orderType);
+				opManager.refreshNode();
 			}
 		});
 		
@@ -420,7 +429,9 @@ public class MainWindow
 		orderComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				
+				orderType = (String)orderComboBox.getSelectedItem();
+				opManager.setClassSort(classType, sortType, orderType);
+				opManager.refreshNode();
 			}
 		});
 				

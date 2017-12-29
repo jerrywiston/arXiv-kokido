@@ -29,9 +29,9 @@ public class ClassSortList {
 		}
 
 		// TODO Sort the id list
-		if (sortType != "none") {
+		if (sortType != "Recent") {
 			for (Map.Entry<String, List<String>> stuple : rlist.entrySet()) {
-				if (sortType == "date") {
+				if (sortType == "Date") {
 					int[] arr = null;
 					arr = DateSortList(stuple.getValue());
 					Sort(arr, stuple.getValue());
@@ -52,11 +52,11 @@ public class ClassSortList {
 	public List<String> BuildClassArr(String classType, PaperInfo pinfo) {
 		List<String> classArr = null;
 		switch (classType) {
-		case "tags":
+		case "Tags":
 			classArr = pinfo.tags;
 			break;
 
-		case "subjects":
+		case "Subjects":
 			classArr = pinfo.subjects;
 			break;
 
@@ -64,7 +64,7 @@ public class ClassSortList {
 			classArr = new ArrayList<>();
 			classArr.add("All");
 		}
-
+		
 		return classArr;
 	}
 
