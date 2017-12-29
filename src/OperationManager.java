@@ -36,6 +36,13 @@ public class OperationManager {
 	public void Refresh() {
 		pinfoManager.RefreshNode(window);
 	}
+	
+	/*---------------------------------
+	Set window
+	---------------------------------*/
+	public PaperInfo getInfo(String id) {
+		return pinfoManager.getPaperInfoMap().get(id);
+	}
 
 	/*---------------------------------
 	Search items

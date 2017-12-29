@@ -203,7 +203,11 @@ public class MainWindow
 			public void valueChanged(TreeSelectionEvent e)
 			{
 				DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
-				System.out.println((String)node.getUserObject());
+				//System.out.println((String)node.getUserObject());
+				if(node.isLeaf()) {
+					String id = ((String)node.getUserObject()).split("\\[")[1].split("\\]")[0];
+					setProfilePaperInfo(opManager.getInfo(id));
+				}
 				
 				inspectorPanel.revalidate();
 				inspectorPanel.repaint();
