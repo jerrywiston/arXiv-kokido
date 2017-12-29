@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 
 class ProfilePanel extends ShadowPanel 
@@ -13,7 +14,10 @@ class ProfilePanel extends ShadowPanel
 	private JLabel dateLabel;
 	private JLabel subjectLabel;
 	private JLabel abstractLabel;
-	private JLabel tagLabel;
+	private JLabel tagLeadingLabel;
+	private JPanel tagPanel;
+	private ArrayList<TagLabel> tagLabels;
+	private JButton addTagBtn;
 
 	
 	/*--------------------------------
@@ -23,6 +27,7 @@ class ProfilePanel extends ShadowPanel
 	{
 		super();
 		opManager = opm;
+		tagLabels = new ArrayList<TagLabel>();
 		
 		setBackground(new Color(20, 20, 20, 150));
 		setLayout(new BorderLayout());
@@ -41,6 +46,7 @@ class ProfilePanel extends ShadowPanel
 	{
 		JPanel westPanel = new JPanel();
 		westPanel.setBackground(new Color(0, 0, 0, 0));
+		westPanel.setMinimumSize(new Dimension(10, 10));
 		westPanel.setPreferredSize(new Dimension(10, 10));
 		
 		add(westPanel, BorderLayout.WEST);
@@ -61,8 +67,7 @@ class ProfilePanel extends ShadowPanel
 		dateLabel = new JLabel();
 		abstractLabel = new JLabel();
 		subjectLabel = new JLabel();
-		tagLabel = new JLabel();
-
+		
 		centerPanel.add(titleLabel);
 		centerPanel.add(Box.createVerticalGlue());
 		centerPanel.add(authorLabel);
@@ -73,7 +78,6 @@ class ProfilePanel extends ShadowPanel
 		centerPanel.add(Box.createVerticalGlue());
 		centerPanel.add(subjectLabel);
 		centerPanel.add(Box.createVerticalGlue());
-		centerPanel.add(tagLabel);
 		add(centerPanel, BorderLayout.CENTER);
 	}
 	
@@ -85,8 +89,36 @@ class ProfilePanel extends ShadowPanel
 	{
 		JPanel southPanel = new JPanel();
 		southPanel.setBackground(new Color(0, 0, 0, 0));
-		southPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		southPanel.setLayout(new GridLayout(1, 2));
+		
+		
+		//Tag panel-----------------------------------
+		tagPanel = new JPanel();
+		tagPanel.setBackground(new Color(0, 0, 0, 0));
+		tagPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 0));
+		
+		tagLeadingLabel = new JLabel(
+			"<html><font size='5' face='Verdana' color='white'>&nbsp;&nbsp; Tags:</font></html>"
+		);
+		
+		//Add tag button-----------------------------
+		addTagBtn = new JButton("+");
+		addTagBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				
+			}
+		});
 
+		tagPanel.add(tagLeadingLabel);
+		tagPanel.add(addTagBtn);
+		
+		
+		//Button panel--------------------------------
+		JPanel btnPanel = new JPanel();
+		btnPanel.setBackground(new Color(0, 0, 0, 0));
+		btnPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		
 		//View button---------------------------------
 		JButton viewBtn = new JButton("View");
 		viewBtn.addActionListener(new ActionListener() {
@@ -106,8 +138,11 @@ class ProfilePanel extends ShadowPanel
 			}
 		});
 		
-		southPanel.add(viewBtn);
-		southPanel.add(downloadBtn);
+		btnPanel.add(viewBtn);
+		btnPanel.add(downloadBtn);
+		
+		southPanel.add(tagPanel);
+		southPanel.add(btnPanel);
 		add(southPanel, BorderLayout.SOUTH);
 	}
 	
@@ -155,17 +190,17 @@ class ProfilePanel extends ShadowPanel
 		);
 
 		//Tag label-----------------------------------
-		String tags = "";
+		tagPanel.removeAll();
+		tagPanel.add(tagLeadingLabel);
+		
+		tagLabels.clear();
 		if (info.tags != null && info.tags.size() > 0) 
 		{
-			for (int i = 0; i < info.tags.size() - 1; ++i)
-				tags += info.tags.get(i) + ", ";
-			tags += info.tags.get(info.tags.size() - 1);
+			for (int i = 0; i < info.tags.size(); ++i)
+				tagPanel.add(new TagLabel(info.tags.get(i)));
 		}
-				
-		tagLabel.setText(
-			"<html><font size='5' face='Verdana' color='white'>&nbsp; Tags: " + tags + "</font></html>"
-		);
+		
+		tagPanel.add(addTagBtn);
 	}
 
 	
