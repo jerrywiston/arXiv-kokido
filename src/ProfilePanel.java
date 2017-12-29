@@ -307,8 +307,7 @@ class ProfilePanel extends ShadowPanel
 		{
 			tagPanel.remove(tagLabels.get(idx));
 			tagLabels.remove(idx);
-			tagPanel.revalidate();
-			tagPanel.repaint();
+			refresh(tagPanel);
 		}
 	}
 	
@@ -318,23 +317,27 @@ class ProfilePanel extends ShadowPanel
 	--------------------------------*/
 	public void deleteSelectedTag()
 	{
-		int idx = 0;
+		boolean foundSelected = true;
 		
-		while(idx != -1)
+		while(foundSelected)
 		{
-			idx = -1;
+			foundSelected = false;
 			
 			for(int i = 0; i < tagLabels.size(); ++i)
 			{
 				if(tagLabels.get(i).getSelected())
 				{
-					idx = i;
+					tagLabels.remove(i);
+					foundSelected = true;
 					break;
 				}
 			}
-			tagPanel.remove(tagLabels.get(idx));
-			tagLabels.remove(idx);
 		}
+		
+		tagPanel.removeAll();
+		tagPanel.add(tagLeadingLabel);
+		for(TagLabel label : tagLabels) tagPanel.add(label);
+		tagPanel.add(addTagBtn);
 		
 		refresh(tagPanel);
 	}
