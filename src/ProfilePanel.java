@@ -137,6 +137,12 @@ class ProfilePanel extends ShadowPanel
 		{ 
 			public void actionPerformed(ActionEvent event) 
 			{
+				ArrayList<String> tlist = new ArrayList<>();
+				for(TagLabel label: tagLabels) {
+					if(label.getSelected())
+						tlist.add(label.getText());
+				}
+				opManager.removeTag(id, tlist);
 				deleteSelectedTag();
 			}
 		});

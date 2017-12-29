@@ -37,6 +37,11 @@ public class PaperInfoManager {
 		paperInfoMap.get(id).tags.add(tid);
 	}
 	
+	public void RemoveTag(String id, String tid) {
+		int index = paperInfoMap.get(id).tags.indexOf(tid);
+		paperInfoMap.get(id).tags.remove(index);
+	}
+	
 	public Map<String, PaperInfo> getPaperInfoMap() {
 		return paperInfoMap;
 	}

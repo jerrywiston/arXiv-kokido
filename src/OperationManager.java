@@ -233,10 +233,17 @@ public class OperationManager {
 	}
 	
 	/*---------------------------------
-	Add Tag
+	Tag Handle
 	---------------------------------*/
 	public void addTag(String id, String tid) {
 		pinfoManager.AddTag(id, tid);
+		refreshNode();
+		pinfoManager.SaveInfo();
+	}
+	
+	public void removeTag(String id, List<String> tlist) {
+		for(String tid: tlist)
+			pinfoManager.RemoveTag(id, tid);
 		refreshNode();
 		pinfoManager.SaveInfo();
 	}
