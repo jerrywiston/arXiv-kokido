@@ -92,6 +92,8 @@ public class OperationManager {
 
 		for (String id : id_list) {
 			PaperInfo info_temp = ArxivParser.GetPaperInfo(ArxivParser.BuildURL(id, "abs"));
+			if(info_temp==null)
+				continue;
 			ItemPanel p = window.addItem(info_temp);
 			if (pinfoManager.hasKey(id))
 				p.setDownloadBtn(false);
@@ -210,5 +212,23 @@ public class OperationManager {
 				window.repaintScreen();
 			}
 		}
+	}
+	
+	/*---------------------------------
+	Synchronize
+	---------------------------------*/
+	public void mapSynchronize() {
+		window.setState("Synchronize paper information ...");
+		Map<String, PaperInfo> paperInfoMap = pinfoManager.getPaperInfoMap();
+		for (Map.Entry<String, PaperInfo> ptuple : paperInfoMap.entrySet()) {
+			File f = new File("paper_file/" + ptuple.getKey() + ".pdf");
+			if (f.exists() == false)
+				ArxivParser.Download("paper_file", ArxivParser.BuildURL(ptuple.getKey(), "pdf"), false);
+		}
+		window.setState("");
+	}
+
+	public void fileSynchronize() {
+		
 	}
 }

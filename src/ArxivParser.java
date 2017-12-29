@@ -65,6 +65,8 @@ public class ArxivParser {
 		}
 		
 		Elements title = xmlDoc.select("h1[class=title mathjax]");
+		if(title.size()==0)
+			return null;
 		pinfo.title = title.get(0).text().split("Title: ")[1];
 
 		Elements authors = xmlDoc.select("div[class=authors]");

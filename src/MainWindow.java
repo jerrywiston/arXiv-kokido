@@ -122,6 +122,7 @@ public class MainWindow
 		mainFrame.setVisible(true);
 		
 		opm.refreshNode();
+		opm.mapSynchronize();
 	}
 	
 	
