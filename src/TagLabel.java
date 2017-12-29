@@ -20,27 +20,24 @@ public class TagLabel extends JLabel
 	public TagLabel()
 	{
 		super();
-		
-		isSelected = false;
-		setForeground(Color.white);
-		setBorder(BorderFactory.createLineBorder(Color.white));
-		setFont(new Font("Verdana", Font.PLAIN, 18));
-		setCursor(new Cursor(Cursor.HAND_CURSOR));
-		addMouseListener(new MouseAdapter()
-		{
-			public void mouseClicked(MouseEvent e)
-			{
-				setSelected(!isSelected);
-			}
-		});
+		init();
 	}
 	
 	
 	public TagLabel(String txt)
 	{
 		super(txt);
-		
+		init();
+	}
+	
+	
+	/*--------------------------------
+	Initialization
+	--------------------------------*/
+	private void init()
+	{
 		isSelected = false;
+		
 		setForeground(Color.white);
 		setBorder(BorderFactory.createLineBorder(Color.white));
 		setFont(new Font("Verdana", Font.PLAIN, 18));
@@ -49,7 +46,8 @@ public class TagLabel extends JLabel
 		{
 			public void mouseClicked(MouseEvent e)
 			{
-				setSelected(!isSelected);
+				if(e.getButton() == MouseEvent.BUTTON1)
+					setSelected(!isSelected);
 			}
 		});
 	}

@@ -18,7 +18,9 @@ class ProfilePanel extends ShadowPanel
 	private JPanel tagPanel;
 	private ArrayList<TagLabel> tagLabels;
 	private JButton addTagBtn;
-
+	private ImageIcon icon;
+	JPopupMenu popup;
+	
 	
 	/*--------------------------------
 	Constructor
@@ -28,6 +30,8 @@ class ProfilePanel extends ShadowPanel
 		super();
 		opManager = opm;
 		tagLabels = new ArrayList<TagLabel>();
+		icon = new ImageIcon("./kokido.png");
+		icon = new ImageIcon(icon.getImage().getScaledInstance(64, 64, 0));
 		
 		setBackground(new Color(20, 20, 20, 150));
 		setLayout(new BorderLayout());
@@ -105,8 +109,46 @@ class ProfilePanel extends ShadowPanel
 		addTagBtn = new JButton("+");
 		addTagBtn.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent event) {
-				
+			public void actionPerformed(ActionEvent event) 
+			{
+				String tagStr = (String)JOptionPane.showInputDialog(
+					tagPanel, 
+					"Please input a tag", 
+					"Add Tag", 
+					JOptionPane.PLAIN_MESSAGE, 
+					icon, 
+					null, 
+					null
+				);
+				addTag(tagStr);
+			};
+		});
+		
+		//Add popup menu------------------------------
+		popup = new JPopupMenu();
+		
+		JMenuItem deleteMenuItem = new JMenuItem("Delete Tag");
+		deleteMenuItem.addActionListener(new ActionListener()
+		{ 
+			public void actionPerformed(ActionEvent event) 
+			{
+				deleteSelectedTag();
+			}
+		});
+		popup.add(deleteMenuItem);
+		
+		tagPanel.addMouseListener(new MouseAdapter()
+		{
+			public void mousePressed(MouseEvent e)
+			{
+				if(e.isPopupTrigger())
+					popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+			
+			public void mouseReleased(MouseEvent e)
+			{
+				if(e.isPopupTrigger())
+					popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
 
@@ -197,7 +239,11 @@ class ProfilePanel extends ShadowPanel
 		if (info.tags != null && info.tags.size() > 0) 
 		{
 			for (int i = 0; i < info.tags.size(); ++i)
-				tagPanel.add(new TagLabel(info.tags.get(i)));
+			{
+				TagLabel tagLabel = new TagLabel(info.tags.get(i));
+				tagLabels.add(tagLabel);
+				tagPanel.add(tagLabel);
+			}
 		}
 		
 		tagPanel.add(addTagBtn);
@@ -227,5 +273,95 @@ class ProfilePanel extends ShadowPanel
 		setMinimumSize(new Dimension(100, 270));
 		setMaximumSize(new Dimension(2048, 1024));
 		setPreferredSize(new Dimension(width, 1024));
+	}
+	
+	
+	/*--------------------------------
+	Add a tag
+	--------------------------------*/
+	public void addTag(String tagStr)
+	{
+		TagLabel tagLabel = new TagLabel(tagStr);
+		tagLabels.add(tagLabel);
+		
+		tagPanel.remove(addTagBtn);
+		tagPanel.add(tagLabel);
+		tagPanel.add(addTagBtn);
+		tagPanel.revalidate();
+		tagPanel.repaint();
+	}
+	
+	
+	/*--------------------------------
+	Delete a tag
+	--------------------------------*/
+	public void deleteTag(String tagStr)
+	{
+		int idx = findTag(tagStr);
+		if(idx > -1)
+		{
+			tagPanel.remove(tagLabels.get(idx));
+			tagLabels.remove(idx);
+			tagPanel.revalidate();
+			tagPanel.repaint();
+		}
+	}
+	
+	
+	/*--------------------------------
+	Delete the selected tags
+	--------------------------------*/
+	public void deleteSelectedTag()
+	{
+		for(int i = 0; i < tagLabels.size(); ++i)
+		{
+			if(tagLabels.get(i).getSelected())
+			{
+				tagPanel.remove(tagLabels.get(i));
+				tagLabels.remove(i);
+			}
+		}
+		
+		refresh(tagPanel);
+	}
+	
+	
+	/*--------------------------------
+	Find a tag
+	--------------------------------*/
+	public int findTag(String tagStr)
+	{
+		for(int i = 0; i < tagLabels.size(); ++i)
+		{
+			if(tagLabels.get(i).getText().equals(tagStr))
+				return i;
+		}
+	
+		return -1;
+	}
+	
+	
+	/*--------------------------------
+	Refresh
+	--------------------------------*/
+	public static void refresh(Component com)
+	{
+		Container parent = com.getParent();
+		if(parent == null)
+		{
+			com.revalidate();
+			com.repaint();
+		}
+		else 
+		{
+			Container ancestor = parent.getParent();
+			while(ancestor != null)
+			{
+				parent = ancestor;
+				ancestor = parent.getParent();
+			}
+			parent.revalidate();
+			parent.repaint();
+		}
 	}
 }
