@@ -1,5 +1,5 @@
 import java.io.File;
-import java.util.TreeMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +12,7 @@ public class PaperInfoManager {
 		if(kidoFile.exists())
 			paperInfoMap = KidoFileHandle.LoadKido(kidoStr);
 		else
-			paperInfoMap = new TreeMap<>();
+			paperInfoMap = new LinkedHashMap<>();
 	}
 	
 	public void AddInfo(PaperInfo p) {
@@ -39,7 +39,7 @@ public class PaperInfoManager {
 			String className = idClass.getKey();
 			m.addTreeNode("Root", className);
 			for(String id: idClass.getValue()) {
-				m.addTreeNode(className, paperInfoMap.get(id).title);
+				m.addTreeNode(className, "[" + id  + "] " + paperInfoMap.get(id).title);
 			}
 		}	
 	}

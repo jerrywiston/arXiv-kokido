@@ -4,10 +4,10 @@ import java.util.List;
 public class PaperInfo {
 	public String id;
 	public String title;
-	public String[] authors = new String[0];
-	public int[] date = new int[0];
+	public List<String> authors = new ArrayList<>();
+	public int[] date = new int[3];
 	public String abs;
-	public String[] subjects = new String[0];
+	public List<String> subjects = new ArrayList<>();
 	public List<String> tags = new ArrayList<>();
 
 	public String Out() {
@@ -16,9 +16,9 @@ public class PaperInfo {
 		str += "Title: " + title + "\n";
 
 		str += "Authors: ";
-		for (int i = 0; i < authors.length - 1; ++i)
-			str += authors[i] + ", ";
-		str += authors[authors.length - 1] + "\n";
+		for (int i = 0; i < authors.size() - 1; ++i)
+			str += authors.get(i) + ", ";
+		str += authors.get(authors.size() - 1) + "\n";
 
 		str += "Date: ";
 		str += date[0] + "/" + date[1] + "/" + date[2] + "\n";
@@ -26,9 +26,9 @@ public class PaperInfo {
 		str += abs + "\n";
 
 		str += "Subjects: ";
-		for (int i = 0; i < subjects.length - 1; ++i)
-			str += subjects[i] + ", ";
-		str += subjects[subjects.length - 1] + "\n";
+		for (int i = 0; i < subjects.size() - 1; ++i)
+			str += subjects.get(i) + ", ";
+		str += subjects.get(subjects.size() - 1) + "\n";
 
 		str += "Tags: ";
 		if (tags.size() > 0) {

@@ -4,6 +4,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -65,7 +68,7 @@ public class ArxivParser {
 		pinfo.title = title.get(0).text().split("Title: ")[1];
 
 		Elements authors = xmlDoc.select("div[class=authors]");
-		pinfo.authors = authors.get(0).text().split("Authors: ")[1].split(", ");
+		pinfo.authors = Arrays.asList(authors.get(0).text().split("Authors: ")[1].split(", "));
 
 		Elements date = xmlDoc.select("div[class=dateline]");
 		pinfo.date = String2Date(date.get(0).text());
@@ -75,9 +78,9 @@ public class ArxivParser {
 
 		Elements subjects = xmlDoc.select("td[class=tablecell subjects]");
 		String[] sub_list = subjects.get(0).text().split("; ");
-		pinfo.subjects = new String[sub_list.length];
+		pinfo.subjects = new ArrayList<String>();
 		for (int i = 0; i < sub_list.length; ++i)
-			pinfo.subjects[i] = sub_list[i].split("\\(")[1].split("\\)")[0];
+			pinfo.subjects.add(sub_list[i].split("\\(")[1].split("\\)")[0]);
 
 		return pinfo;
 	}

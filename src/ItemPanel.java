@@ -64,9 +64,9 @@ class ItemPanel extends ShadowPanel
 
 		//Author label------------------------------
 		String authors = "";
-		for (int i = 0; i < info.authors.length - 1; ++i)
-			authors += info.authors[i] + ", ";
-		authors += info.authors[info.authors.length - 1];
+		for (int i = 0; i < info.authors.size() - 1; ++i)
+			authors += info.authors.get(i) + ", ";
+		authors += info.authors.get(info.authors.size() - 1);
 
 		JLabel authorLabel = new JLabel(
 			"<html><font size='5' face='Verdana' color='white'>&nbsp; Authors: " + authors + "</font></html>"
@@ -85,9 +85,9 @@ class ItemPanel extends ShadowPanel
 
 		//Subject label------------------------------
 		String subs = "";
-		for (int i = 0; i < info.subjects.length - 1; ++i)
-			subs += info.subjects[i] + ", ";
-		subs += info.subjects[info.subjects.length - 1];
+		for (int i = 0; i < info.subjects.size() - 1; ++i)
+			subs += info.subjects.get(i) + ", ";
+		subs += info.subjects.get(info.subjects.size() - 1);
 		JLabel subjectLabel = new JLabel(
 			"<html><font size='5' face='Verdana' color='white'>&nbsp; Subjects: " + subs + "</font></html>"
 		);

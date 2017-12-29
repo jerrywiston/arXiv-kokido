@@ -1,12 +1,12 @@
 import java.io.*;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class KidoFileHandle {
 
 	public static Map<String, PaperInfo> LoadKido(String filename) {
-		Map<String, PaperInfo> paperInfoMap = new TreeMap<>();
+		Map<String, PaperInfo> paperInfoMap = new LinkedHashMap<>();
 		String fileContents = "";
 		int i;
 		FileReader in;
@@ -32,7 +32,7 @@ public class KidoFileHandle {
 
 			// Read Authors
 			String a_temp = str.split("Authors: ")[1].split("\\\n")[0];
-			ptemp.authors = a_temp.split(", ");
+			ptemp.authors = Arrays.asList(a_temp.split(", "));
 
 			// Read Date
 			int[] d = new int[3];
@@ -47,7 +47,7 @@ public class KidoFileHandle {
 
 			// Read Subjects
 			String s_temp = str.split("Subjects: ")[1].split("\\\n")[0];
-			ptemp.subjects = s_temp.split(", ");
+			ptemp.subjects = Arrays.asList(s_temp.split(", "));
 
 			// Read Authors
 			String t_temp = str.split("Tags: ")[1];
