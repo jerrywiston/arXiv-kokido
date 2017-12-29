@@ -49,10 +49,12 @@ public class KidoFileHandle {
 			String s_temp = str.split("Subjects: ")[1].split("\\\n")[0];
 			ptemp.subjects = Arrays.asList(s_temp.split(", "));
 
-			// Read Authors
-			String t_temp = str.split("Tags: ")[1];
-			if (t_temp.contains(", ")) {
+			// Read tags
+			String t_temp = str.split("Tags: ")[1].split("}")[0];
+
+			if (t_temp.length() > 1) {
 				t_temp = t_temp.split("\\\n")[0];
+				//System.out.println("\"" + t_temp + "\"");
 				for (String tag : t_temp.split(", "))
 					ptemp.tags.add(tag);
 			}

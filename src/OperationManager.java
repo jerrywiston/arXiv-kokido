@@ -229,6 +229,15 @@ public class OperationManager {
 	}
 
 	public void fileSynchronize() {
-		
+		//TODO
+	}
+	
+	/*---------------------------------
+	Add Tag
+	---------------------------------*/
+	public void addTag(String id, String tid) {
+		pinfoManager.AddTag(id, tid);
+		refreshNode();
+		pinfoManager.SaveInfo();
 	}
 }

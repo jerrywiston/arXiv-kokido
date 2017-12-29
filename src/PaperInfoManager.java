@@ -32,7 +32,11 @@ public class PaperInfoManager {
 	public boolean hasKey(String id) {
 		return paperInfoMap.containsKey(id);
 	}
-
+	
+	public void AddTag(String id, String tid) {
+		paperInfoMap.get(id).tags.add(tid);
+	}
+	
 	public Map<String, PaperInfo> getPaperInfoMap() {
 		return paperInfoMap;
 	}

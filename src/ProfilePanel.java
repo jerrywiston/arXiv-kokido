@@ -121,6 +121,7 @@ class ProfilePanel extends ShadowPanel
 					null
 				);
 				addTag(tagStr);
+				opManager.addTag(id, tagStr);
 			};
 		});
 		

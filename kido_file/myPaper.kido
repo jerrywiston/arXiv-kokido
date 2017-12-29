@@ -1,9 +1,33 @@
 {
-ID: 1711.09488
-Title: Parameterizations of Chromospheric Condensations in dG and dMe Model Flare Atmospheres
-Authors: Adam F. Kowalski (1,2,3), Joel C. Allred (4) ((1) University of Colorado, (2) National Solar Observatory, (3) Laboratory for Atmospheric and Space Physics, (4) NASA Goddard Space Flight Center)
-Date: 2017/11/26
-Abstract: The origin of the near-ultraviolet and optical continuum radiation in flares is critical for understanding particle acceleration and impulsive heating in stellar atmospheres. Radiative-hydrodynamic simulations in 1D have shown that high energy deposition rates from electron beams produce two flaring layers at T~10^4 K that develop in the chromosphere: a cooling condensation (downflowing compression) and heated non-moving (stationary) flare layers just below the condensation. These atmospheres reproduce several observed phenomena in flare spectra, such as the red wing asymmetry of the emission lines in solar flares and a small Balmer jump ratio in M dwarf flares. The high beam flux simulations are computationally expensive in 1D, and the (human) timescales for completing NLTE models with adaptive grids in 3D will likely be unwieldy for a time to come. We have developed a prescription for predicting the approximate evolved states, continuum optical depth, and the emergent continuum flux spectra of radiative-hydrodynamic model flare atmospheres. These approximate prescriptions are based on an important atmospheric parameter: the column mass (m_ref) at which hydrogen becomes nearly completely ionized at the depths that are approximately in steady state with the electron beam heating. Using this new modeling approach, we find that high energy flux density (>F11) electron beams are needed to reproduce the brightest observed continuum intensity in IRIS data of the 2014-Mar-29 X1 solar flare and that variation in m_ref from 0.001 to 0.02 g/cm2 reproduces most of the observed range of the optical continuum flux ratios at the peaks of M dwarf flares.
-Subjects: astro-ph.SR
+ID: 1712.09553
+Title: DeepIEP: a Peptide Sequence Model of Isoelectric Point (IEP/pI) using Recurrent Neural Networks (RNNs)
+Authors: Esben Jannik Bjerrum
+Date: 2017/12/27
+Abstract: The isoelectric point (IEP or pI) is the pH where the net charge on the molecular ensemble of peptides and proteins is zero. This physical-chemical property is dependent on protonable/deprotonable sidechains and their pKa values. Here an pI prediction model is trained from a database of peptide sequences and pIs using a recurrent neural network (RNN) with long short-term memory (LSTM) cells. The trained model obtains an RMSE and R$^2$ of 0.28 and 0.95 for the external test set. The model is not based on pKa values, but prediction of constructed test sequences show similar rankings as already known pKa values. The prediction depends mostly on the existence of known acidic and basic amino acids with fine-adjusted based on the neighboring sequence and position of the charged amino acids in the peptide chain.
+Subjects: q-bio.BM, cs.LG, q-bio.QM
+Tags: B, C, 1, GAN
+}{
+ID: 1712.09185
+Title: Actionable Email Intent Modeling with Reparametrized RNNs
+Authors: Chu-Cheng Lin, Dongyeop Kang, Michael Gamon, Madian Khabsa, Ahmed Hassan Awadallah, Patrick Pantel
+Date: 2017/12/26
+Abstract: Emails in the workplace are often intentional calls to action for its recipients. We propose to annotate these emails for what action its recipient will take. We argue that our approach of action-based annotation is more scalable and theory-agnostic than traditional speech-act-based email intent annotation, while still carrying important semantic and pragmatic information. We show that our action-based annotation scheme achieves good inter-annotator agreement. We also show that we can leverage threaded messages from other domains, which exhibit comparable intents in their conversation, with domain adaptive RAINBOW (Recurrently AttentIve Neural Bag-Of-Words). On a collection of datasets consisting of IRC, Reddit, and email, our reparametrized RNNs outperform common multitask/multidomain approaches on several speech act related tasks. We also experiment with a minimally supervised scenario of email recipient action classification, and find the reparametrized RNNs learn a useful representation.
+Subjects: cs.CL
+Tags: B, A
+}{
+ID: 1706.01807
+Title: GAN and VAE from an Optimal Transport Point of View
+Authors: Aude Genevay, Gabriel Peyr?, Marco Cuturi
+Date: 2017/6/6
+Abstract: This short article revisits some of the ideas introduced in arXiv:1701.07875 and arXiv:1705.07642 in a simple setup. This sheds some lights on the connexions between Variational Autoencoders (VAE), Generative Adversarial Networks (GAN) and Minimum Kantorovitch Estimators (MKE).
+Subjects: stat.ML
 Tags: 
+}{
+ID: 1712.07316
+Title: A Flexible Approach to Automated RNN Architecture Generation
+Authors: Martin Schrimpf, Stephen Merity, James Bradbury, Richard Socher
+Date: 2017/12/20
+Abstract: The process of designing neural architectures requires expert knowledge and extensive trial and error. While automated architecture search may simplify these requirements, the recurrent neural network (RNN) architectures generated by existing methods are limited in both flexibility and components. We propose a domain-specific language (DSL) for use in automated architecture search which can produce novel RNNs of arbitrary depth and width. The DSL is flexible enough to define standard architectures such as the Gated Recurrent Unit and Long Short Term Memory and allows the introduction of non-standard RNN components such as trigonometric curves and layer normalization. Using two different candidate generation techniques, random search with a ranking function and reinforcement learning, we explore the novel architectures produced by the RNN DSL for language modeling and machine translation domains. The resulting architectures do not follow human intuition yet perform well on their targeted tasks, suggesting the space of usable RNN architectures is far larger than previously assumed.
+Subjects: cs.CL, cs.LG, stat.ML
+Tags: GAN, BB
 }
