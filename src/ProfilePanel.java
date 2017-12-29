@@ -28,8 +28,22 @@ class ProfilePanel extends ShadowPanel
 		setLayout(new BorderLayout());
 		
 		//Create panels
+		createWestPanel();
 		createCenterPanel();
 		createSouthPanel();
+	}
+	
+	
+	/*--------------------------------
+	Create west panel
+	--------------------------------*/
+	private void createWestPanel()
+	{
+		JPanel westPanel = new JPanel();
+		westPanel.setBackground(new Color(0, 0, 0, 0));
+		westPanel.setPreferredSize(new Dimension(10, 10));
+		
+		add(westPanel, BorderLayout.WEST);
 	}
 	
 	
@@ -83,7 +97,7 @@ class ProfilePanel extends ShadowPanel
 		});
 		
 		//Download button------------------------------
-		JButton downloadBtn = new JButton("Download");
+		JButton downloadBtn = new JButton("Delete");
 		downloadBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -104,7 +118,7 @@ class ProfilePanel extends ShadowPanel
 	{
 		//Title label-------------------------------
 		titleLabel.setText(
-			"<html><font size='7' face='Verdana' color='#00FFFF'>&nbsp; " + info.title + "</font></html>"
+			"<html><font size='7' face='Verdana' color='#00FFFF'>" + info.title + "</font></html>"
 		);
 
 		//Author label------------------------------
@@ -125,7 +139,7 @@ class ProfilePanel extends ShadowPanel
 
 		//Abstract label-----------------------------
 		abstractLabel.setText(
-			"<html><font size='5' face='Verdana' color='white'>&nbsp; Abstract:\n" + info.abs + "</font></html>"
+			"<html><font size='5' face='Verdana' color='white'>&nbsp; Abstract:<br>" + info.abs + "</font></html>"
 		);
 
 		//Subject label------------------------------
