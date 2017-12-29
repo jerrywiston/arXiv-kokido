@@ -4,6 +4,7 @@ import java.awt.*;
 
 public class ShadowPanel extends JPanel
 {
+	private static final long serialVersionUID = 1L;
 	protected int strokeSize = 1;
 	protected Color shadowColor = Color.black;
 	protected Dimension arcs = new Dimension(20, 20);

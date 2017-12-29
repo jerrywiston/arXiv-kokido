@@ -5,6 +5,7 @@ import java.awt.event.*;
 
 class ItemPanel extends ShadowPanel 
 {
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private int heightOffset;
 	private OperationManager opManager;

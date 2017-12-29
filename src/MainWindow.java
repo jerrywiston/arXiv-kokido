@@ -154,6 +154,7 @@ public class MainWindow
 			{
 				String searchType = (String)searchTypeComboBox.getSelectedItem();
 				opManager.startSearch(searchText.getText(), searchType, 5, 0);
+				contentTabbedPane.setSelectedIndex(0);
 			}
 		});
 		
@@ -164,6 +165,7 @@ public class MainWindow
 			public void actionPerformed(ActionEvent event)
 			{
 				clearItem();
+				contentTabbedPane.setSelectedIndex(0);
 			}
 		});
 
@@ -198,20 +200,28 @@ public class MainWindow
 		treeModel = new DefaultTreeModel(root);
 		tree = new JTree(treeModel);
 		tree.setBackground(new Color(0, 0, 0, 0));
+		tree.addMouseListener(new MouseAdapter()
+		{
+			public void mousePressed(MouseEvent e)
+			{
+				inspectorPanel.revalidate();
+				inspectorPanel.repaint();
+			}
+		});
 		tree.addTreeSelectionListener(new TreeSelectionListener()
 		{
 			public void valueChanged(TreeSelectionEvent e)
 			{
 				DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
-				//System.out.println((String)node.getUserObject());
-				if(node.isLeaf()) {
+				if(node.isLeaf()) 
+				{
 					String id = ((String)node.getUserObject()).split("\\[")[1].split("\\]")[0];
 					setProfilePaperInfo(opManager.getInfo(id));
+					contentTabbedPane.setSelectedIndex(1);
 				}
 				
 				inspectorPanel.revalidate();
 				inspectorPanel.repaint();
-				inspectorScrollPane.updateUI();
 			}
 		});
 		tree.addTreeExpansionListener(new TreeExpansionListener()
@@ -278,6 +288,7 @@ public class MainWindow
 			{
 				String searchType = (String)searchTypeComboBox.getSelectedItem();
 				opManager.startSearch(searchText.getText(), searchType, 5, 0);
+				contentTabbedPane.setSelectedIndex(0);
 			}
 		});
 		searchPanel.add(searchBtn);
@@ -360,7 +371,7 @@ public class MainWindow
 						setLayoutScale((float)(prevX - curX) / 800);
 						prevX = curX;
 					}
-				}, 0, 50);
+				}, 0, 10);
 			}
 
 			//Mouse released event---------------------
@@ -486,6 +497,11 @@ public class MainWindow
 		{
 			parentNode.add(new DefaultMutableTreeNode(name));
 			treeModel.reload();
+			
+			inspectorPanel.setPreferredSize(new Dimension(100, tree.getHeight() + 100));
+			inspectorPanel.revalidate();
+			inspectorPanel.repaint();
+			inspectorScrollPane.updateUI();
 		}
 	}
 	

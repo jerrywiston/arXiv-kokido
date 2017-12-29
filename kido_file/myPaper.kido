@@ -1,210 +1,18 @@
 {
-ID: 1712.00268
-Title: Deformable Shape Completion with Graph Convolutional Autoencoders
-Authors: Or Litany, Alex Bronstein, Michael Bronstein, Ameesh Makadia
-Date: 2017/12/1
-Abstract: The availability of affordable and portable depth sensors has made scanning objects and people simpler than ever. However, dealing with occlusions and missing parts is still a significant challenge. The problem of reconstructing a (possibly non-rigidly moving) 3D object from a single or multiple partial scans has received increasing attention in recent years. In this work, we propose a novel learning-based method for the completion of partial shapes. Unlike the majority of existing approaches, our method focuses on objects that can undergo non-rigid deformations. The core of our method is a variational autoencoder with graph convolutional operations that learns a latent space for complete realistic shapes. At inference, we optimize to find the representation in this latent space that best fits the generated shape to the known partial input. The completed shape exhibits a realistic appearance on the unknown part. We show promising results towards the completion of synthetic and real scans of human body and face meshes exhibiting different styles of articulation and partiality.
-Subjects: cs.CV
-Tags: 
-}{
-ID: 1712.08708
-Title: Variational Autoencoders for Learning Latent Representations of Speech Emotion
-Authors: Siddique Latif, Rajib Rana, Junaid Qadir, Julien Epps
-Date: 2017/12/23
-Abstract: Latent representation of data in unsupervised fashion is a very interesting process. It provides more relevant features that can enhance the performance of a classifier. For speech emotion recognition tasks generating effective features is very crucial. Recently, deep generative models such as Variational Autoencoders (VAEs) have gained enormous success to model natural images. Being inspired by that in this paper, we use VAE for the modeling of emotions in human speech. We derive the latent representation of speech signal and use this for classification of emotions. We demonstrate that features learned by VAEs can achieve state-of-the-art emotion recognition results.
-Subjects: cs.SD, cs.LG, eess.AS, stat.ML
-Tags: 
-}{
-ID: 1705.07177
-Title: Model-Based Planning in Discrete Action Spaces
-Authors: Mikael Henaff, William F. Whitney, Yann LeCun
-Date: 2017/5/19
-Abstract: Planning actions using learned and differentiable forward models of the world is a general approach which has a number of desirable properties, including improved sample complexity over model-free RL methods, reuse of learned models across different tasks, and the ability to perform efficient gradient-based optimization in continuous action spaces. However, this approach does not apply straightforwardly when the action space is discrete, which may have limited its adoption. In this work, we introduce two discrete planning tasks inspired by existing question-answering datasets and show that it is in fact possible to effectively perform planning via backprop in discrete action spaces using two simple yet principled modifications. Our experiments show that this approach can significantly outperform model-free RL based methods and supervised imitation learners.
-Subjects: cs.AI
-Tags: 
-}{
-ID: 1005.1474
-Title: Anisotropy of Magnetic Interactions in the Spin-Ladder Compound (C$_5$H$_{12}$N)$_2$CuBr$_4$
-Authors: E. ?i?m?r, M. Ozerov, J. Wosnitza, B. Thielemann, K. W. Kr?mer, Ch. R?egg, O. Piovesana, M. Klanj?ek, M. Horvati?, C. Berthier, S. A. Zvyagin
-Date: 2010/5/10
-Abstract: Magnetic excitations in the spin-ladder material (C$_5$H$_{12}$N)$_2$CuBr$_4$ [BPCB] are probed by high-resolution multi-frequency electron spin resonance (ESR) spectroscopy. Our experiments provide a direct evidence for a biaxial anisotropy ($\sim 5\%$ of the dominant exchange interaction), that is in contrast to a fully isotropic spin-ladder model employed for this system previously. It is argued that this anisotropy in BPCB is caused by spin-orbit coupling, which appears to be important for describing magnetic properties of this compound. The zero-field zone-center gap in the excitation spectrum of BPCB, $\Delta_0/k_{B}=16.5$ K, is detected directly. Furthermore, an ESR signature of the inter-ladder exchange interactions is obtained. The detailed characterization of the anisotropy in BPCB completes the determination of the full spin hamiltonian of this exceptional spin-ladder material and shows ways to study anisotropy effects in spin ladders.
-Subjects: cond-mat.str-el
-Tags: 
-}{
-ID: 1712.00321
-Title: Semi-Adversarial Networks: Convolutional Autoencoders for Imparting Privacy to Face Images
-Authors: Vahid Mirjalili, Sebastian Raschka, Anoop Namboodiri, Arun Ross
-Date: 2017/12/1
-Abstract: In this paper, we design and evaluate a convolutional autoencoder that perturbs an input face image to impart privacy to a subject. Specifically, the proposed autoencoder transforms an input face image such that the transformed image can be successfully used for face recognition but not for gender classification. In order to train this autoencoder, we propose a novel training scheme, referred to as semi-adversarial training in this work. The training is facilitated by attaching a semi-adversarial module consisting of a pseudo gender classifier and a pseudo face matcher to the autoencoder. The objective function utilized for training this network has three terms: one to ensure that the perturbed image is a realistic face image; another to ensure that the gender attributes of the face are confounded; and a third to ensure that biometric recognition performance due to the perturbed image is not impacted. Extensive experiments confirm the efficacy of the proposed architecture in extending gender privacy to face images.
-Subjects: cs.CV, cs.LG
-Tags: 
-}{
-ID: 1711.09663
-Title: DeepBrain: Functional Representation of Neural In-Situ Hybridization Images for Gene Ontology Classification Using Deep Convolutional Autoencoders
-Authors: Ido Cohen, Eli David, Nathan S. Netanyahu, Noa Liscovitch, Gal Chechik
-Date: 2017/11/27
-Abstract: This paper presents a novel deep learning-based method for learning a functional representation of mammalian neural images. The method uses a deep convolutional denoising autoencoder (CDAE) for generating an invariant, compact representation of in situ hybridization (ISH) images. While most existing methods for bio-imaging analysis were not developed to handle images with highly complex anatomical structures, the results presented in this paper show that functional representation extracted by CDAE can help learn features of functional gene ontology categories for their classification in a highly accurate manner. Using this CDAE representation, our method outperforms the previous state-of-the-art classification rate, by improving the average AUC from 0.92 to 0.98, i.e., achieving 75% reduction in error. The method operates on input images that were downsampled significantly with respect to the original ones to make it computationally feasible.
-Subjects: cs.CV, cs.LG, cs.NE, stat.ML
-Tags: 
-}{
-ID: 1712.04120
-Title: GibbsNet: Iterative Adversarial Inference for Deep Graphical Models
-Authors: Alex Lamb, Devon Hjelm, Yaroslav Ganin, Joseph Paul Cohen, Aaron Courville, Yoshua Bengio
-Date: 2017/12/12
-Abstract: Directed latent variable models that formulate the joint distribution as $p(x,z) = p(z) p(x \mid z)$ have the advantage of fast and exact sampling. However, these models have the weakness of needing to specify $p(z)$, often with a simple fixed prior that limits the expressiveness of the model. Undirected latent variable models discard the requirement that $p(z)$ be specified with a prior, yet sampling from them generally requires an iterative procedure such as blocked Gibbs-sampling that may require many steps to draw samples from the joint distribution $p(x, z)$. We propose a novel approach to learning the joint distribution between the data and a latent code which uses an adversarially learned iterative procedure to gradually refine the joint distribution, $p(x, z)$, to better match with the data distribution on each step. GibbsNet is the best of both worlds both in theory and in practice. Achieving the speed and simplicity of a directed latent variable model, it is guaranteed (assuming the adversarial game reaches the virtual training criteria global minimum) to produce samples from $p(x, z)$ with only a few sampling iterations. Achieving the expressiveness and flexibility of an undirected latent variable model, GibbsNet does away with the need for an explicit $p(z)$ and has the ability to do attribute prediction, class-conditional generation, and joint image-attribute modeling in a single model which is not trained for any of these specific tasks. We show empirically that GibbsNet is able to learn a more complex $p(z)$ and show that this leads to improved inpainting and iterative refinement of $p(x, z)$ for dozens of steps and stable generation without collapse for thousands of steps, despite being trained on only a few steps.
-Subjects: stat.ML, cs.LG
-Tags: 
-}{
-ID: 1712.09185
-Title: Actionable Email Intent Modeling with Reparametrized RNNs
-Authors: Chu-Cheng Lin, Dongyeop Kang, Michael Gamon, Madian Khabsa, Ahmed Hassan Awadallah, Patrick Pantel
-Date: 2017/12/26
-Abstract: Emails in the workplace are often intentional calls to action for its recipients. We propose to annotate these emails for what action its recipient will take. We argue that our approach of action-based annotation is more scalable and theory-agnostic than traditional speech-act-based email intent annotation, while still carrying important semantic and pragmatic information. We show that our action-based annotation scheme achieves good inter-annotator agreement. We also show that we can leverage threaded messages from other domains, which exhibit comparable intents in their conversation, with domain adaptive RAINBOW (Recurrently AttentIve Neural Bag-Of-Words). On a collection of datasets consisting of IRC, Reddit, and email, our reparametrized RNNs outperform common multitask/multidomain approaches on several speech act related tasks. We also experiment with a minimally supervised scenario of email recipient action classification, and find the reparametrized RNNs learn a useful representation.
-Subjects: cs.CL
-Tags: 
-}{
-ID: 1710.00725
-Title: Learning hard quantum distributions with variational autoencoders
-Authors: Andrea Rocchetto, Edward Grant, Sergii Strelchuk, Giuseppe Carleo, Simone Severini
-Date: 2017/10/2
-Abstract: Studying general quantum many-body systems is one of the major challenges in modern physics because it requires an amount of computational resources that scales exponentially with the size of the system.Simulating the evolution of a state, or even storing its description, rapidly becomes intractable for exact classical algorithms. Recently, machine learning techniques, in the form of restricted Boltzmann machines, have been proposed as a way to efficiently represent certain quantum states with applications in state tomography and ground state estimation. Here, we introduce a new representation of states based on variational autoencoders. Variational autoencoders are a type of generative model in the form of a neural network. We probe the power of this representation by encoding probability distributions associated with states from different classes. Our simulations show that deep networks give a better representation for states that are hard to sample from, while providing no benefit for random states. This suggests that the probability distributions associated to hard quantum states might have a compositional structure that can be exploited by layered neural networks. Specifically, we consider the learnability of a class of quantum states introduced by Fefferman and Umans. Such states are provably hard to sample for classical computers, but not for quantum ones, under plausible computational complexity assumptions. The good level of compression achieved for hard states suggests these methods can be suitable for characterising states of the size expected in first generation quantum hardware.
-Subjects: quant-ph, stat.ML
-Tags: 
-}{
-ID: 1712.08363
-Title: On Using Backpropagation for Speech Texture Generation and Voice Conversion
-Authors: Jan Chorowski, Ron J. Weiss, Rif A. Saurous, Samy Bengio
-Date: 2017/12/22
-Abstract: Inspired by recent work on neural network image generation which rely on backpropagation towards the network inputs, we present a proof-of-concept system for speech texture synthesis and voice conversion based on two mechanisms: approximate inversion of the representation learned by a speech recognition neural network, and on matching statistics of neuron activations between different source and target utterances. Similar to image texture synthesis and neural style transfer, the system works by optimizing a cost function with respect to the input waveform samples. To this end we use a differentiable mel-filterbank feature extraction pipeline and train a convolutional CTC speech recognition network. Our system is able to extract speaker characteristics from very limited amounts of target speaker data, as little as a few seconds, and can be used to generate realistic speech babble or reconstruct an utterance in a different voice.
-Subjects: cs.SD, eess.AS, stat.ML
-Tags: 
-}{
-ID: 1703.07684
-Title: Predicting Deeper into the Future of Semantic Segmentation
-Authors: Pauline Luc, Natalia Neverova, Camille Couprie, Jakob Verbeek, Yann LeCun
-Date: 2017/3/22
-Abstract: The ability to predict and therefore to anticipate the future is an important attribute of intelligence. It is also of utmost importance in real-time systems, e.g. in robotics or autonomous driving, which depend on visual scene understanding for decision making. While prediction of the raw RGB pixel values in future video frames has been studied in previous work, here we introduce the novel task of predicting semantic segmentations of future frames. Given a sequence of video frames, our goal is to predict segmentation maps of not yet observed video frames that lie up to a second or further in the future. We develop an autoregressive convolutional neural network that learns to iteratively generate multiple frames. Our results on the Cityscapes dataset show that directly predicting future segmentations is substantially better than predicting and then segmenting future RGB frames. Prediction results up to half a second in the future are visually convincing and are much more accurate than those of a baseline based on warping semantic segmentations using optical flow.
-Subjects: cs.CV, cs.LG
-Tags: 
-}{
-ID: 1712.06343
-Title: Squeezed Convolutional Variational AutoEncoder for Unsupervised Anomaly Detection in Edge Device Industrial Internet of Things
-Authors: Dohyung Kim, Hyochang Yang, Minki Chung, Sungzoon Cho
-Date: 2017/12/18
-Abstract: In this paper, we propose Squeezed Convolutional Variational AutoEncoder (SCVAE) for anomaly detection in time series data for Edge Computing in Industrial Internet of Things (IIoT). The proposed model is applied to labeled time series data from UCI datasets for exact performance evaluation, and applied to real world data for indirect model performance comparison. In addition, by comparing the models before and after applying Fire Modules from SqueezeNet, we show that model size and inference times are reduced while similar levels of performance is maintained.
-Subjects: cs.LG
-Tags: 
-}{
-ID: 1711.07050
-Title: A Classifying Variational Autoencoder with Application to Polyphonic Music Generation
-Authors: Jay A. Hennig, Akash Umakantha, Ryan C. Williamson
-Date: 2017/11/19
-Abstract: The variational autoencoder (VAE) is a popular probabilistic generative model. However, one shortcoming of VAEs is that the latent variables cannot be discrete, which makes it difficult to generate data from different modes of a distribution. Here, we propose an extension of the VAE framework that incorporates a classifier to infer the discrete class of the modeled data. To model sequential data, we can combine our Classifying VAE with a recurrent neural network such as an LSTM. We apply this model to algorithmic music generation, where our model learns to generate musical sequences in different keys. Most previous work in this area avoids modeling key by transposing data into only one or two keys, as opposed to the 10+ different keys in the original music. We show that our Classifying VAE and Classifying VAE+LSTM models outperform the corresponding non-classifying models in generating musical samples that stay in key. This benefit is especially apparent when trained on untransposed music data in the original keys.
-Subjects: stat.ML, cs.LG
-Tags: 
-}{
-ID: 1711.04915
-Title: Adversarial Symmetric Variational Autoencoder
-Authors: Yunchen Pu, Weiyao Wang, Ricardo Henao, Liqun Chen, Zhe Gan, Chunyuan Li, Lawrence Carin
-Date: 2017/11/14
-Abstract: A new form of variational autoencoder (VAE) is developed, in which the joint distribution of data and codes is considered in two (symmetric) forms: ($i$) from observed data fed through the encoder to yield codes, and ($ii$) from latent codes drawn from a simple prior and propagated through the decoder to manifest data. Lower bounds are learned for marginal log-likelihood fits observed data and latent codes. When learning with the variational bound, one seeks to minimize the symmetric Kullback-Leibler divergence of joint density functions from ($i$) and ($ii$), while simultaneously seeking to maximize the two marginal log-likelihoods. To facilitate learning, a new form of adversarial training is developed. An extensive set of experiments is performed, in which we demonstrate state-of-the-art data reconstruction and generation on several image benchmark datasets.
-Subjects: cs.LG
-Tags: 
-}{
-ID: 1712.07316
-Title: A Flexible Approach to Automated RNN Architecture Generation
-Authors: Martin Schrimpf, Stephen Merity, James Bradbury, Richard Socher
-Date: 2017/12/20
-Abstract: The process of designing neural architectures requires expert knowledge and extensive trial and error. While automated architecture search may simplify these requirements, the recurrent neural network (RNN) architectures generated by existing methods are limited in both flexibility and components. We propose a domain-specific language (DSL) for use in automated architecture search which can produce novel RNNs of arbitrary depth and width. The DSL is flexible enough to define standard architectures such as the Gated Recurrent Unit and Long Short Term Memory and allows the introduction of non-standard RNN components such as trigonometric curves and layer normalization. Using two different candidate generation techniques, random search with a ranking function and reinforcement learning, we explore the novel architectures produced by the RNN DSL for language modeling and machine translation domains. The resulting architectures do not follow human intuition yet perform well on their targeted tasks, suggesting the space of usable RNN architectures is far larger than previously assumed.
-Subjects: cs.CL, cs.LG, stat.ML
-Tags: 
-}{
-ID: 1005.0994
-Title: The molecular systems composed of the charmed mesons in the $H\bar{S}+h.c.$ doublet
-Authors: Lei-Lei Shen, Xiao-Lin Chen, Zhi-Gang Luo, Peng-Zhi Huang, Shi-Lin Zhu, Peng-Fei Yu, Xiang Liu
-Date: 2010/5/6
-Abstract: We study the possible heavy molecular states composed of a pair of charm mesons in the H and S doublets. Since the P-wave charm-strange mesons $D_{s0}(2317)$ and $D_{s1}(2460)$ are extremely narrow, the future experimental observation of the possible heavy molecular states composed of $D_s/D_s^\ast$ and $D_{s0}(2317)/D_{s1}(2460)$ may be feasible if they really exist. Especially the possible $J^{PC}=1^{--}$ states may be searched for via the initial state radiation technique.
-Subjects: hep-ph, hep-ex, nucl-th
-Tags: 
-}{
-ID: 1706.04223
-Title: Adversarially Regularized Autoencoders
-Authors: Junbo (Jake) Zhao, Yoon Kim, Kelly Zhang, Alexander M. Rush, Yann LeCun
-Date: 2017/6/13
-Abstract: While autoencoders are a key technique in representation learning for continuous structures, such as images or wave forms, developing general-purpose autoencoders for discrete structures, such as text sequence or discretized images, has proven to be more challenging. In particular, discrete inputs make it more difficult to learn a smooth encoder that preserves the complex local relationships in the input space. In this work, we propose an adversarially regularized autoencoder (ARAE) with the goal of learning more robust discrete-space representations. ARAE jointly trains both a rich discrete-space encoder, such as an RNN, and a simpler continuous space generator function, while using generative adversarial network (GAN) training to constrain the distributions to be similar. This method yields a smoother contracted code space that maps similar inputs to nearby codes, and also an implicit latent variable GAN model for generation. Experiments on text and discretized images demonstrate that the GAN model produces clean interpolations and captures the multimodality of the original space, and that the autoencoder produces improve- ments in semi-supervised learning as well as state-of-the-art results in unaligned text style transfer task using only a shared continuous-space representation.
-Subjects: cs.LG, cs.CL, cs.NE
-Tags: 
-}{
-ID: 1711.05175
-Title: Conditional Autoencoders with Adversarial Information Factorization
-Authors: Antonia Creswell, Anil A Bharath, Biswa Sengupta
-Date: 2017/11/14
-Abstract: Generative models, such as variational auto-encoders (VAE) and generative adversarial networks (GAN), have been immensely successful in approximating image statistics in computer vision. VAEs are useful for unsupervised feature learning, while GANs alleviate supervision by penalizing inaccurate samples using an adversarial game. In order to utilize benefits of these two approaches, we combine the VAE under an adversarial setup with auxiliary label information. We show that factorizing the latent space to separate the information needed for reconstruction (a continuous space) from the information needed for image attribute classification (a discrete space), enables the capability to edit specific attributes of an image.
-Subjects: cs.CV
-Tags: 
-}{
-ID: 1711.07632
-Title: Generating Thematic Chinese Poetry with Conditional Variational Autoencoder
-Authors: Xiaopeng Yang, Xiaowen Lin, Shunda Suo, Ming Li
-Date: 2017/11/21
-Abstract: Computer poetry generation is our first step towards computer writing. Writing must have a theme. The current approaches of using sequence-to-sequence models with attention often produce non-thematic poems. We present a conditional variational autoencoder with augmented word2vec architecture that explicitly represents the topic or theme information. This approach significantly improves the relevance of the generated poems by representing each line of the poem not only in a context-sensitive manner but also in a holistic way that is highly related to the given keyword and the learned topic. The proposed augmented word2vec model further improves the rhythm and symmetry. We also present a straightforward evaluation metric RHYTHM score to automatically measure the rule-consistency of generated poems. Tests show that 45.24% generated poems by our model are judged by humans to be written by real people.
-Subjects: cs.CL, cs.AI, cs.LG
-Tags: 
-}{
-ID: 1712.08084
-Title: AVEID: Automatic Video System for Measuring Engagement In Dementia
-Authors: Viral Parekh, Pin Sym Foong, Shendong Zhao, Ramanathan Subramanian
+ID: 1712.08244
+Title: How Well Can Generative Adversarial Networks (GAN) Learn Densities: A Nonparametric View
+Authors: Tengyuan Liang
 Date: 2017/12/21
-Abstract: Engagement in dementia is typically measured using behavior observational scales (BOS) that are tedious and involve intensive manual labor to annotate, and are therefore not easily scalable. We propose AVEID, a low cost and easy-to-use video-based engagement measurement tool to determine the engagement level of a person with dementia (PwD) during digital interaction. We show that the objective behavioral measures computed via AVEID correlate well with subjective expert impressions for the popular MPES and OME BOS, confirming its viability and effectiveness. Moreover, AVEID measures can be obtained for a variety of engagement designs, thereby facilitating large-scale studies with PwD populations.
-Subjects: cs.HC, cs.CV
+Abstract: We study in this paper the rate of convergence for learning densities under the Generative Adversarial Networks (GANs) framework, borrowing insights from nonparametric statistics. We introduce an improved GAN estimator that achieves a faster rate, through leveraging the level of smoothness in the target density and the evaluation metric, which in theory remedies the mode collapse problem reported in the literature. A minimax lower bound is constructed to show that when the dimension is large, the exponent in the rate for the new GAN estimator is near optimal. One can view our results as answering in a quantitative way how well GAN learns a wide range of densities with different smoothness properties, under a hierarchy of evaluation metrics. As a byproduct, we also obtain improved bounds for GAN with deeper ReLU discriminator network.
+Subjects: stat.ML, cs.LG, math.ST
 Tags: 
 }{
-ID: 1710.09926
-Title: Image Compression: Sparse Coding vs. Bottleneck Autoencoders
-Authors: Yijing Watkins, Mohammad Sayeh, Oleksandr Iaroshenko, Garrett Kenyon
-Date: 2017/10/26
-Abstract: Bottleneck autoencoders have been actively researched as a solution to image compression tasks. In this work, we explore the ability of sparse coding to improve reconstructed image quality for the same degree of compression. We observe that sparse image compression provides qualitatively superior visual quality of reconstructed images but has lower values of PSNR and SSIM compared to bottleneck autoencoders. We hypothesized that there should be another evaluational criterion to support our subjective observations. To test this hypothesis, we fed reconstructed images from both the bottleneck autoencoder and sparse coding into a DCNN classifier and discovered that the images reconstructed from the sparse coding compression obtained on average 1.5\% higher classification accuracy compared to bottleneck autoencoders, implying that sparse coding preserves more content-relevant information.
-Subjects: cs.CV
-Tags: 
-}{
-ID: 1712.07194
-Title: Y-net: 3D intracranial artery segmentation using a convolutional autoencoder
-Authors: Li Chen, Yanjun Xie, Jie Sun, Niranjan Balu, Mahmud Mossa-Basha, Kristi Pimentel, Thomas S. Hatsukami, Jenq-Neng Hwang, Chun Yuan
-Date: 2017/12/19
-Abstract: Automated segmentation of intracranial arteries on magnetic resonance angiography (MRA) allows for quantification of cerebrovascular features, which provides tools for understanding aging and pathophysiological adaptations of the cerebrovascular system. Using a convolutional autoencoder (CAE) for segmentation is promising as it takes advantage of the autoencoder structure in effective noise reduction and feature extraction by representing high dimensional information with low dimensional latent variables. In this report, an optimized CAE model (Y-net) was trained to learn a 3D segmentation model of intracranial arteries from 49 cases of MRA data. The trained model was shown to perform better than the three traditional segmentation methods in both binary classification and visual evaluation.
-Subjects: eess.IV, cs.CV
-Tags: 
-}{
-ID: 1711.06047
-Title: Deep Matching Autoencoders
-Authors: Tanmoy Mukherjee, Makoto Yamada, Timothy M. Hospedales
-Date: 2017/11/16
-Abstract: Increasingly many real world tasks involve data in multiple modalities or views. This has motivated the development of many effective algorithms for learning a common latent space to relate multiple domains. However, most existing cross-view learning algorithms assume access to paired data for training. Their applicability is thus limited as the paired data assumption is often violated in practice: many tasks have only a small subset of data available with pairing annotation, or even no paired data at all. In this paper we introduce Deep Matching Autoencoders (DMAE), which learn a common latent space and pairing from unpaired multi-modal data. Specifically we formulate this as a cross-domain representation learning and object matching problem. We simultaneously optimise parameters of representation learning auto-encoders and the pairing of unpaired multi-modal data. This framework elegantly spans the full regime from fully supervised, semi-supervised, and unsupervised (no paired data) multi-modal learning. We show promising results in image captioning, and on a new task that is uniquely enabled by our methodology: unsupervised classifier learning.
-Subjects: cs.CV, stat.ML
-Tags: 
-}{
-ID: 1711.08763
-Title: DeepPainter: Painter Classification Using Deep Convolutional Autoencoders
-Authors: Eli David, Nathan S. Netanyahu
-Date: 2017/11/23
-Abstract: In this paper we describe the problem of painter classification, and propose a novel approach based on deep convolutional autoencoder neural networks. While previous approaches relied on image processing and manual feature extraction from paintings, our approach operates on the raw pixel level, without any preprocessing or manual feature extraction. We first train a deep convolutional autoencoder on a dataset of paintings, and subsequently use it to initialize a supervised convolutional neural network for the classification phase. The proposed approach substantially outperforms previous methods, improving the previous state-of-the-art for the 3-painter classification problem from 90.44% accuracy (previous state-of-the-art) to 96.52% accuracy, i.e., a 63% reduction in error rate.
-Subjects: cs.CV, cs.LG, cs.NE, stat.ML
-Tags: 
-}{
-ID: 1712.07788
-Title: Deep Unsupervised Clustering Using Mixture of Autoencoders
-Authors: Dejiao Zhang, Yifan Sun, Brian Eriksson, Laura Balzano
+ID: 1712.08124
+Title: Phonon transport unveils the prevalent point defects in GaN
+Authors: Ankita Katre, Jes?s Carrete, Tao Wang, Georg K. H. Madsen, Natalio Mingo
 Date: 2017/12/21
-Abstract: Unsupervised clustering is one of the most fundamental challenges in machine learning. A popular hypothesis is that data are generated from a union of low-dimensional nonlinear manifolds; thus an approach to clustering is identifying and separating these manifolds. In this paper, we present a novel approach to solve this problem by using a mixture of autoencoders. Our model consists of two parts: 1) a collection of autoencoders where each autoencoder learns the underlying manifold of a group of similar objects, and 2) a mixture assignment neural network, which takes the concatenated latent vectors from the autoencoders as input and infers the distribution over clusters. By jointly optimizing the two parts, we simultaneously assign data to clusters and learn the underlying manifolds of each cluster.
-Subjects: cs.LG, stat.ML
-Tags: 
-}{
-ID: 1711.11479
-Title: Auxiliary Guided Autoregressive Variational Autoencoders
-Authors: Thomas Lucas, Jakob Verbeek
-Date: 2017/11/30
-Abstract: Generative modeling of high-dimensional data is a key problem in machine learning. Successful approaches include latent variable models and autoregressive models. The complementary strengths of these approaches, to model global and local image statistics respectively, suggest hybrid models combining the strengths of both models. Our contribution is to train such hybrid models using an auxiliary loss function that controls which information is captured by the latent variables and what is left to the autoregressive decoder. In contrast, prior work on such hybrid models needed to limit the capacity of the autoregressive decoder to prevent degenerate models that ignore the latent variables and only rely on autoregressive modeling. Our approach results in models with meaningful latent variable representations, and which rely on powerful autoregressive decoders to model image details. Our model generates qualitatively convincing samples, and yields state-of-the-art quantitative results.
-Subjects: cs.CV
+Abstract: Determining the types and concentrations of vacancies present in intentionally doped GaN is a notoriously difficult and long-debated problem. Here we use an unconventional approach, based on thermal transport modeling, to determine the prevalence of vacancies in previous measurements. This allows us to provide conclusive evidence of the recent hypothesis that gallium vacancies in ammonothermally grown samples can be complexed with hydrogen. Our calculations for O-doped and Mg-O co-doped samples yield a consistent picture interlinking dopant and vacancy concentration, carrier density, and thermal conductivity, in excellent agreement with experimental measurements. These results also highlight the predictive power of ab initio phonon transport modeling, and its value for understanding and quantifying defects in semiconductors.
+Subjects: cond-mat.mtrl-sci
 Tags: 
 }{
 ID: 1712.09553
@@ -215,6 +23,22 @@ Abstract: The isoelectric point (IEP or pI) is the pH where the net charge on th
 Subjects: q-bio.BM, cs.LG, q-bio.QM
 Tags: 
 }{
+ID: 1712.09185
+Title: Actionable Email Intent Modeling with Reparametrized RNNs
+Authors: Chu-Cheng Lin, Dongyeop Kang, Michael Gamon, Madian Khabsa, Ahmed Hassan Awadallah, Patrick Pantel
+Date: 2017/12/26
+Abstract: Emails in the workplace are often intentional calls to action for its recipients. We propose to annotate these emails for what action its recipient will take. We argue that our approach of action-based annotation is more scalable and theory-agnostic than traditional speech-act-based email intent annotation, while still carrying important semantic and pragmatic information. We show that our action-based annotation scheme achieves good inter-annotator agreement. We also show that we can leverage threaded messages from other domains, which exhibit comparable intents in their conversation, with domain adaptive RAINBOW (Recurrently AttentIve Neural Bag-Of-Words). On a collection of datasets consisting of IRC, Reddit, and email, our reparametrized RNNs outperform common multitask/multidomain approaches on several speech act related tasks. We also experiment with a minimally supervised scenario of email recipient action classification, and find the reparametrized RNNs learn a useful representation.
+Subjects: cs.CL
+Tags: 
+}{
+ID: 1712.07316
+Title: A Flexible Approach to Automated RNN Architecture Generation
+Authors: Martin Schrimpf, Stephen Merity, James Bradbury, Richard Socher
+Date: 2017/12/20
+Abstract: The process of designing neural architectures requires expert knowledge and extensive trial and error. While automated architecture search may simplify these requirements, the recurrent neural network (RNN) architectures generated by existing methods are limited in both flexibility and components. We propose a domain-specific language (DSL) for use in automated architecture search which can produce novel RNNs of arbitrary depth and width. The DSL is flexible enough to define standard architectures such as the Gated Recurrent Unit and Long Short Term Memory and allows the introduction of non-standard RNN components such as trigonometric curves and layer normalization. Using two different candidate generation techniques, random search with a ranking function and reinforcement learning, we explore the novel architectures produced by the RNN DSL for language modeling and machine translation domains. The resulting architectures do not follow human intuition yet perform well on their targeted tasks, suggesting the space of usable RNN architectures is far larger than previously assumed.
+Subjects: cs.CL, cs.LG, stat.ML
+Tags: 
+}{
 ID: 1712.05109
 Title: Online Motion Generation with Sensory Information and Instructions by Hierarchical RNN
 Authors: Kanata Suzuki, Hiroki Mori, Tetsuya Ogata
@@ -223,75 +47,51 @@ Abstract: This paper proposes an approach for robots to perform co-working task 
 Subjects: cs.RO
 Tags: 
 }{
-ID: 1711.09784
-Title: Distilling a Neural Network Into a Soft Decision Tree
-Authors: Nicholas Frosst, Geoffrey Hinton
-Date: 2017/11/27
-Abstract: Deep neural networks have proved to be a very effective way to perform classification tasks. They excel when the input data is high dimensional, the relationship between the input and the output is complicated, and the number of labeled training examples is large. But it is hard to explain why a learned network makes a particular classification decision on a particular test case. This is due to their reliance on distributed hierarchical representations. If we could take the knowledge acquired by the neural net and express the same knowledge in a model that relies on hierarchical decisions instead, explaining a particular decision would be much easier. We describe a way of using a trained neural net to create a type of soft decision tree that generalizes better than one learned directly from the training data.
-Subjects: cs.LG, cs.AI, stat.ML
+ID: 1712.03941
+Title: Fast Nearest-Neighbor Classification using RNN in Domains with Large Number of Classes
+Authors: Gautam Singh, Gargi Dasgupta, Yu Deng
+Date: 2017/12/11
+Abstract: In scenarios involving text classification where the number of classes is large (in multiples of 10000s) and training samples for each class are few and often verbose, nearest neighbor methods are effective but very slow in computing a similarity score with training samples of every class. On the other hand, machine learning models are fast at runtime but training them adequately is not feasible using few available training samples per class. In this paper, we propose a hybrid approach that cascades 1) a fast but less-accurate recurrent neural network (RNN) model and 2) a slow but more-accurate nearest-neighbor model using bag of syntactic features. Using the cascaded approach, our experiments, performed on data set from IT support services where customer complaint text needs to be classified to return top-$N$ possible error codes, show that the query-time of the slow system is reduced to $1/6^{th}$ while its accuracy is being improved. Our approach outperforms an LSH-based baseline for query-time reduction. We also derive a lower bound on the accuracy of the cascaded model in terms of the accuracies of the individual models. In any two-stage approach, choosing the right number of candidates to pass on to the second stage is crucial. We prove a result that aids in choosing this cutoff number for the cascaded system.
+Subjects: cs.IR
 Tags: 
 }{
-ID: 1712.02616
-Title: In-Place Activated BatchNorm for Memory-Optimized Training of DNNs
-Authors: Samuel Rota Bul?, Lorenzo Porzi, Peter Kontschieder
-Date: 2017/12/7
-Abstract: In this work we present In-Place Activated Batch Normalization (InPlace-ABN) - a novel approach to drastically reduce the training memory footprint of modern deep neural networks in a computationally efficient way. Our solution substitutes the conventionally used succession of BatchNorm + Activation layers with a single plugin layer, hence avoiding invasive framework surgery while providing straightforward applicability for existing deep learning frameworks. We obtain memory savings of up to 50% by dropping intermediate results and by recovering required information during the backward pass through the inversion of stored forward results, with only minor increase (0.8-2%) in computation time. Also, we demonstrate how frequently used checkpointing approaches can be made computationally as efficient as InPlace-ABN. In our experiments on image classification, we demonstrate on-par results on ImageNet-1k with state-of-the-art approaches. On the memory-demanding task of semantic segmentation, we report results for COCO-Stuff, Cityscapes and Mapillary Vistas, obtaining new state-of-the-art results on the latter without additional training data but in a single-scale and -model scenario. Code can be found at this https URL .
+ID: 1711.04569
+Title: Multilingual Adaptation of RNN Based ASR Systems
+Authors: Markus M?ller, Sebastian St?ker, Alex Waibel
+Date: 2017/11/13
+Abstract: A large amount of data is required for automatic speech recognition (ASR) systems achieving good performance. While such data is readily available for languages like English, there exists a long tail of languages with only limited language resources. By using data from additional source languages, this problem can be mitigated. In this work, we focus on multilingual systems based on recurrent neural networks (RNNs), trained using the Connectionist Temporal Classification (CTC) loss function. Using a multilingual set of acoustic units to train systems jointly on multiple languages poses difficulties: While the same phones share the same symbols across languages, they are pronounced slightly different because of, e.g., small shifts in tongue positions. To address this issue, we proposed Language Feature Vectors (LFVs) to train language adaptive multilingual systems. In this work, we extended this approach by introducing a novel technique which we call "modulation" to add LFVs . We evaluated our approach in multiple conditions, showing improvements in both full and low resource conditions as well as for grapheme and phone based systems.
+Subjects: eess.AS, cs.AI, cs.CL
+Tags: 
+}{
+ID: 1711.04480
+Title: Audio-to-score alignment of piano music using RNN-based automatic music transcription
+Authors: Taegyun Kwon, Dasaem Jeong, Juhan Nam
+Date: 2017/11/13
+Abstract: We propose a framework for audio-to-score alignment on piano performance that employs automatic music transcription (AMT) using neural networks. Even though the AMT result may contain some errors, the note prediction output can be regarded as a learned feature representation that is directly comparable to MIDI note or chroma representation. To this end, we employ two recurrent neural networks that work as the AMT-based feature extractors to the alignment algorithm. One predicts the presence of 88 notes or 12 chroma in frame-level and the other detects note onsets in 12 chroma. We combine the two types of learned features for the audio-to-score alignment. For comparability, we apply dynamic time warping as an alignment algorithm without any additional post-processing. We evaluate the proposed framework on the MAPS dataset and compare it to previous work. The result shows that the alignment framework with the learned features significantly improves the accuracy, achieving less than 10 ms in mean onset error.
+Subjects: cs.SD, eess.AS
+Tags: 
+}{
+ID: 1711.06778
+Title: Excitation Backprop for RNNs
+Authors: Sarah Adel Bargal, Andrea Zunino, Donghyun Kim, Jianming Zhang, Vittorio Murino, Stan Sclaroff
+Date: 2017/11/18
+Abstract: Deep models are state-of-the-art for many vision tasks including video action recognition and video captioning. Models are trained to caption or classify activity in videos, but little is known about the evidence used to make such decisions. Grounding decisions made by deep networks has been studied in spatial visual content, giving more insight into model predictions for images. However, such studies are relatively lacking for models of spatiotemporal visual content - videos. In this work, we devise a formulation that simultaneously grounds evidence in space and time, in a single pass, using top-down saliency. We visualize the spatiotemporal cues that contribute to a deep model's classification/captioning output using the model's internal representation. Based on these spatiotemporal cues, we are able to localize segments within a video that correspond with a specific action, or phrase from a caption, without explicitly optimizing/training for these tasks.
 Subjects: cs.CV
 Tags: 
 }{
-ID: 1712.03534
-Title: Dynamics Transfer GAN: Generating Video by Transferring Arbitrary Temporal Dynamics from a Source Video to a Single Target Image
-Authors: Wissam J. Baddar, Geonmo Gu, Sangmin Lee, Yong Man Ro
-Date: 2017/12/10
-Abstract: In this paper, we propose Dynamics Transfer GAN; a new method for generating video sequences based on generative adversarial learning. The spatial constructs of a generated video sequence are acquired from the target image. The dynamics of the generated video sequence are imported from a source video sequence, with arbitrary motion, and imposed onto the target image. To preserve the spatial construct of the target image, the appearance of the source video sequence is suppressed and only the dynamics are obtained before being imposed onto the target image. That is achieved using the proposed appearance suppressed dynamics feature. Moreover, the spatial and temporal consistencies of the generated video sequence are verified via two discriminator networks. One discriminator validates the fidelity of the generated frames appearance, while the other validates the dynamic consistency of the generated video sequence. Experiments have been conducted to verify the quality of the video sequences generated by the proposed method. The results verified that Dynamics Transfer GAN successfully transferred arbitrary dynamics of the source video sequence onto a target image when generating the output video sequence. The experimental results also showed that Dynamics Transfer GAN maintained the spatial constructs (appearance) of the target image while generating spatially and temporally consistent video sequences.
-Subjects: cs.CV
+ID: 1712.09662
+Title: CNN Is All You Need
+Authors: Qiming Chen, Ren Wu
+Date: 2017/12/27
+Abstract: The Convolution Neural Network (CNN) has demonstrated the unique advantage in audio, image and text learning; recently it has also challenged Recurrent Neural Networks (RNNs) with long short-term memory cells (LSTM) in sequence-to-sequence learning, since the computations involved in CNN are easily parallelizable whereas those involved in RNN are mostly sequential, leading to a performance bottleneck. However, unlike RNN, the native CNN lacks the history sensitivity required for sequence transformation; therefore enhancing the sequential order awareness, or position-sensitivity, becomes the key to make CNN the general deep learning model. In this work we introduce an extended CNN model with strengthen position-sensitivity, called PoseNet. A notable feature of PoseNet is the asymmetric treatment of position information in the encoder and the decoder. Experiments shows that PoseNet allows us to improve the accuracy of CNN based sequence-to-sequence learning significantly, achieving around 33-36 BLEU scores on the WMT 2014 English-to-German translation task, and around 44-46 BLEU scores on the English-to-French translation task.
+Subjects: cs.CL, cs.LG, cs.NE
 Tags: 
 }{
-ID: 1711.11566
-Title: Hybrid VAE: Improving Deep Generative Models using Partial Observations
-Authors: Sergey Tulyakov, Andrew Fitzgibbon, Sebastian Nowozin
-Date: 2017/11/30
-Abstract: Deep neural network models trained on large labeled datasets are the state-of-the-art in a large variety of computer vision tasks. In many applications, however, labeled data is expensive to obtain or requires a time consuming manual annotation process. In contrast, unlabeled data is often abundant and available in large quantities. We present a principled framework to capitalize on unlabeled data by training deep generative models on both labeled and unlabeled data. We show that such a combination is beneficial because the unlabeled data acts as a data-driven form of regularization, allowing generative models trained on few labeled samples to reach the performance of fully-supervised generative models trained on much larger datasets. We call our method Hybrid VAE (H-VAE) as it contains both the generative and the discriminative parts. We validate H-VAE on three large-scale datasets of different modalities: two face datasets: (MultiPIE, CelebA) and a hand pose dataset (NYU Hand Pose). Our qualitative visualizations further support improvements achieved by using partial observations.
-Subjects: cs.LG, cs.CV
-Tags: 
-}{
-ID: 1710.04211
-Title: Sequence stacking using dual encoder Seq2Seq recurrent networks
-Authors: Alessandro Bay, Biswa Sengupta
-Date: 2017/10/11
-Abstract: A widely studied non-polynomial (NP) hard problem lies in finding a route between the two nodes of a graph. Often meta-heuristics algorithms such as $A^{*}$ are employed on graphs with a large number of nodes. Here, we propose a deep recurrent neural network architecture based on the Sequence-2-Sequence model, widely used, for instance in text translation. Particularly, we illustrate that utilising a context vector that has been learned from two different recurrent networks enables increased accuracies in learning the shortest route of a graph. Additionally, we show that one can boost the performance of the Seq2Seq network by smoothing the loss function using a homotopy continuation of the decoder's loss function.
-Subjects: cs.LG, cs.DM, cs.NE, stat.ML
-Tags: 
-}{
-ID: 1708.01837
-Title: CodeSum: Translate Program Language to Natural Language
-Authors: Xing Hu, Yuhan Wei, Ge Li, Zhi Jin
-Date: 2017/8/6
-Abstract: During software maintenance, programmers spend a lot of time on code comprehension. Reading comments is an effective way for programmers to reduce the reading and navigating time when comprehending source code. Therefore, as a critical task in software engineering, code summarization aims to generate brief natural language descriptions for source code. In this paper, we propose a new code summarization model named CodeSum. CodeSum exploits the attention-based sequence-to-sequence (Seq2Seq) neural network with Structure-based Traversal (SBT) of Abstract Syntax Trees (AST). The AST sequences generated by SBT can better present the structure of ASTs and keep unambiguous. We conduct experiments on three large-scale corpora in different program languages, i.e., Java, C#, and SQL, in which Java corpus is our new proposed industry code extracted from Github. Experimental results show that our method CodeSum outperforms the state-of-the-art significantly.
-Subjects: cs.SE
-Tags: 
-}{
-ID: 1712.09792
-Title: Siamese LSTM based Fiber Structural Similarity Network (FS2Net) for Rotation Invariant Brain Tractography Segmentation
-Authors: Shreyas Malakarjun Patil, Aditya Nigam, Arnav Bhavsar, Chiranjoy Chattopadhyay
-Date: 2017/12/28
-Abstract: In this paper, we propose a novel deep learning architecture combining stacked Bi-directional LSTM and LSTMs with the Siamese network architecture for segmentation of brain fibers, obtained from tractography data, into anatomically meaningful clusters. The proposed network learns the structural difference between fibers of different classes, which enables it to classify fibers with high accuracy. Importantly, capturing such deep inter and intra class structural relationship also ensures that the segmentation is robust to relative rotation among test and training data, hence can be used with unregistered data. Our extensive experimentation over order of hundred-thousands of fibers show that the proposed model achieves state-of-the-art results, even in cases of large relative rotations between test and training data.
-Subjects: cs.CV
-Tags: 
-}{
-ID: 1712.07449
-Title: In silico generation of novel, drug-like chemical matter using the LSTM neural network
-Authors: Peter Ertl, Richard Lewis, Eric Martin, Valery Polyakov
-Date: 2017/12/20
-Abstract: The exploration of novel chemical spaces is one of the most important tasks of cheminformatics when supporting the drug discovery process. Properly designed and trained deep neural networks can provide a viable alternative to brute-force de novo approaches or various other machine-learning techniques for generating novel drug-like molecules. In this article we present a method to generate molecules using a long short-term memory (LSTM) neural network and provide an analysis of the results, including a virtual screening test. Using the network one million drug-like molecules were generated in 2 hours. The molecules are novel, diverse (contain numerous novel chemotypes), have good physicochemical properties and have good synthetic accessibility, even though these qualities were not specific constraints. Although novel, their structural features and functional groups remain closely within the drug-like space defined by the bioactive molecules from ChEMBL. Virtual screening using the profile QSAR approach confirms that the potential of these novel molecules to show bioactivity is comparable to the ChEMBL set from which they were derived. The molecule generator written in Python used in this study is available on request.
-Subjects: cs.LG, q-bio.QM
-Tags: 
-}{
-ID: 1711.06562
-Title: An Iterative Closest Points Approach to Neural Generative Models
-Authors: Joose Rajam?ki, Perttu H?m?l?inen
-Date: 2017/11/16
-Abstract: We present a simple way to learn a transformation that maps samples of one distribution to the samples of another distribution. Our algorithm comprises an iteration of 1) drawing samples from some simple distribution and transforming them using a neural network, 2) determining pairwise correspondences between the transformed samples and training data (or a minibatch), and 3) optimizing the weights of the neural network being trained to minimize the distances between the corresponding vectors. This can be considered as a variant of the Iterative Closest Points (ICP) algorithm, common in geometric computer vision, although ICP typically operates on sensor point clouds and linear transforms instead of random sample sets and neural nonlinear transforms. We demonstrate the algorithm on simple synthetic data and MNIST data. We furthermore demonstrate that the algorithm is capable of handling distributions with both continuous and discrete variables.
-Subjects: cs.LG, cs.AI
+ID: 1412.7927
+Title: Polyphonic Music Generation by Modeling Temporal Dependencies Using a RNN-DBN
+Authors: Kratarth Goel, Raunaq Vohra, J.K. Sahoo
+Date: 2014/12/26
+Abstract: In this paper, we propose a generic technique to model temporal dependencies and sequences using a combination of a recurrent neural network and a Deep Belief Network. Our technique, RNN-DBN, is an amalgamation of the memory state of the RNN that allows it to provide temporal information and a multi-layer DBN that helps in high level representation of the data. This makes RNN-DBNs ideal for sequence generation. Further, the use of a DBN in conjunction with the RNN makes this model capable of significantly more complex data representation than an RBM. We apply this technique to the task of polyphonic music generation.
+Subjects: cs.LG, cs.AI, cs.NE
 Tags: 
 }
