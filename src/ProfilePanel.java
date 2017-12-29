@@ -5,9 +5,15 @@ import java.awt.event.*;
 
 class ProfilePanel extends ShadowPanel 
 {
+	private static final long serialVersionUID = 1L;
 	private String id;
-	private int heightOffset;
 	private OperationManager opManager;
+	private JLabel titleLabel;
+	private JLabel authorLabel;
+	private JLabel dateLabel;
+	private JLabel subjectLabel;
+	private JLabel abstractLabel;
+	private JLabel tagLabel;
 
 	
 	/*--------------------------------
@@ -36,35 +42,12 @@ class ProfilePanel extends ShadowPanel
 		centerPanel.setBackground(new Color(0, 0, 0, 0));
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
-		//Title label-------------------------------
-		JLabel titleLabel = new JLabel(
-			"<html><font size='7' face='Verdana' color='#00FFFF'>&nbsp;</font></html>"
-		);
-
-		//Author label------------------------------
-		JLabel authorLabel = new JLabel(
-			"<html><font size='5' face='Verdana' color='white'>&nbsp; Authors: </font></html>"
-		);
-
-		//Date label---------------------------------
-		JLabel dateLabel = new JLabel(
-			"<html><font size='5' face='Verdana' color='white'>&nbsp; Date: </font></html>"
-		);
-
-		//Abstract label-----------------------------
-		JLabel abstractLabel = new JLabel(
-			"<html><font size='5' face='Verdana' color='white'>&nbsp; Abstract: </font></html>"
-		);
-
-		//Subject label------------------------------
-		JLabel subjectLabel = new JLabel(
-			"<html><font size='5' face='Verdana' color='white'>&nbsp; Subjects: </font></html>"
-		);
-
-		//Tag label-----------------------------------
-		JLabel tagLabel = new JLabel(
-			"<html><font size='5' face='Verdana' color='white'>&nbsp; Tags: </font></html>"
-		);
+		titleLabel = new JLabel();
+		authorLabel = new JLabel();
+		dateLabel = new JLabel();
+		abstractLabel = new JLabel();
+		subjectLabel = new JLabel();
+		tagLabel = new JLabel();
 
 		centerPanel.add(titleLabel);
 		centerPanel.add(Box.createVerticalGlue());
@@ -104,7 +87,7 @@ class ProfilePanel extends ShadowPanel
 		downloadBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				opManager.startDownload(id);
+				
 			}
 		});
 		
@@ -112,10 +95,65 @@ class ProfilePanel extends ShadowPanel
 		southPanel.add(downloadBtn);
 		add(southPanel, BorderLayout.SOUTH);
 	}
+	
+	
+	/*--------------------------------
+	Set paper info
+	--------------------------------*/
+	public void setPaperInfo(PaperInfo info)
+	{
+		//Title label-------------------------------
+		titleLabel.setText(
+			"<html><font size='7' face='Verdana' color='#00FFFF'>&nbsp; " + info.title + "</font></html>"
+		);
+
+		//Author label------------------------------
+		String authors = "";
+		for (int i = 0; i < info.authors.size() - 1; ++i)
+			authors += info.authors.get(i) + ", ";
+		authors += info.authors.get(info.authors.size() - 1);
+
+		authorLabel.setText(
+			"<html><font size='5' face='Verdana' color='white'>&nbsp; Authors: " + authors + "</font></html>"
+		);
+
+		//Date label---------------------------------
+		dateLabel.setText(
+			"<html><font size='5' face='Verdana' color='white'>&nbsp; Date: " 
+			+ info.date[0] + "/" + info.date[1] + "/" + info.date[2] + "</font></html>"
+		);
+
+		//Abstract label-----------------------------
+		abstractLabel.setText(
+			"<html><font size='5' face='Verdana' color='white'>&nbsp; Abstract:\n" + info.abs + "</font></html>"
+		);
+
+		//Subject label------------------------------
+		String subs = "";
+		for (int i = 0; i < info.subjects.size() - 1; ++i)
+			subs += info.subjects.get(i) + ", ";
+		subs += info.subjects.get(info.subjects.size() - 1);
+		subjectLabel.setText(
+			"<html><font size='5' face='Verdana' color='white'>&nbsp; Subjects: " + subs + "</font></html>"
+		);
+
+		//Tag label-----------------------------------
+		String tags = "";
+		if (info.tags != null && info.tags.size() > 0) 
+		{
+			for (int i = 0; i < info.tags.size() - 1; ++i)
+				tags += info.tags.get(i) + ", ";
+			tags += info.tags.get(info.tags.size() - 1);
+		}
+				
+		tagLabel.setText(
+			"<html><font size='5' face='Verdana' color='white'>&nbsp; Tags: " + tags + "</font></html>"
+		);
+	}
 
 	
 	/*--------------------------------
-	Set panel shape
+	Access id
 	--------------------------------*/
 	public String getId() 
 	{
@@ -134,8 +172,8 @@ class ProfilePanel extends ShadowPanel
 	--------------------------------*/
 	public void setShape(int width) 
 	{
-		setMinimumSize(new Dimension(100, 270 + heightOffset * 20));
-		setMaximumSize(new Dimension(2048, 270 + heightOffset * 20));
-		setPreferredSize(new Dimension(width, 270 + heightOffset * 20));
+		setMinimumSize(new Dimension(100, 270));
+		setMaximumSize(new Dimension(2048, 1024));
+		setPreferredSize(new Dimension(width, 1024));
 	}
 }

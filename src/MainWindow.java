@@ -1,4 +1,8 @@
 import javax.swing.*;
+import javax.swing.event.TreeExpansionEvent;
+import javax.swing.event.TreeExpansionListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
@@ -28,6 +32,7 @@ public class MainWindow
 	private JPanel contentPanel;
 	private JPanel statPanel;
 	private JPanel scalePanel;
+	private ProfilePanel profilePanel;
 	private JLabel statLabel;
 	private float layoutScale;
 	private JTextField searchText;
@@ -193,9 +198,29 @@ public class MainWindow
 		treeModel = new DefaultTreeModel(root);
 		tree = new JTree(treeModel);
 		tree.setBackground(new Color(0, 0, 0, 0));
-		tree.addMouseListener(new MouseAdapter()
+		tree.addTreeSelectionListener(new TreeSelectionListener()
 		{
-			public void mouseReleased(MouseEvent me)
+			public void valueChanged(TreeSelectionEvent e)
+			{
+				DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
+				System.out.println((String)node.getUserObject());
+				
+				inspectorPanel.revalidate();
+				inspectorPanel.repaint();
+				inspectorScrollPane.updateUI();
+			}
+		});
+		tree.addTreeExpansionListener(new TreeExpansionListener()
+		{
+			public void treeExpanded(TreeExpansionEvent e)
+			{
+				inspectorPanel.setPreferredSize(new Dimension(100, tree.getHeight() + 100));
+				inspectorPanel.revalidate();
+				inspectorPanel.repaint();
+				inspectorScrollPane.updateUI();
+			}
+			
+			public void treeCollapsed(TreeExpansionEvent e)
 			{
 				inspectorPanel.setPreferredSize(new Dimension(100, tree.getHeight() + 100));
 				inspectorPanel.revalidate();
@@ -275,7 +300,8 @@ public class MainWindow
 		profileContentPanel.setBackground(new Color(150, 150, 150, 150));
 		profileContentPanel.setLayout(new BoxLayout(profileContentPanel, BoxLayout.Y_AXIS));
 		
-		ProfilePanel profilePanel = new ProfilePanel(opManager);
+		profilePanel = new ProfilePanel(opManager);
+		profilePanel.setVisible(false);
 		profileContentPanel.add(profilePanel);
 		
 		contentTabbedPane = new JTabbedPane();
@@ -433,6 +459,16 @@ public class MainWindow
 		statLabel.setText(
 			"<html><font size='4' face='Verdana'>&nbsp; " + str + "</font></html>"
 		);
+	}
+	
+	
+	/*---------------------------------
+	Set profile paper info
+	---------------------------------*/
+	public void setProfilePaperInfo(PaperInfo info)
+	{
+		profilePanel.setPaperInfo(info);
+		profilePanel.setVisible(true);
 	}
 	
 	

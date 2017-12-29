@@ -8,6 +8,8 @@ class ItemPanel extends ShadowPanel
 	private String id;
 	private int heightOffset;
 	private OperationManager opManager;
+	private JButton viewBtn;
+	private JButton downloadBtn;
 
 	
 	/*--------------------------------
@@ -130,7 +132,7 @@ class ItemPanel extends ShadowPanel
 		southPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
 		//View button---------------------------------
-		JButton viewBtn = new JButton("View");
+		viewBtn = new JButton("View");
 		viewBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -139,11 +141,11 @@ class ItemPanel extends ShadowPanel
 		});
 		
 		//Download button------------------------------
-		JButton downloadBtn = new JButton("Download");
+		downloadBtn = new JButton("Download");
 		downloadBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				opManager.startDownload(id);
+				opManager.startDownload(id, downloadBtn);
 			}
 		});
 		
@@ -177,4 +179,12 @@ class ItemPanel extends ShadowPanel
 		setMaximumSize(new Dimension(2048, 270 + heightOffset * 20));
 		setPreferredSize(new Dimension(width, 270 + heightOffset * 20));
 	}
+	
+	/*--------------------------------
+	Set download button enable/disable
+	--------------------------------*/
+	public void setDownloadBtn(boolean b) {
+		downloadBtn.setEnabled(b);
+	}
+	
 }

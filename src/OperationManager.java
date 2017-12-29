@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.util.Arrays;
 
+import javax.swing.JButton;
+
 public class OperationManager {
 	private MainWindow window;
 	private boolean isSearching;
@@ -54,7 +56,9 @@ public class OperationManager {
 
 		for (String id : id_list) {
 			PaperInfo info_temp = ArxivParser.GetPaperInfo(ArxivParser.BuildURL(id, "abs"));
-			window.addItem(info_temp);
+			ItemPanel p = window.addItem(info_temp);
+			if(pinfoManager.hasKey(id))
+				p.setDownloadBtn(false);
 		}
 
 		isSearching = false;
@@ -93,8 +97,8 @@ public class OperationManager {
 	/*---------------------------------
 	Start download
 	---------------------------------*/
-	public void startDownload(String id) {
-		Thread t1 = new downloadThread(id);
+	public void startDownload(String id, JButton b) {
+		Thread t1 = new downloadThread(id, b);
 		t1.start();
 		window.repaintScreen();
 	}
@@ -126,9 +130,11 @@ public class OperationManager {
 	---------------------------------*/
 	public class downloadThread extends Thread {
 		String id;
+		JButton btn;
 
-		public downloadThread(String id) {
+		public downloadThread(String id, JButton b) {
 			this.id = id;
+			this.btn = b;
 		}
 
 		public void run() {
@@ -143,6 +149,7 @@ public class OperationManager {
 				pinfoManager.SaveInfo();
 				// System.out.println(info_temp.Out());
 				window.setState("");
+				btn.setEnabled(false);
 				window.repaintScreen();
 			}
 		}
