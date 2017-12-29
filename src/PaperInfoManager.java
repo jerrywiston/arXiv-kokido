@@ -9,14 +9,20 @@ public class PaperInfoManager {
 	
 	public PaperInfoManager() {
 		File kidoFile = new File(kidoStr);
-		if(kidoFile.exists())
+		if(kidoFile.exists() && kidoFile.length()>0) {
 			paperInfoMap = KidoFileHandle.LoadKido(kidoStr);
-		else
+		}
+		else {
 			paperInfoMap = new LinkedHashMap<>();
+		}
 	}
 	
 	public void AddInfo(PaperInfo p) {
 		paperInfoMap.put(p.id, p);
+	}
+	
+	public void RemoveInfo(String id) {
+		paperInfoMap.remove(id);
 	}
 	
 	public void SaveInfo() {

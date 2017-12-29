@@ -101,7 +101,8 @@ class ProfilePanel extends ShadowPanel
 		downloadBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				
+				opManager.removeInfo(id);
+				opManager.setProfileVisible(false);
 			}
 		});
 		

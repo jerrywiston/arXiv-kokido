@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -31,17 +32,49 @@ public class OperationManager {
 	}
 
 	/*---------------------------------
+	Save PaperInfoMap
+	---------------------------------*/
+	public void removeInfo(String id) {
+		pinfoManager.RemoveInfo(id);
+		pinfoManager.SaveInfo();
+		pinfoManager.RefreshNode(window);
+		removeFile(id);
+	}
+
+	public void removeFile(String id) {
+		try {
+			File file = new File("paper_file/" + id + ".pdf");
+			if (file.delete()) {
+				window.setState(file.getName() + " is deleted!");
+			} else {
+				window.setState("Delete operation is failed.");
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+	}
+
+	/*---------------------------------
 	Refresh Map
 	---------------------------------*/
 	public void Refresh() {
 		pinfoManager.RefreshNode(window);
 	}
-	
+
 	/*---------------------------------
 	Set window
 	---------------------------------*/
 	public PaperInfo getInfo(String id) {
 		return pinfoManager.getPaperInfoMap().get(id);
+	}
+
+	/*---------------------------------
+	Set profile visible
+	---------------------------------*/
+	public void setProfileVisible(boolean b) {
+		window.setProfileVisible(false);
 	}
 
 	/*---------------------------------
@@ -64,7 +97,7 @@ public class OperationManager {
 		for (String id : id_list) {
 			PaperInfo info_temp = ArxivParser.GetPaperInfo(ArxivParser.BuildURL(id, "abs"));
 			ItemPanel p = window.addItem(info_temp);
-			if(pinfoManager.hasKey(id))
+			if (pinfoManager.hasKey(id))
 				p.setDownloadBtn(false);
 		}
 
@@ -77,7 +110,7 @@ public class OperationManager {
 	---------------------------------*/
 	public void view(String id, boolean showInBrowser) {
 		String str;
-		if(showInBrowser)
+		if (showInBrowser)
 			str = "start " + ArxivParser.BuildURL(id, "pdf");
 		else
 			str = "start " + "paper_file/" + id + ".pdf";

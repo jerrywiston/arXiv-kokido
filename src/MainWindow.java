@@ -213,7 +213,7 @@ public class MainWindow
 			public void valueChanged(TreeSelectionEvent e)
 			{
 				DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
-				if(node.isLeaf()) 
+				if(node!=null && node.isLeaf() && (String)node.getUserObject()!="Root") 
 				{
 					String id = ((String)node.getUserObject()).split("\\[")[1].split("\\]")[0];
 					setProfilePaperInfo(opManager.getInfo(id));
@@ -570,6 +570,12 @@ public class MainWindow
 		}
 	}
 	
+	/*---------------------------------
+	Profile Panel visible
+	---------------------------------*/
+	public void setProfileVisible(boolean b) {
+		profilePanel.setVisible(b);
+	}
 	
 	/*---------------------------------
 	Repaint Screen
