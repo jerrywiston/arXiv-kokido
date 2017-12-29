@@ -16,8 +16,17 @@ import java.util.Enumeration;
 
 public class MainWindow
 {
-	private final String[] searchTypeOptions = {
+	private static final String[] searchTypeOptions = {
 		"Titles", "Authors", "Abstracts"
+	};
+	private static final String[] filterOptions = {
+		"Subjects", "Tags", "None"
+	};
+	private static final String[] sortOptions = {
+		"Recent", "Date", "Alphabet"
+	};
+	private static final String[] orderOptions = {
+		"Ascent", "Decent"
 	};
 	
 	private GridBagLayout windowLayout;
@@ -27,6 +36,7 @@ public class MainWindow
 	private JScrollPane inspectorScrollPane;
 	private JPanel backPanel;
 	private JPanel inspectorPanel;
+	private JPanel filterPanel;
 	private JPanel searchPanel;
 	private JPanel profileContentPanel;
 	private JPanel contentPanel;
@@ -36,11 +46,15 @@ public class MainWindow
 	private JLabel statLabel;
 	private float layoutScale;
 	private JTextField searchText;
+	private JTextField filterText;
 	private List<ShadowPanel> itemList;
 	private OperationManager opManager;
 	private int width;
 	private int height;
 	JComboBox<String> searchTypeComboBox;
+	JComboBox<String> filterComboBox;
+	JComboBox<String> sortComboBox;
+	JComboBox<String> orderComboBox;
 	DefaultTreeModel treeModel;
 	DefaultMutableTreeNode root;
 	JTree tree;
@@ -72,6 +86,7 @@ public class MainWindow
 		createSearchPanel();
 		createContentPanel();
 		createStatePanel();
+		createFilterPanel();
 		createScalePanel();
 
 		//Create the background panel--------------
@@ -84,10 +99,17 @@ public class MainWindow
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.weightx = 1 - layoutScale;
-		gbc.weighty = 0.99;
+		gbc.weighty = 0.06;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		gbc.gridheight = 2;
+		gbc.gridheight = 1;
+		backPanel.add(filterPanel, gbc);
+		
+		gbc.weightx = 1 - layoutScale;
+		gbc.weighty = 0.93;
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.gridheight = 1;
 		backPanel.add(inspectorScrollPane, gbc);
 
 		gbc.weightx = 0;
@@ -98,14 +120,14 @@ public class MainWindow
 		backPanel.add(scalePanel, gbc);
 
 		gbc.weightx = layoutScale;
-		gbc.weighty = 0.02;
+		gbc.weighty = 0.06;
 		gbc.gridx = 2;
 		gbc.gridy = 0;
 		gbc.gridheight = 1;
 		backPanel.add(searchPanel, gbc);
 
 		gbc.weightx = layoutScale;
-		gbc.weighty = 0.97;
+		gbc.weighty = 0.93;
 		gbc.gridx = 2;
 		gbc.gridy = 1;
 		gbc.gridheight = 1;
@@ -341,6 +363,79 @@ public class MainWindow
 	
 	
 	/*---------------------------------
+	Create the filter panel
+	---------------------------------*/
+	private void createFilterPanel()
+	{
+		filterPanel = new ShadowPanel();
+		filterPanel.setBackground(new Color(80, 80, 80, 200));
+		filterPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 20));
+
+		//Search text
+		filterText = new JTextField(12);
+		filterText.setPreferredSize(new Dimension(128, 32));
+		filterText.setFont(new Font(Font.DIALOG, Font.PLAIN, 12));
+		
+		//Search button
+		JButton searchBtn = new JButton("Search");
+		searchBtn.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+				
+			}
+		});
+		
+		//Filter labels
+		JLabel filterLabel = new JLabel(
+			"<html><font size='3' face='Verdana' color='white'>Class:</font></html>"
+		);
+		JLabel sortLabel = new JLabel(
+			"<html><font size='3' face='Verdana' color='white'>Sort:</font></html>"
+		);
+		JLabel orderLabel = new JLabel(
+			"<html><font size='3' face='Verdana' color='white'>Order:</font></html>"
+		);
+		
+		//Filter combo box
+		filterComboBox = new JComboBox<String>(filterOptions);
+		filterComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				
+			}
+		});
+		
+		//Sort combo box
+		sortComboBox = new JComboBox<String>(sortOptions);
+		sortComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				
+			}
+		});
+		
+		//Order combo box
+		orderComboBox = new JComboBox<String>(orderOptions);
+		orderComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				
+			}
+		});
+				
+		filterPanel.add(filterText);
+		filterPanel.add(searchBtn);
+		filterPanel.add(filterLabel);
+		filterPanel.add(filterComboBox);
+		filterPanel.add(sortLabel);
+		filterPanel.add(sortComboBox);
+		filterPanel.add(orderLabel);
+		filterPanel.add(orderComboBox);
+	}
+	
+	
+	/*---------------------------------
 	Create the scale panel
 	---------------------------------*/
 	private void createScalePanel()
@@ -402,21 +497,29 @@ public class MainWindow
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.weightx = 1 - layoutScale;
-		gbc.weighty = 0.99;
+		gbc.weighty = 0.06;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		gbc.gridheight = 2;
+		gbc.gridheight = 1;
+		windowLayout.setConstraints(filterPanel, gbc);
+		
+		gbc.weightx = 1 - layoutScale;
+		gbc.weighty = 0.93;
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.gridheight = 1;
 		windowLayout.setConstraints(inspectorScrollPane, gbc);
+		
 
 		gbc.weightx = layoutScale;
-		gbc.weighty = 0.02;
+		gbc.weighty = 0.06;
 		gbc.gridx = 2;
 		gbc.gridy = 0;
 		gbc.gridheight = 1;
 		windowLayout.setConstraints(searchPanel, gbc);
 
 		gbc.weightx = layoutScale;
-		gbc.weighty = 0.97;
+		gbc.weighty = 0.93;
 		gbc.gridx = 2;
 		gbc.gridy = 1;
 		gbc.gridheight = 1;
