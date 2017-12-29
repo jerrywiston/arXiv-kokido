@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 
@@ -37,7 +39,7 @@ public class OperationManager {
 	public void removeInfo(String id) {
 		pinfoManager.RemoveInfo(id);
 		pinfoManager.SaveInfo();
-		pinfoManager.RefreshNode(window);
+		refreshNode();
 		removeFile(id);
 	}
 
@@ -56,13 +58,7 @@ public class OperationManager {
 		}
 	}
 
-	/*---------------------------------
-	Refresh Map
-	---------------------------------*/
-	public void Refresh() {
-		pinfoManager.RefreshNode(window);
-	}
-
+	
 	/*---------------------------------
 	Set window
 	---------------------------------*/
@@ -122,7 +118,24 @@ public class OperationManager {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/*---------------------------------
+	Refresh Map
+	---------------------------------*/
+	public void refreshNode() {
+		Map<String, PaperInfo> paperInfoMap = pinfoManager.getPaperInfoMap();
+		window.ClearTreeNode();
+		ClassSortList cs = new ClassSortList(paperInfoMap);
+		Map<String, List<String>> result = cs.Result("subjects", "date", true);
+		for (Map.Entry<String, List<String>> idClass : result.entrySet()) {
+			String className = idClass.getKey();
+			window.addTreeNode("Root", className);
+			for(String id: idClass.getValue()) {
+				window.addTreeNode(className, "[" + id  + "] " + paperInfoMap.get(id).title);
+			}
+		}	
+	}
+	
 	/*---------------------------------
 	Start search
 	---------------------------------*/
@@ -189,8 +202,8 @@ public class OperationManager {
 				ArxivParser.Download("paper_file", req, false);
 				PaperInfo info_temp = ArxivParser.GetPaperInfo(ArxivParser.BuildURL(id, "abs"));
 				pinfoManager.AddInfo(info_temp);
-				pinfoManager.RefreshNode(window);
 				pinfoManager.SaveInfo();
+				refreshNode();
 				// System.out.println(info_temp.Out());
 				window.setState("");
 				btn.setEnabled(false);

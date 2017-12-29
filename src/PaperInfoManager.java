@@ -41,20 +41,4 @@ public class PaperInfoManager {
 		return paperInfoMap;
 	}
 	
-	public void RefreshNode(MainWindow m) {
-		m.ClearTreeNode();
-		ClassSortList cs = new ClassSortList(paperInfoMap);
-		Map<String, List<String>> result = cs.Result("subjects", "date", true);
-		for (Map.Entry<String, List<String>> idClass : result.entrySet()) {
-			String className = idClass.getKey();
-			m.addTreeNode("Root", className);
-			for(String id: idClass.getValue()) {
-				m.addTreeNode(className, "[" + id  + "] " + paperInfoMap.get(id).title);
-			}
-		}	
-	}
-	
-	public void AddNode(MainWindow m, String str) {
-		m.addTreeNode("Root", str);
-	}
 }

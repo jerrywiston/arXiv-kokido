@@ -121,7 +121,7 @@ public class MainWindow
 		mainFrame.add(backPanel);
 		mainFrame.setVisible(true);
 		
-		opm.Refresh();
+		opm.refreshNode();
 	}
 	
 	
