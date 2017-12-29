@@ -18,11 +18,13 @@ public class MainWindow
 	
 	private GridBagLayout windowLayout;
 	private JFrame mainFrame;
+	private JTabbedPane contentTabbedPane;
 	private JScrollPane contentScrollPane;
 	private JScrollPane inspectorScrollPane;
 	private JPanel backPanel;
 	private JPanel inspectorPanel;
 	private JPanel searchPanel;
+	private JPanel profileContentPanel;
 	private JPanel contentPanel;
 	private JPanel statPanel;
 	private JPanel scalePanel;
@@ -102,7 +104,7 @@ public class MainWindow
 		gbc.gridx = 2;
 		gbc.gridy = 1;
 		gbc.gridheight = 1;
-		backPanel.add(contentScrollPane, gbc);
+		backPanel.add(contentTabbedPane, gbc);
 
 		gbc.weightx = 1.0;
 		gbc.weighty = 0.01;
@@ -193,10 +195,12 @@ public class MainWindow
 		tree.setBackground(new Color(0, 0, 0, 0));
 		tree.addMouseListener(new MouseAdapter()
 		{
-			public void mouseClicked(MouseEvent me)
+			public void mouseReleased(MouseEvent me)
 			{
-				inspectorPanel.repaint();
 				inspectorPanel.setPreferredSize(new Dimension(100, tree.getHeight() + 100));
+				inspectorPanel.revalidate();
+				inspectorPanel.repaint();
+				inspectorScrollPane.updateUI();
 			}
 		});
 		
@@ -266,6 +270,17 @@ public class MainWindow
 		contentScrollPane.setBorder(BorderFactory.createEmptyBorder());
 		contentScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		contentScrollPane.getVerticalScrollBar().addAdjustmentListener(new ScrollEndListener());
+		
+		profileContentPanel = new ShadowPanel();
+		profileContentPanel.setBackground(new Color(150, 150, 150, 150));
+		profileContentPanel.setLayout(new BoxLayout(profileContentPanel, BoxLayout.Y_AXIS));
+		
+		ProfilePanel profilePanel = new ProfilePanel(opManager);
+		profileContentPanel.add(profilePanel);
+		
+		contentTabbedPane = new JTabbedPane();
+		contentTabbedPane.addTab("Online", contentScrollPane);
+		contentTabbedPane.addTab("Local", profileContentPanel);
 	}
 	
 	
@@ -363,7 +378,7 @@ public class MainWindow
 		gbc.gridx = 2;
 		gbc.gridy = 1;
 		gbc.gridheight = 1;
-		windowLayout.setConstraints(contentScrollPane, gbc);
+		windowLayout.setConstraints(contentTabbedPane, gbc);
 
 		backPanel.setLayout(windowLayout);
 		backPanel.revalidate();
@@ -374,7 +389,7 @@ public class MainWindow
 	/*---------------------------------
 	Add an item
 	---------------------------------*/
-	public void addItem(PaperInfo info)
+	public ItemPanel addItem(PaperInfo info)
 	{
 		ItemPanel item = new ItemPanel(info, opManager);
 		item.setShape((int)((float)width * 0.75));
@@ -390,6 +405,8 @@ public class MainWindow
 		contentPanel.setPreferredSize(new Dimension((int)((float)width * 0.75), h));
 		contentScrollPane.updateUI();
 		repaintScreen();
+		
+		return item;
 	}
 	
 	

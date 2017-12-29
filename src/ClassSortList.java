@@ -11,7 +11,7 @@ public class ClassSortList {
 		paperInfoMap = pm;
 	}
 
-	public Map<String, List<String>> Result(String classType, String sortType) {
+	public Map<String, List<String>> Result(String classType, String sortType, boolean reverse) {
 		Map<String, List<String>> rlist = new LinkedHashMap<>();
 
 		// Class the id list
@@ -21,7 +21,7 @@ public class ClassSortList {
 				if (rlist.containsKey(cstr))
 					rlist.get(cstr).add(ptuple.getKey());
 				else {
-					List<String> ltemp = new ArrayList<>();
+					List<String> ltemp  = new ArrayList<>();
 					ltemp.add(ptuple.getKey());
 					rlist.put(cstr, ltemp);
 				}
@@ -29,11 +29,23 @@ public class ClassSortList {
 		}
 
 		// TODO Sort the id list
-		for (Map.Entry<String, List<String>> stuple : rlist.entrySet()) {
-			String[] arr = AhphabatSortList(stuple.getValue());
-			Sort(arr, stuple.getValue());
+		if (sortType != "none") {
+			for (Map.Entry<String, List<String>> stuple : rlist.entrySet()) {
+				if (sortType == "date") {
+					int[] arr = null;
+					arr = DateSortList(stuple.getValue());
+					Sort(arr, stuple.getValue());
+				} else {
+					String[] arr = null;
+					arr = AhphabatSortList(stuple.getValue());
+					Sort(arr, stuple.getValue());
+				}
+			}
 		}
-		// ReverseList(rlist);
+
+		if (reverse)
+			ReverseList(rlist);
+		
 		return rlist;
 	}
 
@@ -56,7 +68,7 @@ public class ClassSortList {
 		return classArr;
 	}
 
-	public static void Sort(int[] arr, List<String> slist) {
+	public void Sort(int[] arr, List<String> slist) {
 		int temp;
 		String stemp;
 		for (int i = 0; i < arr.length; ++i) {
@@ -74,7 +86,7 @@ public class ClassSortList {
 		}
 	}
 
-	public static void Sort(String[] arr, List<String> slist) {
+	public void Sort(String[] arr, List<String> slist) {
 		String temp;
 		String stemp;
 		for (int i = 0; i < arr.length; ++i) {

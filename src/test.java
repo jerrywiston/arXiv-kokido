@@ -36,7 +36,7 @@ public class test {
 	public static void ClassTest() {
 		Map<String, PaperInfo> paperInfoMap = KidoFileHandle.LoadKido("test.kido");
 		ClassSortList cs = new ClassSortList(paperInfoMap);
-		Map<String, List<String>> rlist = cs.Result("subjects", "recent");
+		Map<String, List<String>> rlist = cs.Result("subjects", "alphabat", false);
 		for (Map.Entry<String, List<String>> r : rlist.entrySet()) {
 			System.out.println("<" + r.getKey() + ">");
 			for (String id : r.getValue()) {

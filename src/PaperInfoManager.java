@@ -27,6 +27,10 @@ public class PaperInfoManager {
 		
 	}
 	
+	public boolean hasKey(String id) {
+		return paperInfoMap.containsKey(id);
+	}
+	
 	public Map<String, PaperInfo> getPaperInfoMap() {
 		return paperInfoMap;
 	}
@@ -34,7 +38,7 @@ public class PaperInfoManager {
 	public void RefreshNode(MainWindow m) {
 		m.ClearTreeNode();
 		ClassSortList cs = new ClassSortList(paperInfoMap);
-		Map<String, List<String>> result = cs.Result("subjects", "recent");
+		Map<String, List<String>> result = cs.Result("subjects", "date", true);
 		for (Map.Entry<String, List<String>> idClass : result.entrySet()) {
 			String className = idClass.getKey();
 			m.addTreeNode("Root", className);
