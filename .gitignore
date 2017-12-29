@@ -2,6 +2,6 @@
 *.kido
 .project
 *.class
-kido_file/
-paper_file/
+kido_file/*.kido
+paper_file/*.pdf
 bin/
