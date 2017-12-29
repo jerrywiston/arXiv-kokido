@@ -29,7 +29,11 @@ public class ClassSortList {
 		}
 
 		// TODO Sort the id list
-		rlist = ReverseList(rlist);
+		for (Map.Entry<String, List<String>> stuple : rlist.entrySet()) {
+			String[] arr = AhphabatSortList(stuple.getValue());
+			Sort(arr, stuple.getValue());
+		}
+		// ReverseList(rlist);
 		return rlist;
 	}
 
@@ -39,11 +43,11 @@ public class ClassSortList {
 		case "tags":
 			classArr = pinfo.tags;
 			break;
-			
+
 		case "subjects":
 			classArr = pinfo.subjects;
 			break;
-		
+
 		default:
 			classArr = new ArrayList<>();
 			classArr.add("All");
@@ -52,14 +56,64 @@ public class ClassSortList {
 		return classArr;
 	}
 
-	public List<String> SortList(int[] slist) {
-		
-		return null;
+	public static void Sort(int[] arr, List<String> slist) {
+		int temp;
+		String stemp;
+		for (int i = 0; i < arr.length; ++i) {
+			for (int j = 0; j < arr.length - 1 - i; ++j) {
+				if (arr[j] > arr[j + 1]) {
+					temp = arr[j];
+					arr[j] = arr[j + 1];
+					arr[j + 1] = temp;
+
+					stemp = slist.get(j);
+					slist.set(j, slist.get(j + 1));
+					slist.set(j + 1, stemp);
+				}
+			}
+		}
 	}
-	
-	public Map<String, List<String>> ReverseList(Map<String, List<String>> rlist){
-		for (Map.Entry<String, List<String>> rtuple : rlist.entrySet()) 
+
+	public static void Sort(String[] arr, List<String> slist) {
+		String temp;
+		String stemp;
+		for (int i = 0; i < arr.length; ++i) {
+			for (int j = 0; j < arr.length - 1 - i; ++j) {
+				if (arr[j].compareTo(arr[j + 1]) > 0) {
+					temp = arr[j];
+					arr[j] = arr[j + 1];
+					arr[j + 1] = temp;
+
+					stemp = slist.get(j);
+					slist.set(j, slist.get(j + 1));
+					slist.set(j + 1, stemp);
+				}
+			}
+		}
+	}
+
+	public void ReverseList(Map<String, List<String>> rlist) {
+		for (Map.Entry<String, List<String>> rtuple : rlist.entrySet())
 			Collections.reverse(rtuple.getValue());
-		return rlist;
+	}
+
+	public String[] AhphabatSortList(List<String> slist) {
+		String[] arr = new String[slist.size()];
+		for (int i = 0; i < slist.size(); ++i) {
+			arr[i] = paperInfoMap.get(slist.get(i)).title.toLowerCase();
+		}
+		return arr;
+	}
+
+	public int[] DateSortList(List<String> slist) {
+		int[] arr = new int[slist.size()];
+		for (int i = 0; i < slist.size(); ++i) {
+			int time = 0;
+			time += paperInfoMap.get(slist.get(i)).date[0] * 365;
+			time += paperInfoMap.get(slist.get(i)).date[1] * 31;
+			time += paperInfoMap.get(slist.get(i)).date[2];
+			arr[i] = time;
+		}
+		return arr;
 	}
 }
