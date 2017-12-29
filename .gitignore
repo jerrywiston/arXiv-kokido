@@ -1,4 +1,5 @@
 *.pdf
+*.kido
 .project
 *.class
 kido_file
