@@ -292,15 +292,20 @@ public class OperationManager {
 	}
 
 	public void fileSynchronize(List<String> id_list, boolean b) {
-		if (b == true)
+		if (b == true) {
 			window.setState("Find " + id_list.size() + " missing pdf, downloading the file ...");
-		else
-			window.setState("Find " + id_list.size() + " missing pdf, removing the info ...");
-
-		for (String id : id_list) {
-			if (b == true)
+			ProgressWindow progressWin = new ProgressWindow("Download PDFs");
+			progressWin.setVisible(true);
+			progressWin.setProgressText("Downloading ...");
+			int count = 0;
+			for (String id : id_list) {
+				progressWin.setProgressValue(count * 100 / id_list.size());
 				ArxivParser.Download("paper_file", ArxivParser.BuildURL(id, "pdf"), false);
-			else
+				++count;
+			}
+		} else {
+			window.setState("Find " + id_list.size() + " missing pdf, removing the info ...");
+			for (String id : id_list)
 				pinfoManager.RemoveInfo(id);
 		}
 
@@ -308,17 +313,22 @@ public class OperationManager {
 	}
 
 	public void infoSynchronize(List<String> id_list, boolean b) {
-		if (b == true)
+		if (b == true) {
 			window.setState("Find " + id_list.size() + " missing info, searching the info ...");
-		else
-			window.setState("Find " + id_list.size() + " missing info, removing the file ...");
-
-		for (String id : id_list) {
-			if (b == true) {
+			ProgressWindow progressWin = new ProgressWindow("Add Infos");
+			progressWin.setVisible(true);
+			progressWin.setProgressText("Adding ...");
+			int count = 0;
+			for (String id : id_list) {
+				progressWin.setProgressValue(count * 100 / id_list.size());
 				PaperInfo pinfo = ArxivParser.GetPaperInfo(ArxivParser.BuildURL(id, "abs"));
 				if (pinfo != null)
 					pinfoManager.AddInfo(pinfo);
-			} else {
+				++count;
+			}
+		} else {
+			window.setState("Find " + id_list.size() + " missing info, removing the file ...");
+			for (String id : id_list) {
 				try {
 					File file = new File("paper_file/" + id + ".pdf");
 					if (file.delete()) {

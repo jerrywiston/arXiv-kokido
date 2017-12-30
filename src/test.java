@@ -65,12 +65,12 @@ public class test {
 		MainWindow mainWin = new MainWindow(opManager);
 		mainWin.setVisible(true);
 		
+		/*
 		ProgressWindow progressWin = new ProgressWindow("Download");
 		progressWin.setVisible(true);
 		progressWin.setProgressText("Downloading...");
 		progressWin.setProgressValue(10);
 		
-		/*
 		DownloadTest(); 
 		System.out.println("< Download Test End >");
 		  
