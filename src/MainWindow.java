@@ -88,7 +88,10 @@ public class MainWindow
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setTitle("arXiv-kokido");
 		mainFrame.setSize(width, height);
-		mainFrame.setIconImage((new ImageIcon("./kokido.png")).getImage());
+		
+		ImageIcon icon = new ImageIcon("./kokido.png");
+		icon = new ImageIcon(icon.getImage().getScaledInstance(64, 64, 0));
+		mainFrame.setIconImage(icon.getImage());
 		
 		//Create panels----------------------------
 		createMenuBar();
@@ -151,8 +154,19 @@ public class MainWindow
 		backPanel.add(statPanel, gbc);
 
 		mainFrame.add(backPanel);
-		mainFrame.setVisible(true);
 		
+		int option = JOptionPane.showOptionDialog(
+				mainFrame, 
+				"Missing ...", 
+				"Synchronization", 
+				JOptionPane.DEFAULT_OPTION,
+				JOptionPane.PLAIN_MESSAGE, 
+				icon,
+				new String[]{"Download", "Delete", "Cancel"}, 
+				"Cancel"
+		);
+		
+		mainFrame.setVisible(true);
 		opm.refreshNode();
 		opm.fileSynchronize(true);
 		opm.infoSynchronize(true);

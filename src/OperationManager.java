@@ -145,7 +145,7 @@ public class OperationManager {
 	public void runCommand(String command) {
 		ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", command);
 		try {
-			Process p = pb.start();
+			pb.start();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -216,7 +216,6 @@ public class OperationManager {
 				pinfoManager.AddInfo(info_temp);
 				pinfoManager.SaveInfo();
 				refreshNode();
-				// System.out.println(info_temp.Out());
 				window.setState("");
 				btn.setEnabled(false);
 			}
