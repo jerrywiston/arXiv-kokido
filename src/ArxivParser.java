@@ -56,36 +56,36 @@ public class ArxivParser {
 		Document xmlDoc = null;
 		
 		URL url;
+
 		try {
 			url = new URL(urlPath);
 			xmlDoc = Jsoup.parse(url, 3000);
+			Elements title = xmlDoc.select("h1[class=title mathjax]");
+			if(title.size()==0)
+				return null;
+			pinfo.title = title.get(0).text().split("Title: ")[1];
+
+			Elements authors = xmlDoc.select("div[class=authors]");
+			pinfo.authors = Arrays.asList(authors.get(0).text().split("Authors: ")[1].split(", "));
+
+			Elements date = xmlDoc.select("div[class=dateline]");
+			pinfo.date = String2Date(date.get(0).text());
+
+			Elements abs = xmlDoc.select("blockquote[class=abstract mathjax]");
+			pinfo.abs = abs.get(0).text().split("Abstract: ")[1];
+
+			Elements subjects = xmlDoc.select("td[class=tablecell subjects]");
+			String[] sub_list = subjects.get(0).text().split("; ");
+			pinfo.subjects = new ArrayList<String>();
+			for (int i = 0; i < sub_list.length; ++i) {
+				//pinfo.subjects.add(sub_list[i].split("\\(")[1].split("\\)")[0]);
+				pinfo.subjects.add(sub_list[i]);
+			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
 		
-		Elements title = xmlDoc.select("h1[class=title mathjax]");
-		if(title.size()==0)
-			return null;
-		pinfo.title = title.get(0).text().split("Title: ")[1];
-
-		Elements authors = xmlDoc.select("div[class=authors]");
-		pinfo.authors = Arrays.asList(authors.get(0).text().split("Authors: ")[1].split(", "));
-
-		Elements date = xmlDoc.select("div[class=dateline]");
-		pinfo.date = String2Date(date.get(0).text());
-
-		Elements abs = xmlDoc.select("blockquote[class=abstract mathjax]");
-		pinfo.abs = abs.get(0).text().split("Abstract: ")[1];
-
-		Elements subjects = xmlDoc.select("td[class=tablecell subjects]");
-		String[] sub_list = subjects.get(0).text().split("; ");
-		pinfo.subjects = new ArrayList<String>();
-		for (int i = 0; i < sub_list.length; ++i) {
-			//pinfo.subjects.add(sub_list[i].split("\\(")[1].split("\\)")[0]);
-			pinfo.subjects.add(sub_list[i]);
-		}
-
 		return pinfo;
 	}
 

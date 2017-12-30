@@ -230,28 +230,36 @@ public class OperationManager {
 	/*---------------------------------
 	Synchronize
 	---------------------------------*/
-	public void mapSynchronize() {
+	public void fileSynchronize(boolean b) {
 		List<String> id_list = pinfoManager.FindMissingFile();
 		if(id_list.size()==0)
 			return;
 		
 		window.setState("Find " + id_list.size() + " missing pdf, downloading the file ...");
 		
-		for(String id: id_list)
+		for(String id: id_list) {
 			ArxivParser.Download("paper_file", ArxivParser.BuildURL(id, "pdf"), false);
+		}
 		
 		window.setState("");
 	}
 
-	public void fileSynchronize() {
+	public void infoSynchronize(boolean b) {
 		List<String> id_list = pinfoManager.FindMissingInfo();
 		if(id_list.size()==0)
 			return;
 		
 		window.setState("Find " + id_list.size() + " missing info, searching the info ...");
 		
-		for(String id: id_list)
-			System.out.println(id);
+		for(String id: id_list) {
+			PaperInfo pinfo = ArxivParser.GetPaperInfo(ArxivParser.BuildURL(id, "abs"));
+			if(pinfo != null)
+				pinfoManager.AddInfo(pinfo);
+		}
+		
+		pinfoManager.SaveInfo();
+		refreshNode();
+		window.setState("");
 	}
 
 	/*---------------------------------
@@ -284,7 +292,7 @@ public class OperationManager {
 	}
 
 	/*---------------------------------
-	Refresh Map
+	Refresh Node
 	---------------------------------*/
 	public void refresh(Map<String, PaperInfo> paperInfoMap) {
 		window.ClearTreeNode();
