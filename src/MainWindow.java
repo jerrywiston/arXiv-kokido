@@ -29,6 +29,10 @@ public class MainWindow
 	private static final String[] orderOptions = {
 		"Ascent", "Decent"
 	};
+	private static final String[] fieldOptions = {
+		"CS", "Econ", "EESS",
+		"Math", "Phy", "Bio", "Fin", "Stat"
+	};
 	
 	private GridBagLayout windowLayout;
 	private JFrame mainFrame;
@@ -54,6 +58,7 @@ public class MainWindow
 	private int width;
 	private int height;
 	private JComboBox<String> searchTypeComboBox;
+	private JComboBox<String> fieldComboBox;
 	private JComboBox<String> filterComboBox;
 	private JComboBox<String> sortComboBox;
 	private JComboBox<String> orderComboBox;
@@ -233,8 +238,13 @@ public class MainWindow
 		{
 			public void mousePressed(MouseEvent e)
 			{
-				inspectorPanel.revalidate();
-				inspectorPanel.repaint();
+				GUIManager.refresh(inspectorPanel);
+				
+			}
+			
+			public void mouseReleased(MouseEvent e)
+			{
+				GUIManager.refresh(profilePanel);
 			}
 		});
 		tree.addTreeSelectionListener(new TreeSelectionListener()
@@ -242,15 +252,12 @@ public class MainWindow
 			public void valueChanged(TreeSelectionEvent e)
 			{
 				DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
-				if(node!=null && node.isLeaf() && (String)node.getUserObject()!="Root") 
+				if(node!=null && node.isLeaf() && (String)node.getUserObject() != "Root") 
 				{
 					String id = ((String)node.getUserObject()).split("\\[")[1].split("\\]")[0];
 					setProfilePaperInfo(opManager.getInfo(id));
 					contentTabbedPane.setSelectedIndex(1);
 				}
-				
-				inspectorPanel.revalidate();
-				inspectorPanel.repaint();
 			}
 		});
 		tree.addTreeExpansionListener(new TreeExpansionListener()
@@ -258,17 +265,15 @@ public class MainWindow
 			public void treeExpanded(TreeExpansionEvent e)
 			{
 				inspectorPanel.setPreferredSize(new Dimension(100, tree.getHeight() + 100));
-				inspectorPanel.revalidate();
-				inspectorPanel.repaint();
 				inspectorScrollPane.updateUI();
+				GUIManager.refresh(inspectorPanel);
 			}
 			
 			public void treeCollapsed(TreeExpansionEvent e)
 			{
 				inspectorPanel.setPreferredSize(new Dimension(100, tree.getHeight() + 100));
-				inspectorPanel.revalidate();
-				inspectorPanel.repaint();
 				inspectorScrollPane.updateUI();
+				GUIManager.refresh(inspectorPanel);
 			}
 		});
 		
@@ -290,7 +295,7 @@ public class MainWindow
 	{
 		searchPanel = new ShadowPanel();
 		searchPanel.setBackground(new Color(50, 50, 50, 200));
-		searchPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+		searchPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
 		//Search text
 		searchText = new JTextField(24);
@@ -300,14 +305,16 @@ public class MainWindow
 
 		//Search type label
 		JLabel searchTypeLabel = new JLabel(
-			"<html><font size='5' face='Verdana' color='white'>Type:</font></html>"
+			"<html><font size='4' face='Verdana' color='white'>Type:</font></html>"
 		);
-		searchPanel.add(searchTypeLabel);
-
+		JLabel fieldLabel = new JLabel(
+			"<html><font size='4' face='Verdana' color='white'>Field:</font></html>"
+		);
+		
 		//Search type combo box
 		searchTypeComboBox = new JComboBox<String>(searchTypeOptions);
-		searchPanel.add(searchTypeComboBox);
-
+		fieldComboBox = new JComboBox<String>(fieldOptions);
+		
 		//Search button
 		JButton searchBtn = new JButton("Search");
 		searchBtn.setPreferredSize(new Dimension(64, 32));
@@ -320,6 +327,11 @@ public class MainWindow
 				contentTabbedPane.setSelectedIndex(0);
 			}
 		});
+		
+		searchPanel.add(searchTypeLabel);
+		searchPanel.add(searchTypeComboBox);
+		searchPanel.add(fieldLabel);
+		searchPanel.add(fieldComboBox);
 		searchPanel.add(searchBtn);
 	}
 	
@@ -384,7 +396,7 @@ public class MainWindow
 	{
 		filterPanel = new ShadowPanel();
 		filterPanel.setBackground(new Color(80, 80, 80, 200));
-		filterPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 20));
+		filterPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
 
 		//Search text
 		filterText = new JTextField(12);
@@ -548,8 +560,7 @@ public class MainWindow
 		windowLayout.setConstraints(contentTabbedPane, gbc);
 
 		backPanel.setLayout(windowLayout);
-		backPanel.revalidate();
-		backPanel.repaint();
+		GUIManager.refresh(backPanel);
 	}
 	
 	
@@ -571,7 +582,7 @@ public class MainWindow
 		contentPanel.setMaximumSize(new Dimension(2048, h));
 		contentPanel.setPreferredSize(new Dimension((int)((float)width * 0.75), h));
 		contentScrollPane.updateUI();
-		repaintScreen();
+		GUIManager.refresh(contentPanel);
 		
 		return item;
 	}
@@ -585,10 +596,8 @@ public class MainWindow
 		itemList.clear();
 		contentPanel.removeAll();
 		contentPanel.setPreferredSize(new Dimension(100, 100));
-		contentPanel.revalidate();
-		contentPanel.repaint();
 		contentScrollPane.updateUI();
-		repaintScreen();
+		GUIManager.refresh(contentPanel);
 	}
 	
 	
@@ -625,9 +634,8 @@ public class MainWindow
 			treeModel.reload();
 			
 			inspectorPanel.setPreferredSize(new Dimension(100, tree.getHeight() + 100));
-			inspectorPanel.revalidate();
-			inspectorPanel.repaint();
 			inspectorScrollPane.updateUI();
+			GUIManager.refresh(inspectorPanel);
 		}
 	}
 	
@@ -701,13 +709,5 @@ public class MainWindow
 	---------------------------------*/
 	public void setProfileVisible(boolean b) {
 		profilePanel.setVisible(b);
-	}
-	
-	/*---------------------------------
-	Repaint Screen
-	---------------------------------*/
-	public void repaintScreen() {
-		mainFrame.validate();
-		mainFrame.repaint();
 	}
 }

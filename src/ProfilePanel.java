@@ -9,6 +9,9 @@ class ProfilePanel extends ShadowPanel
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private OperationManager opManager;
+	private JPanel westPanel;
+	private JPanel southPanel;
+	private JPanel centerPanel;
 	private JLabel titleLabel;
 	private JLabel authorLabel;
 	private JLabel dateLabel;
@@ -48,7 +51,7 @@ class ProfilePanel extends ShadowPanel
 	--------------------------------*/
 	private void createWestPanel()
 	{
-		JPanel westPanel = new JPanel();
+		westPanel = new JPanel();
 		westPanel.setBackground(new Color(0, 0, 0, 0));
 		westPanel.setMinimumSize(new Dimension(10, 10));
 		westPanel.setPreferredSize(new Dimension(10, 10));
@@ -62,7 +65,7 @@ class ProfilePanel extends ShadowPanel
 	--------------------------------*/
 	private void createCenterPanel()
 	{
-		JPanel centerPanel = new JPanel();
+		centerPanel = new JPanel();
 		centerPanel.setBackground(new Color(0, 0, 0, 0));
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
@@ -91,7 +94,7 @@ class ProfilePanel extends ShadowPanel
 	--------------------------------*/
 	private void createSouthPanel()
 	{
-		JPanel southPanel = new JPanel();
+		southPanel = new JPanel();
 		southPanel.setBackground(new Color(0, 0, 0, 0));
 		southPanel.setLayout(new GridLayout(1, 2));
 		
@@ -298,8 +301,7 @@ class ProfilePanel extends ShadowPanel
 		tagPanel.remove(addTagBtn);
 		tagPanel.add(tagLabel);
 		tagPanel.add(addTagBtn);
-		tagPanel.revalidate();
-		tagPanel.repaint();
+		GUIManager.refresh(tagPanel);
 	}
 	
 	
@@ -313,7 +315,7 @@ class ProfilePanel extends ShadowPanel
 		{
 			tagPanel.remove(tagLabels.get(idx));
 			tagLabels.remove(idx);
-			refresh(tagPanel);
+			GUIManager.refresh(tagPanel);
 		}
 	}
 	
@@ -345,7 +347,7 @@ class ProfilePanel extends ShadowPanel
 		for(TagLabel label : tagLabels) tagPanel.add(label);
 		tagPanel.add(addTagBtn);
 		
-		refresh(tagPanel);
+		GUIManager.refresh(tagPanel);
 	}
 	
 	
@@ -361,30 +363,5 @@ class ProfilePanel extends ShadowPanel
 		}
 	
 		return -1;
-	}
-	
-	
-	/*--------------------------------
-	Refresh
-	--------------------------------*/
-	public static void refresh(Component com)
-	{
-		Container parent = com.getParent();
-		if(parent == null)
-		{
-			com.revalidate();
-			com.repaint();
-		}
-		else 
-		{
-			Container ancestor = parent.getParent();
-			while(ancestor != null)
-			{
-				parent = ancestor;
-				ancestor = parent.getParent();
-			}
-			parent.revalidate();
-			parent.repaint();
-		}
 	}
 }

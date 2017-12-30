@@ -162,7 +162,6 @@ public class OperationManager {
 			isSearching = true;
 			Thread t1 = new searchThread(str, type, total, skip);
 			t1.start();
-			window.repaintScreen();
 		}
 	}
 
@@ -172,7 +171,6 @@ public class OperationManager {
 	public void startDownload(String id, JButton b) {
 		Thread t1 = new downloadThread(id, b);
 		t1.start();
-		window.repaintScreen();
 	}
 
 	/*---------------------------------
@@ -193,7 +191,6 @@ public class OperationManager {
 
 		public void run() {
 			search(str, type, total, skip);
-			window.repaintScreen();
 		}
 	}
 
@@ -222,7 +219,6 @@ public class OperationManager {
 				// System.out.println(info_temp.Out());
 				window.setState("");
 				btn.setEnabled(false);
-				window.repaintScreen();
 			}
 		}
 	}
