@@ -46,33 +46,4 @@ public class PaperInfoManager {
 	public Map<String, PaperInfo> getPaperInfoMap() {
 		return paperInfoMap;
 	}
-	
-	public List<String> FindMissingFile() {
-		List<String> id_list = new ArrayList<>();
-
-		for (Map.Entry<String, PaperInfo> ptuple : paperInfoMap.entrySet()) {
-			File f = new File("paper_file/" + ptuple.getKey() + ".pdf");
-			if (f.exists() == false)
-				id_list.add(ptuple.getKey());
-		}
-		
-		return id_list;
-	}
-	
-	public List<String> FindMissingInfo(){
-		List<String> id_list = new ArrayList<>();
-		File f = new File("paper_file");
-		File [] f1 = f.listFiles();
-		for(File fn: f1) {
-			String filename = fn.getName();
-			if(filename.contains(".pdf")) {
-				String id = filename.split(".pdf")[0];
-				if(paperInfoMap.containsKey(id)==false)
-					id_list.add(id);
-			}
-		}
-		
-		return id_list;
-	}
-
 }

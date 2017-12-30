@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -28,7 +29,7 @@ public class OperationManager {
 	public void setWindow(MainWindow w) {
 		window = w;
 	}
-	
+
 	/*---------------------------------
 	Create folder
 	---------------------------------*/
@@ -37,22 +38,21 @@ public class OperationManager {
 
 		// if the directory does not exist, create it
 		if (!theDir.exists()) {
-		    System.out.println("creating directory: " + theDir.getName());
-		    boolean result = false;
+			System.out.println("creating directory: " + theDir.getName());
+			boolean result = false;
 
-		    try{
-		        theDir.mkdir();
-		        result = true;
-		    } 
-		    catch(SecurityException se){
-		        //handle it
-		    }        
-		    if(result) {    
-		        System.out.println("DIR created");  
-		    }
+			try {
+				theDir.mkdir();
+				result = true;
+			} catch (SecurityException se) {
+				// handle it
+			}
+			if (result) {
+				System.out.println("DIR created");
+			}
 		}
 	}
-	
+
 	/*---------------------------------
 	Save PaperInfoMap
 	---------------------------------*/
@@ -99,8 +99,6 @@ public class OperationManager {
 		window.setProfileVisible(false);
 	}
 
-	
-	
 	/*---------------------------------
 	View items
 	---------------------------------*/
@@ -113,7 +111,7 @@ public class OperationManager {
 
 		runCommand(str);
 	}
-	
+
 	public void runCommand(String command) {
 		ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", command);
 		try {
@@ -122,7 +120,7 @@ public class OperationManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/*---------------------------------
 	Start search
 	---------------------------------*/
@@ -136,14 +134,14 @@ public class OperationManager {
 			t1.start();
 		}
 	}
-	
+
 	/*---------------------------------
 	Search items
 	---------------------------------*/
 	public String fieldStr(String str) {
 		String fstr = null;
-		
-		switch(str) {
+
+		switch (str) {
 		case "CS":
 			fstr = "grp_cs";
 			break;
@@ -171,10 +169,10 @@ public class OperationManager {
 		default:
 			fstr = "all";
 		}
-		
+
 		return fstr;
 	}
-	
+
 	public void search(String str, String type, String field, int total, int skip) {
 		if (str.length() <= 0) {
 			isSearching = false;
@@ -224,7 +222,7 @@ public class OperationManager {
 			search(str, type, field, total, skip);
 		}
 	}
-	
+
 	/*---------------------------------
 	Start download
 	---------------------------------*/
@@ -232,7 +230,7 @@ public class OperationManager {
 		Thread t1 = new downloadThread(id, b);
 		t1.start();
 	}
-	
+
 	/*---------------------------------
 	Download thread
 	---------------------------------*/
@@ -265,33 +263,75 @@ public class OperationManager {
 	/*---------------------------------
 	Synchronize
 	---------------------------------*/
-	public void fileSynchronize(boolean b) {
-		List<String> id_list = pinfoManager.FindMissingFile();
-		if(id_list.size()==0)
-			return;
-		
-		window.setState("Find " + id_list.size() + " missing pdf, downloading the file ...");
-		
-		for(String id: id_list) {
-			ArxivParser.Download("paper_file", ArxivParser.BuildURL(id, "pdf"), false);
+	public List<String> findMissingFile() {
+		List<String> id_list = new ArrayList<>();
+
+		for (Map.Entry<String, PaperInfo> ptuple : pinfoManager.getPaperInfoMap().entrySet()) {
+			File f = new File("paper_file/" + ptuple.getKey() + ".pdf");
+			if (f.exists() == false)
+				id_list.add(ptuple.getKey());
 		}
-		
+
+		return id_list;
+	}
+
+	public List<String> findMissingInfo() {
+		List<String> id_list = new ArrayList<>();
+		File f = new File("paper_file");
+		File[] f1 = f.listFiles();
+		for (File fn : f1) {
+			String filename = fn.getName();
+			if (filename.contains(".pdf")) {
+				String id = filename.split(".pdf")[0];
+				if (pinfoManager.hasKey(id) == false)
+					id_list.add(id);
+			}
+		}
+
+		return id_list;
+	}
+
+	public void fileSynchronize(List<String> id_list, boolean b) {
+		if (b == true)
+			window.setState("Find " + id_list.size() + " missing pdf, downloading the file ...");
+		else
+			window.setState("Find " + id_list.size() + " missing pdf, removing the info ...");
+
+		for (String id : id_list) {
+			if (b == true)
+				ArxivParser.Download("paper_file", ArxivParser.BuildURL(id, "pdf"), false);
+			else
+				pinfoManager.RemoveInfo(id);
+		}
+
 		window.setState("");
 	}
 
-	public void infoSynchronize(boolean b) {
-		List<String> id_list = pinfoManager.FindMissingInfo();
-		if(id_list.size()==0)
-			return;
-		
-		window.setState("Find " + id_list.size() + " missing info, searching the info ...");
-		
-		for(String id: id_list) {
-			PaperInfo pinfo = ArxivParser.GetPaperInfo(ArxivParser.BuildURL(id, "abs"));
-			if(pinfo != null)
-				pinfoManager.AddInfo(pinfo);
+	public void infoSynchronize(List<String> id_list, boolean b) {
+		if (b == true)
+			window.setState("Find " + id_list.size() + " missing info, searching the info ...");
+		else
+			window.setState("Find " + id_list.size() + " missing info, removing the file ...");
+
+		for (String id : id_list) {
+			if (b == true) {
+				PaperInfo pinfo = ArxivParser.GetPaperInfo(ArxivParser.BuildURL(id, "abs"));
+				if (pinfo != null)
+					pinfoManager.AddInfo(pinfo);
+			} else {
+				try {
+					File file = new File("paper_file/" + id + ".pdf");
+					if (file.delete()) {
+						System.out.println(file.getName() + " is deleted!");
+					} else {
+						System.out.println("Delete operation is failed.");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
-		
+
 		pinfoManager.SaveInfo();
 		refreshNode();
 		window.setState("");
@@ -344,30 +384,30 @@ public class OperationManager {
 			}
 		}
 	}
-	
+
 	public void refreshNode() {
 		Map<String, PaperInfo> paperInfoMap = pinfoManager.getPaperInfoMap();
 		refresh(paperInfoMap);
 	}
-	
+
 	/*---------------------------------
 	Local Search
 	---------------------------------*/
 	public void localSearch(String str) {
-		String [] slist = str.split(" ");
+		String[] slist = str.split(" ");
 		Map<String, PaperInfo> paperInfoMap = pinfoManager.getPaperInfoMap();
 		Map<String, PaperInfo> searchInfoMap = new LinkedHashMap<>();
 		for (Map.Entry<String, PaperInfo> ptuple : paperInfoMap.entrySet()) {
 			boolean find = false;
-			for(String s: slist) {
-				if(ptuple.getValue().title.toLowerCase().contains(s) == true)
+			for (String s : slist) {
+				if (ptuple.getValue().title.toLowerCase().contains(s) == true)
 					find = true;
-				if(ptuple.getValue().abs.toLowerCase().contains(s) == true)
+				if (ptuple.getValue().abs.toLowerCase().contains(s) == true)
 					find = true;
-				if(find == true)
+				if (find == true)
 					break;
 			}
-			if(find == true)
+			if (find == true)
 				searchInfoMap.put(ptuple.getKey(), ptuple.getValue());
 		}
 		refresh(searchInfoMap);
