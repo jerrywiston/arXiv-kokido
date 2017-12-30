@@ -8,7 +8,6 @@ class ItemPanel extends ShadowPanel
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private int heightOffset;
-	private OperationManager opManager;
 	private JButton viewBtn;
 	private JButton downloadBtn;
 
@@ -16,12 +15,11 @@ class ItemPanel extends ShadowPanel
 	/*--------------------------------
 	Constructor
 	--------------------------------*/
-	public ItemPanel(PaperInfo info, OperationManager opm) 
+	public ItemPanel(PaperInfo info, final OperationManager opm) 
 	{
 		super();
 		id = info.id;
 		heightOffset = info.abs.length() / 60 + 1;
-		opManager = opm;
 		
 		setBackground(new Color(20, 20, 20, 150));
 		setLayout(new BorderLayout());
@@ -29,7 +27,7 @@ class ItemPanel extends ShadowPanel
 		//Create panels
 		createWestPanel();
 		createCenterPanel(info);
-		createSouthPanel();
+		createSouthPanel(opm);
 	}
 	
 	
@@ -43,10 +41,27 @@ class ItemPanel extends ShadowPanel
 		westPanel.setLayout(new BorderLayout());
 
 		//Check box
-		JCheckBox checkBox = new JCheckBox();
+		final JCheckBox checkBox = new JCheckBox();
 		checkBox.setBackground(new Color(0, 0, 0, 0));
-		westPanel.add(checkBox, BorderLayout.NORTH);
+		checkBox.addMouseListener(new MouseAdapter()
+		{
+			public void mouseExited(MouseEvent e)
+			{
+				GUIManager.refresh(checkBox);
+			}
+			
+			public void mouseEntered(MouseEvent e)
+			{
+				GUIManager.refresh(checkBox);
+			}
+			
+			public void mouseClicked(MouseEvent e)
+			{
+				GUIManager.refresh(checkBox);
+			}
+		});
 		
+		westPanel.add(checkBox, BorderLayout.NORTH);
 		add(westPanel, BorderLayout.WEST);
 	}
 	
@@ -126,7 +141,7 @@ class ItemPanel extends ShadowPanel
 	/*--------------------------------
 	Create south panel
 	--------------------------------*/
-	private void createSouthPanel()
+	private void createSouthPanel(final OperationManager opm)
 	{
 		JPanel southPanel = new JPanel();
 		southPanel.setBackground(new Color(0, 0, 0, 0));
@@ -137,7 +152,7 @@ class ItemPanel extends ShadowPanel
 		viewBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				opManager.view(id, true);
+				opm.view(id, true);
 			}
 		});
 		
@@ -146,7 +161,7 @@ class ItemPanel extends ShadowPanel
 		downloadBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				opManager.startDownload(id, downloadBtn);
+				opm.startDownload(id, downloadBtn);
 			}
 		});
 		
@@ -181,11 +196,11 @@ class ItemPanel extends ShadowPanel
 		setPreferredSize(new Dimension(width, 270 + heightOffset * 20));
 	}
 	
+	
 	/*--------------------------------
 	Set download button enable/disable
 	--------------------------------*/
 	public void setDownloadBtn(boolean b) {
 		downloadBtn.setEnabled(b);
 	}
-	
 }

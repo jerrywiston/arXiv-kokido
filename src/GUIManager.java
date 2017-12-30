@@ -1,6 +1,7 @@
 import java.awt.Component;
 import java.awt.Container;
 
+
 public class GUIManager 
 {
 	/*--------------------------------

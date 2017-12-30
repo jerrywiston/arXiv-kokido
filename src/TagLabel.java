@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -54,31 +53,6 @@ public class TagLabel extends JLabel
 	
 	
 	/*--------------------------------
-	Refresh
-	--------------------------------*/
-	public void refresh()
-	{
-		Container parent = getParent();
-		if(parent == null)
-		{
-			revalidate();
-			repaint();
-		}
-		else 
-		{
-			Container ancestor = parent.getParent();
-			while(ancestor != null)
-			{
-				parent = ancestor;
-				ancestor = parent.getParent();
-			}
-			parent.revalidate();
-			parent.repaint();
-		}
-	}
-	
-	
-	/*--------------------------------
 	Access isSelected
 	--------------------------------*/
 	public void setSelected(boolean s)
@@ -95,7 +69,7 @@ public class TagLabel extends JLabel
 			setBorder(BorderFactory.createLineBorder(Color.white));
 		}
 		
-		refresh();
+		GUIManager.refresh(this);
 	}
 	
 	

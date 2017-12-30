@@ -13,6 +13,9 @@ public class ShadowPanel extends JPanel
 	protected int shadowAlpha = 100;
 
 
+	/*--------------------------------
+	Constructor
+	--------------------------------*/
 	public ShadowPanel()
 	{
 		super();
@@ -20,6 +23,9 @@ public class ShadowPanel extends JPanel
 	}
 
 
+	/*--------------------------------
+	Paint component
+	--------------------------------*/
 	@Override
 	protected void paintComponent(Graphics g)
 	{

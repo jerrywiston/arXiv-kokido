@@ -8,7 +8,6 @@ class ProfilePanel extends ShadowPanel
 {
 	private static final long serialVersionUID = 1L;
 	private String id;
-	private OperationManager opManager;
 	private JPanel westPanel;
 	private JPanel southPanel;
 	private JPanel centerPanel;
@@ -22,16 +21,15 @@ class ProfilePanel extends ShadowPanel
 	private ArrayList<TagLabel> tagLabels;
 	private JButton addTagBtn;
 	private ImageIcon icon;
-	JPopupMenu popup;
+	private JPopupMenu popup;
 	
 	
 	/*--------------------------------
 	Constructor
 	--------------------------------*/
-	public ProfilePanel(OperationManager opm) 
+	public ProfilePanel(final OperationManager opm) 
 	{
 		super();
-		opManager = opm;
 		tagLabels = new ArrayList<TagLabel>();
 		icon = new ImageIcon("./kokido.png");
 		icon = new ImageIcon(icon.getImage().getScaledInstance(64, 64, 0));
@@ -42,7 +40,7 @@ class ProfilePanel extends ShadowPanel
 		//Create panels
 		createWestPanel();
 		createCenterPanel();
-		createSouthPanel();
+		createSouthPanel(opm);
 	}
 	
 	
@@ -92,7 +90,7 @@ class ProfilePanel extends ShadowPanel
 	/*--------------------------------
 	Create south panel
 	--------------------------------*/
-	private void createSouthPanel()
+	private void createSouthPanel(final OperationManager opm)
 	{
 		southPanel = new JPanel();
 		southPanel.setBackground(new Color(0, 0, 0, 0));
@@ -127,7 +125,7 @@ class ProfilePanel extends ShadowPanel
 				if(tagStr.length() > 0)
 				{
 					addTag(tagStr);
-					opManager.addTag(id, tagStr);
+					opm.addTag(id, tagStr);
 				}
 			};
 		});
@@ -145,7 +143,7 @@ class ProfilePanel extends ShadowPanel
 					if(label.getSelected())
 						tlist.add(label.getText());
 				}
-				opManager.removeTag(id, tlist);
+				opm.removeTag(id, tlist);
 				deleteSelectedTag();
 			}
 		});
@@ -180,7 +178,7 @@ class ProfilePanel extends ShadowPanel
 		viewBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				opManager.view(id, false);
+				opm.view(id, false);
 			}
 		});
 		
@@ -189,8 +187,8 @@ class ProfilePanel extends ShadowPanel
 		downloadBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				opManager.removeInfo(id);
-				opManager.setProfileVisible(false);
+				opm.removeInfo(id);
+				opm.setProfileVisible(false);
 			}
 		});
 		
