@@ -18,6 +18,8 @@ public class OperationManager {
 	public OperationManager(PaperInfoManager pm) {
 		isSearching = false;
 		pinfoManager = pm;
+		createFolder("paper_file");
+		createFolder("kido_file");
 	}
 
 	/*---------------------------------
@@ -26,7 +28,31 @@ public class OperationManager {
 	public void setWindow(MainWindow w) {
 		window = w;
 	}
+	
+	/*---------------------------------
+	Create folder
+	---------------------------------*/
+	public void createFolder(String folderName) {
+		File theDir = new File(folderName);
 
+		// if the directory does not exist, create it
+		if (!theDir.exists()) {
+		    System.out.println("creating directory: " + theDir.getName());
+		    boolean result = false;
+
+		    try{
+		        theDir.mkdir();
+		        result = true;
+		    } 
+		    catch(SecurityException se){
+		        //handle it
+		    }        
+		    if(result) {    
+		        System.out.println("DIR created");  
+		    }
+		}
+	}
+	
 	/*---------------------------------
 	Save PaperInfoMap
 	---------------------------------*/
@@ -102,7 +128,7 @@ public class OperationManager {
 		isSearching = false;
 		window.setState("");
 	}
-
+	
 	/*---------------------------------
 	View items
 	---------------------------------*/
@@ -112,15 +138,19 @@ public class OperationManager {
 			str = "start " + ArxivParser.BuildURL(id, "pdf");
 		else
 			str = "start " + "paper_file/" + id + ".pdf";
-		str = "a.exe " + "\"" + str + "\"";
 
+		runCommand(str);
+	}
+	
+	public void runCommand(String command) {
+		ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", command);
 		try {
-			Runtime.getRuntime().exec(str);
+			Process p = pb.start();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/*---------------------------------
 	Start search
 	---------------------------------*/
