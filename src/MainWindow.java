@@ -14,7 +14,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
-public class MainWindow {
+public class MainWindow extends JFrame
+{
+	private static final long serialVersionUID = 1L;
 	private static final String[] searchTypeOptions = { "Titles", "Authors", "Abstracts" };
 	private static final String[] filterOptions = { "Subjects", "Tags", "None" };
 	private static final String[] sortOptions = { "Recent", "Date", "Alphabet" };
@@ -22,7 +24,6 @@ public class MainWindow {
 	private static final String[] fieldOptions = { "All", "CS", "Econ", "EESS", "Math", "Phy", "Bio", "Fin", "Stat" };
 
 	private GridBagLayout windowLayout;
-	private JFrame mainFrame;
 	private JTabbedPane contentTabbedPane;
 	private JScrollPane contentScrollPane;
 	private JScrollPane profileScrollPane;
@@ -57,6 +58,7 @@ public class MainWindow {
 	private String orderType = "Decent";
 	ImageIcon icon;
 
+	
 	/*---------------------------------
 	Constructor
 	---------------------------------*/
@@ -68,16 +70,13 @@ public class MainWindow {
 		width = 1024;
 		height = 768;
 		layoutScale = 0.5f;
-
-		// Create the main frame--------------------
-		mainFrame = new JFrame();
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setTitle("arXiv-kokido");
-		mainFrame.setSize(width, height);
-
 		icon = new ImageIcon("./kokido.png");
 		icon = new ImageIcon(icon.getImage().getScaledInstance(64, 64, 0));
-		mainFrame.setIconImage(icon.getImage());
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("arXiv-kokido");
+		setSize(width, height);
+		setIconImage(icon.getImage());
 
 		// Create panels----------------------------
 		createMenuBar();
@@ -138,11 +137,10 @@ public class MainWindow {
 		gbc.gridy = 3;
 		gbc.gridwidth = 3;
 		backPanel.add(statPanel, gbc);
+		add(backPanel);
 
-		mainFrame.add(backPanel);
 		opManager.refreshNode();
 		synchronize();
-		mainFrame.setVisible(true);
 	}
 
 	public void synchronize() {
@@ -150,7 +148,7 @@ public class MainWindow {
 		List<String> iidList = opManager.findMissingInfo();
 		if (fidList.size() > 0) {
 			String msg = "Missing " + fidList.size() + " PDFs ...";
-			int option = JOptionPane.showOptionDialog(mainFrame, msg , "Synchronization",
+			int option = JOptionPane.showOptionDialog(this, msg , "Synchronization",
 					JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, icon,
 					new String[] { "Download PDF", "Delete Info" }, "Download PDF");
 			opManager.fileSynchronize(fidList, (option==0)?true:false);
@@ -158,7 +156,7 @@ public class MainWindow {
 		
 		if (iidList.size() > 0) {
 			String msg = "Missing " + iidList.size() + " Infos ...";
-			int option = JOptionPane.showOptionDialog(mainFrame, msg, "Synchronization",
+			int option = JOptionPane.showOptionDialog(this, msg, "Synchronization",
 					JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, icon,
 					new String[] { "Add Info", "Delete PDF" }, "Add Info");
 			opManager.infoSynchronize(iidList, (option==0)?true:false);
@@ -209,7 +207,7 @@ public class MainWindow {
 		menuBar.add(fileMenu);
 		menuBar.add(editMenu);
 		menuBar.add(toolMenu);
-		mainFrame.setJMenuBar(menuBar);
+		setJMenuBar(menuBar);
 	}
 
 	/*---------------------------------

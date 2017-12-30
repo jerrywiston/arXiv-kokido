@@ -115,7 +115,7 @@ public class OperationManager {
 	public void runCommand(String command) {
 		ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", command);
 		try {
-			Process p = pb.start();
+			pb.start();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
