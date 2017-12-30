@@ -231,18 +231,27 @@ public class OperationManager {
 	Synchronize
 	---------------------------------*/
 	public void mapSynchronize() {
-		window.setState("Synchronize paper information ...");
-		Map<String, PaperInfo> paperInfoMap = pinfoManager.getPaperInfoMap();
-		for (Map.Entry<String, PaperInfo> ptuple : paperInfoMap.entrySet()) {
-			File f = new File("paper_file/" + ptuple.getKey() + ".pdf");
-			if (f.exists() == false)
-				ArxivParser.Download("paper_file", ArxivParser.BuildURL(ptuple.getKey(), "pdf"), false);
-		}
+		List<String> id_list = pinfoManager.FindMissingFile();
+		if(id_list.size()==0)
+			return;
+		
+		window.setState("Find " + id_list.size() + " missing pdf, downloading the file ...");
+		
+		for(String id: id_list)
+			ArxivParser.Download("paper_file", ArxivParser.BuildURL(id, "pdf"), false);
+		
 		window.setState("");
 	}
 
 	public void fileSynchronize() {
-		// TODO
+		List<String> id_list = pinfoManager.FindMissingInfo();
+		if(id_list.size()==0)
+			return;
+		
+		window.setState("Find " + id_list.size() + " missing info, searching the info ...");
+		
+		for(String id: id_list)
+			System.out.println(id);
 	}
 
 	/*---------------------------------

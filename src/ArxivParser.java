@@ -81,8 +81,10 @@ public class ArxivParser {
 		Elements subjects = xmlDoc.select("td[class=tablecell subjects]");
 		String[] sub_list = subjects.get(0).text().split("; ");
 		pinfo.subjects = new ArrayList<String>();
-		for (int i = 0; i < sub_list.length; ++i)
-			pinfo.subjects.add(sub_list[i].split("\\(")[1].split("\\)")[0]);
+		for (int i = 0; i < sub_list.length; ++i) {
+			//pinfo.subjects.add(sub_list[i].split("\\(")[1].split("\\)")[0]);
+			pinfo.subjects.add(sub_list[i]);
+		}
 
 		return pinfo;
 	}
