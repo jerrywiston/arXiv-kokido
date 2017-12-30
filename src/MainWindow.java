@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
+
 public class MainWindow
 {
 	private static final String[] searchTypeOptions = {
@@ -33,6 +34,7 @@ public class MainWindow
 	private JFrame mainFrame;
 	private JTabbedPane contentTabbedPane;
 	private JScrollPane contentScrollPane;
+	private JScrollPane profileScrollPane;
 	private JScrollPane inspectorScrollPane;
 	private JPanel backPanel;
 	private JPanel inspectorPanel;
@@ -51,17 +53,16 @@ public class MainWindow
 	private OperationManager opManager;
 	private int width;
 	private int height;
-	JComboBox<String> searchTypeComboBox;
-	JComboBox<String> filterComboBox;
-	JComboBox<String> sortComboBox;
-	JComboBox<String> orderComboBox;
-	DefaultTreeModel treeModel;
-	DefaultMutableTreeNode root;
-	JTree tree;
-	
-	String classType = "Subjects";
-	String sortType = "Recent";
-	String orderType = "Decent";
+	private JComboBox<String> searchTypeComboBox;
+	private JComboBox<String> filterComboBox;
+	private JComboBox<String> sortComboBox;
+	private JComboBox<String> orderComboBox;
+	private DefaultTreeModel treeModel;
+	private DefaultMutableTreeNode root;
+	private JTree tree;
+	private String classType = "Subjects";
+	private String sortType = "Recent";
+	private String orderType = "Decent";
 
 
 	/*---------------------------------
@@ -344,11 +345,20 @@ public class MainWindow
 		
 		profilePanel = new ProfilePanel(opManager);
 		profilePanel.setVisible(false);
+		profilePanel.setMinimumSize(new Dimension(100, height));
+		profilePanel.setMaximumSize(new Dimension(2048, height));
+		profilePanel.setPreferredSize(new Dimension((int)((float)width * 0.75), height));
 		profileContentPanel.add(profilePanel);
+		
+		profileScrollPane = new JScrollPane(profileContentPanel);
+		profileScrollPane.setBackground(new Color(0, 0, 0, 0));
+		profileScrollPane.getViewport().setBackground(new Color(64, 64, 64, 255));
+		profileScrollPane.setBorder(BorderFactory.createEmptyBorder());
+		profileScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		
 		contentTabbedPane = new JTabbedPane();
 		contentTabbedPane.addTab("Online", contentScrollPane);
-		contentTabbedPane.addTab("Local", profileContentPanel);
+		contentTabbedPane.addTab("Local", profileScrollPane);
 	}
 	
 	
