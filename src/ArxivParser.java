@@ -91,18 +91,18 @@ public class ArxivParser {
 
 	public static String[] SearchResult(String UrlPath){
 		Document xmlDoc = null;
+		String[] pid_list = null;
 		try {
 			URL url = new URL(UrlPath);
 			xmlDoc = Jsoup.parse(url, 3000);
+			Elements id_list = xmlDoc.select("a[title=Abstract]");
+			pid_list = new String[id_list.size()];
+			for (int i = 0; i < id_list.size(); ++i) {
+				pid_list[i] = id_list.get(i).text().split(":")[1];
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-
-		Elements id_list = xmlDoc.select("a[title=Abstract]");
-		String[] pid_list = new String[id_list.size()];
-		for (int i = 0; i < id_list.size(); ++i) {
-			pid_list[i] = id_list.get(i).text().split(":")[1];
 		}
 
 		return pid_list;
@@ -115,7 +115,7 @@ public class ArxivParser {
 			return "https://arxiv.org/abs/" + id;
 	}
 
-	public static String BuildSearchURL(String keyword, String type, int skip) {
+	public static String BuildSearchURL(String keyword, String type, String field, int skip) {
 		String t;
 		switch(type) {
 		case "Titles":
@@ -130,7 +130,7 @@ public class ArxivParser {
 		default:
 			t = "ti";
 		}
-		String req = "https://arxiv.org/find/all/1/" + t + ":+" + keyword + "/0/1/0/all/0/1?skip=" + skip;
+		String req = "https://arxiv.org/find/" + field + "/1/" + t + ":+" + keyword + "/0/1/0/all/0/1?skip=" + skip;
 		return req;
 	}
 

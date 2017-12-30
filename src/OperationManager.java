@@ -99,17 +99,90 @@ public class OperationManager {
 		window.setProfileVisible(false);
 	}
 
+	
+	
+	/*---------------------------------
+	View items
+	---------------------------------*/
+	public void view(String id, boolean showInBrowser) {
+		String str;
+		if (showInBrowser)
+			str = "start " + ArxivParser.BuildURL(id, "pdf");
+		else
+			str = "start " + "paper_file/" + id + ".pdf";
+
+		runCommand(str);
+	}
+	
+	public void runCommand(String command) {
+		ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", command);
+		try {
+			Process p = pb.start();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/*---------------------------------
+	Start search
+	---------------------------------*/
+	public void startSearch(String str, String type, String field, int total, int skip) {
+		if (!isSearching) {
+			if (skip <= 0)
+				window.clearItem();
+
+			isSearching = true;
+			Thread t1 = new searchThread(str, type, field, total, skip);
+			t1.start();
+		}
+	}
+	
 	/*---------------------------------
 	Search items
 	---------------------------------*/
-	public void search(String str, String type, int total, int skip) {
+	public String fieldStr(String str) {
+		String fstr = null;
+		
+		switch(str) {
+		case "CS":
+			fstr = "grp_cs";
+			break;
+		case "Econ":
+			fstr = "grp_econ";
+			break;
+		case "EESS":
+			fstr = "grp_eess";
+			break;
+		case "Math":
+			fstr = "grp_math";
+			break;
+		case "Phy":
+			fstr = "grp_physics";
+			break;
+		case "Bio":
+			fstr = "grp_q-bio";
+			break;
+		case "Fin":
+			fstr = "grp_q-fin";
+			break;
+		case "Stat":
+			fstr = "grp_stat";
+			break;
+		default:
+			fstr = "all";
+		}
+		
+		return fstr;
+	}
+	
+	public void search(String str, String type, String field, int total, int skip) {
 		if (str.length() <= 0) {
 			isSearching = false;
 			window.setState("");
 			return;
 		}
 
-		String req = ArxivParser.BuildSearchURL(str, type, skip);
+		String req = ArxivParser.BuildSearchURL(str, type, fieldStr(field), skip);
 		window.setState("Searching... URL: " + req);
 
 		String[] id_list = ArxivParser.SearchResult(req);
@@ -128,50 +201,6 @@ public class OperationManager {
 		isSearching = false;
 		window.setState("");
 	}
-	
-	/*---------------------------------
-	View items
-	---------------------------------*/
-	public void view(String id, boolean showInBrowser) {
-		String str;
-		if (showInBrowser)
-			str = "start " + ArxivParser.BuildURL(id, "pdf");
-		else
-			str = "start " + "paper_file/" + id + ".pdf";
-
-		runCommand(str);
-	}
-	
-	public void runCommand(String command) {
-		ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", command);
-		try {
-			pb.start();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/*---------------------------------
-	Start search
-	---------------------------------*/
-	public void startSearch(String str, String type, int total, int skip) {
-		if (!isSearching) {
-			if (skip <= 0)
-				window.clearItem();
-
-			isSearching = true;
-			Thread t1 = new searchThread(str, type, total, skip);
-			t1.start();
-		}
-	}
-
-	/*---------------------------------
-	Start download
-	---------------------------------*/
-	public void startDownload(String id, JButton b) {
-		Thread t1 = new downloadThread(id, b);
-		t1.start();
-	}
 
 	/*---------------------------------
 	Search thread
@@ -180,20 +209,30 @@ public class OperationManager {
 		int total;
 		int skip;
 		String type;
+		String field;
 		String str;
 
-		public searchThread(String s, String tp, int t, int sk) {
+		public searchThread(String s, String tp, String f, int t, int sk) {
 			str = s;
 			type = tp;
+			field = f;
 			total = t;
 			skip = sk;
 		}
 
 		public void run() {
-			search(str, type, total, skip);
+			search(str, type, field, total, skip);
 		}
 	}
-
+	
+	/*---------------------------------
+	Start download
+	---------------------------------*/
+	public void startDownload(String id, JButton b) {
+		Thread t1 = new downloadThread(id, b);
+		t1.start();
+	}
+	
 	/*---------------------------------
 	Download thread
 	---------------------------------*/
@@ -216,6 +255,7 @@ public class OperationManager {
 				pinfoManager.AddInfo(info_temp);
 				pinfoManager.SaveInfo();
 				refreshNode();
+				// System.out.println(info_temp.Out());
 				window.setState("");
 				btn.setEnabled(false);
 			}

@@ -30,7 +30,7 @@ public class MainWindow
 		"Ascent", "Decent"
 	};
 	private static final String[] fieldOptions = {
-		"CS", "Econ", "EESS",
+		"All", "CS", "Econ", "EESS",
 		"Math", "Phy", "Bio", "Fin", "Stat"
 	};
 	
@@ -162,7 +162,7 @@ public class MainWindow
 				JOptionPane.DEFAULT_OPTION,
 				JOptionPane.PLAIN_MESSAGE, 
 				icon,
-				new String[]{"Download", "Delete", "Cancel"}, 
+				new String[]{"Download PDF", "Delete Info"}, 
 				"Cancel"
 		);
 		
@@ -201,7 +201,8 @@ public class MainWindow
 			public void actionPerformed(ActionEvent event)
 			{
 				String searchType = (String)searchTypeComboBox.getSelectedItem();
-				opManager.startSearch(searchText.getText(), searchType, 5, 0);
+				String searchField = (String)fieldComboBox.getSelectedItem();
+				opManager.startSearch(searchText.getText(), searchType, searchField, 5, 0);
 				contentTabbedPane.setSelectedIndex(0);
 			}
 		});
@@ -337,7 +338,8 @@ public class MainWindow
 			public void actionPerformed(ActionEvent event)
 			{
 				String searchType = (String)searchTypeComboBox.getSelectedItem();
-				opManager.startSearch(searchText.getText(), searchType, 5, 0);
+				String searchField = (String)fieldComboBox.getSelectedItem();
+				opManager.startSearch(searchText.getText(), searchType, searchField, 5, 0);
 				contentTabbedPane.setSelectedIndex(0);
 			}
 		});
@@ -713,7 +715,8 @@ public class MainWindow
 				&& scrollBar.getMaximum() - e.getValue() - scrollBar.getModel().getExtent() < 10)
 			{
 				String searchType = (String)searchTypeComboBox.getSelectedItem();
-				opManager.startSearch(searchText.getText(), searchType, 5, itemList.size());
+				String searchField = (String)fieldComboBox.getSelectedItem();
+				opManager.startSearch(searchText.getText(), searchType, searchField, 5, itemList.size());
 			}
 		}
 	}
