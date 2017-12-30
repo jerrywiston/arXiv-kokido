@@ -303,6 +303,7 @@ public class OperationManager {
 				ArxivParser.Download("paper_file", ArxivParser.BuildURL(id, "pdf"), false);
 				++count;
 			}
+			progressWin.setVisible(false);
 		} else {
 			window.setState("Find " + id_list.size() + " missing pdf, removing the info ...");
 			for (String id : id_list)
@@ -326,6 +327,7 @@ public class OperationManager {
 					pinfoManager.AddInfo(pinfo);
 				++count;
 			}
+			progressWin.setVisible(false);
 		} else {
 			window.setState("Find " + id_list.size() + " missing info, removing the file ...");
 			for (String id : id_list) {
