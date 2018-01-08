@@ -2,7 +2,9 @@ import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class PaperInfoManager {
+
+public class PaperInfoManager 
+{
 	private Map<String, PaperInfo> paperInfoMap;
 	private static String kidoStr = "kido_file/myPaper.kido";
 

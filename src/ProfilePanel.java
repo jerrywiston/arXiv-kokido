@@ -27,7 +27,7 @@ class ProfilePanel extends ShadowPanel
 	/*--------------------------------
 	Constructor
 	--------------------------------*/
-	public ProfilePanel(final OperationManager opm) 
+	public ProfilePanel(final OperationManager opManager) 
 	{
 		super();
 		tagLabels = new ArrayList<TagLabel>();
@@ -40,7 +40,7 @@ class ProfilePanel extends ShadowPanel
 		//Create panels
 		createWestPanel();
 		createCenterPanel();
-		createSouthPanel(opm);
+		createSouthPanel(opManager);
 	}
 	
 	
@@ -90,7 +90,7 @@ class ProfilePanel extends ShadowPanel
 	/*--------------------------------
 	Create south panel
 	--------------------------------*/
-	private void createSouthPanel(final OperationManager opm)
+	private void createSouthPanel(final OperationManager opManager)
 	{
 		southPanel = new JPanel();
 		southPanel.setBackground(new Color(0, 0, 0, 0));
@@ -125,7 +125,7 @@ class ProfilePanel extends ShadowPanel
 				if(tagStr.length() > 0)
 				{
 					addTag(tagStr);
-					opm.addTag(id, tagStr);
+					opManager.addTag(id, tagStr);
 				}
 			};
 		});
@@ -143,7 +143,7 @@ class ProfilePanel extends ShadowPanel
 					if(label.getSelected())
 						tlist.add(label.getText());
 				}
-				opm.removeTag(id, tlist);
+				opManager.removeTag(id, tlist);
 				deleteSelectedTag();
 			}
 		});
@@ -178,7 +178,7 @@ class ProfilePanel extends ShadowPanel
 		viewBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				opm.view(id, false);
+				opManager.view(id, false);
 			}
 		});
 		
@@ -187,8 +187,8 @@ class ProfilePanel extends ShadowPanel
 		downloadBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				opm.removeInfo(id);
-				opm.setProfileVisible(false);
+				opManager.removeInfo(id);
+				opManager.setProfileVisible(false);
 			}
 		});
 		

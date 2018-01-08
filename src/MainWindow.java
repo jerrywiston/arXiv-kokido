@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
+
 public class MainWindow extends JFrame
 {
 	private static final long serialVersionUID = 1L;
@@ -42,7 +43,6 @@ public class MainWindow extends JFrame
 	private JTextField searchText;
 	private JTextField filterText;
 	private List<ShadowPanel> itemList;
-	private OperationManager opManager;
 	private int width;
 	private int height;
 	private JComboBox<String> searchTypeComboBox;
@@ -62,11 +62,9 @@ public class MainWindow extends JFrame
 	/*---------------------------------
 	Constructor
 	---------------------------------*/
-	public MainWindow(OperationManager opm) {
+	public MainWindow(final OperationManager opManager) {
 		// Initialize parameters--------------------
 		itemList = new ArrayList<ShadowPanel>();
-		opManager = opm;
-		opManager.setWindow(this);
 		width = 1024;
 		height = 768;
 		layoutScale = 0.5f;
@@ -79,12 +77,12 @@ public class MainWindow extends JFrame
 		setIconImage(icon.getImage());
 
 		// Create panels----------------------------
-		createMenuBar();
-		createInspectorPanel();
-		createSearchPanel();
-		createContentPanel();
+		createMenuBar(opManager);
+		createInspectorPanel(opManager);
+		createSearchPanel(opManager);
+		createContentPanel(opManager);
 		createStatePanel();
-		createFilterPanel();
+		createFilterPanel(opManager);
 		createScalePanel();
 
 		// Create the background panel--------------
@@ -138,12 +136,13 @@ public class MainWindow extends JFrame
 		gbc.gridwidth = 3;
 		backPanel.add(statPanel, gbc);
 		add(backPanel);
-
-		opManager.refreshNode();
-		synchronize();
 	}
 
-	public void synchronize() {
+	
+	/*---------------------------------
+	Synchronize paper file info
+	---------------------------------*/
+	public void synchronize(OperationManager opManager) {
 		List<String> fidList = opManager.findMissingFile();
 		List<String> iidList = opManager.findMissingInfo();
 		if (fidList.size() > 0) {
@@ -151,7 +150,7 @@ public class MainWindow extends JFrame
 			int option = JOptionPane.showOptionDialog(this, msg , "Synchronization",
 					JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, icon,
 					new String[] { "Download PDF", "Delete Info" }, "Download PDF");
-			opManager.fileSynchronize(fidList, (option==0)?true:false);
+			opManager.fileSynchronize(fidList, (option==0) ? true : false);
 		}
 		
 		if (iidList.size() > 0) {
@@ -163,10 +162,11 @@ public class MainWindow extends JFrame
 		}
 	}
 
+	
 	/*---------------------------------
 	Create the menu bar
 	---------------------------------*/
-	private void createMenuBar() {
+	private void createMenuBar(final OperationManager opManager) {
 		final JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
 		JMenu editMenu = new JMenu("Edit");
@@ -210,10 +210,11 @@ public class MainWindow extends JFrame
 		setJMenuBar(menuBar);
 	}
 
+	
 	/*---------------------------------
 	Create the inspector panel
 	---------------------------------*/
-	private void createInspectorPanel() {
+	private void createInspectorPanel(final OperationManager opManager) {
 		inspectorPanel = new ShadowPanel();
 		inspectorPanel.setBackground(new Color(200, 200, 200, 200));
 		inspectorPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -274,10 +275,12 @@ public class MainWindow extends JFrame
 		inspectorPanel.add(tree);
 	}
 
+	
 	/*---------------------------------
 	Create the search panel
 	---------------------------------*/
-	private void createSearchPanel() {
+	private void createSearchPanel(final OperationManager opManager) 
+	{
 		searchPanel = new ShadowPanel();
 		searchPanel.setBackground(new Color(50, 50, 50, 200));
 		searchPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -315,10 +318,12 @@ public class MainWindow extends JFrame
 		searchPanel.add(searchBtn);
 	}
 
+	
 	/*---------------------------------
 	Create the content panel
 	---------------------------------*/
-	private void createContentPanel() {
+	private void createContentPanel(final OperationManager opManager) 
+	{
 		contentPanel = new ShadowPanel();
 		contentPanel.setBackground(new Color(150, 150, 150, 150));
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
@@ -328,7 +333,19 @@ public class MainWindow extends JFrame
 		contentScrollPane.getViewport().setBackground(new Color(64, 64, 64, 255));
 		contentScrollPane.setBorder(BorderFactory.createEmptyBorder());
 		contentScrollPane.getVerticalScrollBar().setUnitIncrement(16);
-		contentScrollPane.getVerticalScrollBar().addAdjustmentListener(new ScrollEndListener());
+		contentScrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener(){
+			public void adjustmentValueChanged(AdjustmentEvent e) 
+			{
+				JScrollBar scrollBar = (JScrollBar) e.getAdjustable();
+
+				if (scrollBar.getOrientation() == Adjustable.VERTICAL && scrollBar.isVisible()
+						&& scrollBar.getMaximum() - e.getValue() - scrollBar.getModel().getExtent() < 10) {
+					String searchType = (String) searchTypeComboBox.getSelectedItem();
+					String searchField = (String) fieldComboBox.getSelectedItem();
+					opManager.startSearch(searchText.getText(), searchType, searchField, 5, itemList.size());
+				}
+			}
+		});
 
 		profileContentPanel = new ShadowPanel();
 		profileContentPanel.setBackground(new Color(150, 150, 150, 150));
@@ -352,6 +369,7 @@ public class MainWindow extends JFrame
 		contentTabbedPane.addTab("Local", profileScrollPane);
 	}
 
+	
 	/*---------------------------------
 	Create the state panel
 	---------------------------------*/
@@ -364,10 +382,12 @@ public class MainWindow extends JFrame
 		statPanel.add(statLabel);
 	}
 
+	
 	/*---------------------------------
 	Create the filter panel
 	---------------------------------*/
-	private void createFilterPanel() {
+	private void createFilterPanel(final OperationManager opManager) 
+	{
 		filterPanel = new ShadowPanel();
 		filterPanel.setBackground(new Color(80, 80, 80, 200));
 		filterPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
@@ -431,6 +451,7 @@ public class MainWindow extends JFrame
 		filterPanel.add(orderComboBox);
 	}
 
+	
 	/*---------------------------------
 	Create the scale panel
 	---------------------------------*/
@@ -472,6 +493,7 @@ public class MainWindow extends JFrame
 		});
 	}
 
+	
 	/*---------------------------------
 	Set layout scale
 	---------------------------------*/
@@ -516,11 +538,12 @@ public class MainWindow extends JFrame
 		GUIManager.refresh(backPanel);
 	}
 
+	
 	/*---------------------------------
 	Add an item
 	---------------------------------*/
-	public ItemPanel addItem(PaperInfo info) {
-		ItemPanel item = new ItemPanel(info, opManager);
+	public void addItem(ItemPanel item) 
+	{
 		item.setShape((int) ((float) width * 0.75));
 		itemList.add(item);
 
@@ -534,10 +557,9 @@ public class MainWindow extends JFrame
 		contentPanel.setPreferredSize(new Dimension((int) ((float) width * 0.75), h));
 		contentScrollPane.updateUI();
 		GUIManager.refresh(contentPanel);
-
-		return item;
 	}
 
+	
 	/*---------------------------------
 	clear all item
 	---------------------------------*/
@@ -549,6 +571,7 @@ public class MainWindow extends JFrame
 		GUIManager.refresh(contentPanel);
 	}
 
+	
 	/*---------------------------------
 	Set state message
 	---------------------------------*/
@@ -556,6 +579,7 @@ public class MainWindow extends JFrame
 		statLabel.setText("<html><font size='4' face='Verdana'>&nbsp; " + str + "</font></html>");
 	}
 
+	
 	/*---------------------------------
 	Set profile paper info
 	---------------------------------*/
@@ -564,6 +588,7 @@ public class MainWindow extends JFrame
 		profilePanel.setVisible(true);
 	}
 
+	
 	/*---------------------------------
 	Add a tree node
 	---------------------------------*/
@@ -579,6 +604,7 @@ public class MainWindow extends JFrame
 		}
 	}
 
+	
 	/*---------------------------------
 	Delete a tree node
 	---------------------------------*/
@@ -590,6 +616,7 @@ public class MainWindow extends JFrame
 		}
 	}
 
+	
 	/*---------------------------------
 	Clear all tree node
 	---------------------------------*/
@@ -598,6 +625,7 @@ public class MainWindow extends JFrame
 		treeModel.reload();
 	}
 
+	
 	/*---------------------------------
 	Find a tree node
 	---------------------------------*/
@@ -616,22 +644,7 @@ public class MainWindow extends JFrame
 		return ret;
 	}
 
-	/*---------------------------------
-	Scroll end listener
-	---------------------------------*/
-	class ScrollEndListener implements AdjustmentListener {
-		public void adjustmentValueChanged(AdjustmentEvent e) {
-			JScrollBar scrollBar = (JScrollBar) e.getAdjustable();
-
-			if (scrollBar.getOrientation() == Adjustable.VERTICAL && scrollBar.isVisible()
-					&& scrollBar.getMaximum() - e.getValue() - scrollBar.getModel().getExtent() < 10) {
-				String searchType = (String) searchTypeComboBox.getSelectedItem();
-				String searchField = (String) fieldComboBox.getSelectedItem();
-				opManager.startSearch(searchText.getText(), searchType, searchField, 5, itemList.size());
-			}
-		}
-	}
-
+	
 	/*---------------------------------
 	Profile Panel visible
 	---------------------------------*/

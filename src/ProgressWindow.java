@@ -19,7 +19,7 @@ public class ProgressWindow extends JFrame
 		setIconImage(new ImageIcon("./kokido.png").getImage());
 		setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 		
-		progressLabel = new JLabel("Downloading...");
+		progressLabel = new JLabel("");
 		
 		progressBar = new JProgressBar();
 		progressBar.setValue(0);
