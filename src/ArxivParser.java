@@ -114,7 +114,20 @@ public class ArxivParser {
 		else
 			return "https://arxiv.org/abs/" + id;
 	}
-
+	
+	public static String KeywordGen(String keyword) {
+		String [] klist = keyword.split(" ");
+		String str = "";
+		if(klist.length <= 1)
+			str = keyword;
+		else {
+			for(int i=klist.length-1; i>1; --i)
+				str += "AND+" + klist[i] + "+";
+			str += "AND+" + klist[0] + "+" + klist[1];
+		}
+		return str;
+	}
+	
 	public static String BuildSearchURL(String keyword, String type, String field, int skip) {
 		String t;
 		switch(type) {
@@ -130,7 +143,7 @@ public class ArxivParser {
 		default:
 			t = "ti";
 		}
-		String req = "https://arxiv.org/find/" + field + "/1/" + t + ":+" + keyword + "/0/1/0/all/0/1?skip=" + skip;
+		String req = "https://arxiv.org/find/" + field + "/1/" + t + ":+" + KeywordGen(keyword) + "/0/1/0/all/0/1?skip=" + skip;
 		return req;
 	}
 
